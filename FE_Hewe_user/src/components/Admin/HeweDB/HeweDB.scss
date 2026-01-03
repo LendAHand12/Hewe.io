@@ -1,0 +1,118 @@
+.HeweDBMainJ24 {
+  margin-top: 100px;
+  padding: 20px;
+
+  .ipfWrap {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 25px;
+
+    max-width: 600px;
+    margin-inline: auto;
+
+    .ipf.btn {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .ant-radio-group {
+      .ant-radio-button-wrapper-checked {
+        color: black;
+        font-weight: bold;
+      }
+    }
+  }
+
+  .ant-input-number-input-wrap {
+    input {
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+  }
+
+  p.p-error {
+    color: red;
+    font-size: 14px;
+    margin-top: 3px;
+  }
+
+  .labelWrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    p {
+      margin: 0;
+    }
+
+    label {
+      color: gray;
+    }
+  }
+
+  .HeweDBMainJ24-table {
+    padding-bottom: 150px;
+
+    .ant-table-wrapper {
+      background-color: #02071b !important;
+    }
+
+    .ant-table-cell {
+      background-color: #02071b !important;
+    }
+
+    .summaryWrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+
+      @media screen and (max-width: 576px) {
+        grid-template-columns: 1fr;
+      }
+
+      .summaryItemTable {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 10px;
+
+        span {
+          color: grey;
+        }
+
+        p {
+          margin: 0;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+}
+
+.HeweDBMainJ24-modal {
+  .summary {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .summary-item {
+      display: flex;
+      justify-content: space-between;
+
+      p {
+        margin-bottom: 0;
+        font-weight: 600;
+        font-size: 17px;
+        letter-spacing: 1px;
+      }
+    }
+  }
+
+  .ant-radio-group {
+    .ant-radio-button-wrapper-checked {
+      color: black;
+      font-weight: bold;
+    }
+  }
+}

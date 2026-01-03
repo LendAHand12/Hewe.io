@@ -1,0 +1,26 @@
+.react-datepicker__month-container {
+    float: left;
+    width: 100%; 
+}
+
+.react-datepicker {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 0.8rem;
+    background-color: #fff;
+    color: #000;
+    border: 1px solid #aeaeae;
+    border-radius: 0.3rem;
+    display: inline-block;
+    position: relative;
+    width: 14%;
+    margin-right: 2rem;
+    text-align: center;
+}
+.dateInput{
+    border-radius: 5px;
+    outline: none;
+    border: none;
+    padding: 0.5rem;
+    text-align: center;
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+}

@@ -1,0 +1,85 @@
+.dashboards {
+  min-height: 100%;
+  width: 100%;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  @media (max-width: 1200px) {
+    min-height: 100vh;
+  }
+  .col-xl-3 {
+    width: 250px !important;
+  }
+  .col-xl-9 {
+    width: calc(100% - 250px) !important;
+    @media (max-width: 1200px) {
+      width: 100% !important;
+    }
+  }
+
+  .sidenav {
+    background-color: rgba(2, 7, 27, 1);
+  }
+  .adminboardcontt {
+    height: 100vh;
+    overflow-y: scroll;
+    padding-top: 100px;
+    @media (max-width: 1200px) {
+      padding-right: 20px;
+      padding-left: 20px;
+    }
+  }
+  .btn3 {
+    width: 100%;
+    border: 0px;
+    padding: 7px;
+    margin-bottom: 12px;
+    @media (max-width: 1200px) {
+      width: fit-content;
+      padding: 12px 30px;
+    }
+  }
+  .referalcont {
+    color: white;
+    p {
+      color: #ffffff;
+      font-weight: 400;
+    }
+    .codehere {
+      margin-top: 16px;
+      padding: 7px 16px;
+      display: flex;
+      justify-content: space-between;
+      border-radius: 5px;
+      width: 100%;
+      background-color: rgba(16, 21, 41, 1);
+      @media (max-width: 1200px) {
+        width: fit-content;
+        padding: 2px 30px;
+        margin-right: 16px;
+      }
+      @media (max-width: 576px) {
+        width: fit-content;
+        padding: 2px 10px;
+        margin-right: 16px;
+      }
+      p {
+        margin: 0px 8px;
+        overflow: hidden;
+        color: rgb(255, 255, 255);
+        margin-bottom: 0;
+        @media (max-width: 576px) {
+          margin: 0px 4px;
+        }
+      }
+    }
+    .copybtn {
+      width: fit-content;
+      color: #f4e096;
+      background: none;
+      border: none;
+    }
+  }
+}
+.myrefpage {
+  min-height: 100vh;
+}

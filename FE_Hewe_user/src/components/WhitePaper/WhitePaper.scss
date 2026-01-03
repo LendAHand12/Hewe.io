@@ -1,0 +1,12 @@
+.whitepaper-page {
+  .coming-soon {
+    img {
+      width: 100vw;
+      height: 100vh;
+      object-fit: contain;
+
+      animation: fadeIn;
+      animation-duration: 0.5s;
+    }
+  }
+}

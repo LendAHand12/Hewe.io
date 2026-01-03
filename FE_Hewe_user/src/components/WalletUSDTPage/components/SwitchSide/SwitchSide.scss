@@ -1,0 +1,30 @@
+.switchSideContainer {
+    border: 1px solid #1e2329;
+    width: max-content;
+    display: flex;
+    padding: 2px;
+    border-radius: 4px;
+    font-weight: 500;
+    transition: all 0.2s ease-in-out;
+
+    &.isReceive {
+        border-color: #1e2329;
+    }
+
+    .btn {
+        border-radius: 2px;
+        padding: 8px 20px;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+
+        &.send.active {
+            background-color: #1e2329;
+            color: #fff;
+        }
+
+        &.receive.active {
+            background-color: #1e2329;
+            color: #fff;
+        }
+    }
+}

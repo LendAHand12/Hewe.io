@@ -1,0 +1,64 @@
+.profileScroller::-webkit-scrollbar {
+  display: none;
+}
+
+.react-tel-input .form-control {
+  /* height: 50px; */
+}
+
+@media (max-width: 768px) {
+  .columnHideOnMobile {
+    display: none;
+  }
+}
+
+.designScrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* Track */
+.designScrollbar::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px #ffffff;
+  border-radius: 10px;
+}
+
+/* Handle */
+.designScrollbar::-webkit-scrollbar-thumb {
+  background: transparent linear-gradient(180deg, #02001c 0%, #063455 100%);
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+.designScrollbar::-webkit-scrollbar-thumb:hover {
+  background: transparent linear-gradient(180deg, #02001c 0%, #063455 100%);
+}
+
+@media (max-width: 1100px) {
+  .timeInputDivide {
+    flex-direction: column !important;
+  }
+  .widthAfterTimeDivide {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .mobileViewPadding {
+    padding: 0rem !important;
+  }
+}
+@media (min-width: 780px) {
+  .buttonWidthResponsive {
+    width: 30% !important;
+  }
+}
+@media (max-width: 780px) {
+  .buttonWidthResponsive {
+    width: 60% !important;
+  }
+}
+@media (max-width: 480px) {
+  .buttonWidthResponsive {
+    width: 70% !important;
+  }
+}

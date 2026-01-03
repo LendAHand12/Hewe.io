@@ -1,0 +1,126 @@
+.transdetailcont {
+  padding: 16px;
+  height: 100%;
+  color: white;
+  @media (max-width: 768px) {
+    padding: 0;
+  }
+  .transdetail {
+    align-items: end;
+    border-radius: 16px;
+    color: white;
+    background-color: #101529;
+    .transdecont {
+      padding: 35px 25px;
+      @media (max-width: 576px) {
+        padding: 15px 15px;
+      }
+    }
+    h4 {
+      color: #fff;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 150%;
+    }
+    h3 {
+      color: #ffffff;
+      font-size: 22px;
+    }
+    .invitedlink {
+      .btn2wrap {
+        flex-shrink: 0;
+        border-radius: 4px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 320px;
+        .link {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          border-radius: 4px;
+          overflow: hidden;
+          height: 100%;
+          width: 100%;
+          background-color: rgba(54, 58, 78, 1);
+          padding: 7px 15px;
+          @media (max-width: 400px) {
+            font-size: 14px;
+          }
+        }
+        button {
+          border: 0;
+          border-radius: 4px;
+          padding: 10px 15px;
+          background-color: rgba(54, 58, 78, 1);
+          height: 100%;
+          width: 100%;
+        }
+      }
+      .btn1wrap {
+        flex-shrink: 0;
+        border-radius: 4px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: fit-content;
+        .link {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          border-radius: 4px;
+          overflow: hidden;
+          height: 100%;
+          width: 100%;
+          background-color: rgba(54, 58, 78, 1);
+          padding: 7px 15px;
+          @media (max-width: 400px) {
+            font-size: 14px;
+          }
+        }
+        button {
+          border: 0;
+          border-radius: 4px;
+          padding: 10px 15px;
+          background-color: rgba(54, 58, 78, 1);
+          height: 100%;
+          width: 100%;
+        }
+      }
+    }
+  }
+  .transtablecont {
+    margin: 20px 0px;
+
+    .tablecont {
+      min-height: 300px;
+      overflow-x: auto;
+      border-radius: 10px;
+      table {
+        overflow-y: scroll;
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+      }
+    }
+
+    th {
+      border-bottom: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+      white-space: nowrap;
+    }
+    td {
+      margin: 5px 0px;
+      border-bottom: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+
+    .contenttr {
+      margin: 10px 0px;
+      border-radius: 20px;
+    }
+  }
+}

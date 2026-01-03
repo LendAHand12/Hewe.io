@@ -1,0 +1,15 @@
+.historyTransferContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    .row {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+
+        .id {
+            font-weight: 600;
+        }
+    }
+}

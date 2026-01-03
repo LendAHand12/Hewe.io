@@ -1,0 +1,11 @@
+.HistoryUpdateAddress {
+  overflow-y: auto;
+  padding: 16px;
+  height: calc(100svh - 90px);
+
+  @media screen and (min-width: 769px) {
+    width: calc(100% - 280px);
+    padding: 30px;
+    margin-left: 280px;
+  }
+}

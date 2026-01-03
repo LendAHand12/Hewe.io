@@ -1,0 +1,53 @@
+@import url("https://fonts.googleapis.com/css2?family=Tourney:ital,wght@0,100..900;1,100..900&display=swap");
+
+.cardBankContainer {
+    width: 100%;
+    max-width: 350px;
+    height: 200px;
+    background-color: #444040;
+    color: #fff;
+    border-radius: 12px;
+    cursor: pointer;
+    box-shadow:
+        rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
+        rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    flex-direction: column;
+    transition: all 0.3s ease-out;
+    position: relative;
+
+    &:hover {
+        background-color: #494949;
+    }
+
+    .content {
+        display: flex;
+        gap: 12px;
+
+        .label {
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .accountNumber {
+            font-family: "Tourney", sans-serif;
+            font-size: 20px;
+        }
+
+        .accountOwner {
+            font-size: 20px;
+            text-transform: uppercase;
+        }
+    }
+
+    .bankName {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        font-weight: 600;
+    }
+}

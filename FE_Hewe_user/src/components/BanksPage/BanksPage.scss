@@ -1,0 +1,30 @@
+.banksContainer {
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 16px;
+    }
+
+    .btns {
+        display: flex;
+        gap: 12px;
+    }
+}
+
+.formAddBank {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.bankOption {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    img {
+        width: 30px;
+        height: 30px;
+    }
+}

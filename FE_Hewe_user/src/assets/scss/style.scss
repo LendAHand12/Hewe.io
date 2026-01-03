@@ -1,0 +1,109 @@
+@import "../../components/HomePage/HomePage.scss";
+@import "../../components/HomePage/Header.scss";
+@import "../../components/AdminPage/AdminTemplate.scss";
+@import "../../components/AdminPage/NavbarAdmin.scss";
+@import "../../components/AdminPage/SidebarAdmin.scss";
+@import "../../components/AdminPage/AdminUser.scss";
+@import "../../components/AdminPage/AdminKYC.scss";
+@import "../../components/AdminPage/AdminTransfer.scss";
+@import "../../components/AdminPage/AdminWithdraw.scss";
+@import "../../components/AdminPage/AdminContent.scss";
+@import "../../components/AdminPage/AdminTeam.scss";
+@import "../../components/AdminPage/AdminSendMail.scss";
+@import "../../components/AdminPage/AdminRoadmap.scss";
+@import "../../components/AdminPage/AdminDashboard.scss";
+@import "../../components/AdminPage/AdminData.scss";
+@import "../../components/AdminPage/AdminData2.scss";
+@import "../../components/AdminPage/ExchangeRate.scss";
+@import "../../components/AdminPage/UpdateRewardValue.scss";
+@import "../../components/LoginPage/LoginPage.scss";
+@import "../../components/TermPage/TermPage.scss";
+@import "../../components/TermPageV2/TermPageV2.scss";
+@import "../../components/SignupPage/SignupPage.scss";
+@import "../../components/ForgotPassword/ForgotPassword.scss";
+@import "../../components/WhitePaper/WhitePaper.scss";
+@import "../../components/Post/Writer.scss";
+@import "../../components/Post/ManagePost.scss";
+@import "../../components/Post/Media.scss";
+@import "../../components/NewsPage/NewsPage.scss";
+@import "../../components/NewsPage/DetailPage.scss";
+@import "../../components/TokenPage/TokenPage.scss";
+@import "../../components/TokenPage/TokenComponent.scss";
+@import "../../components/Admin/BuyTokenPage/BuyTokenV2.scss";
+@import "../../components/Admin/HeweDB/HeweDB.scss";
+
+.titleContainer {
+  font-size: 20px;
+  font-weight: 500;
+  color: $primary-color;
+  margin-bottom: 25px;
+}
+
+.imageAntdContainer {
+  object-fit: cover;
+  max-width: 150px;
+  aspect-ratio: 4/2.5;
+  width: 100%;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  transition: background-color 9999999999s ease-in-out 0s;
+}
+
+.flex {
+  display: flex;
+}
+.w-full {
+  width: 100%;
+}
+.justify-center {
+  justify-content: center;
+}
+.justify-between {
+  justify-content: space-between;
+}
+.items-center {
+  align-items: center;
+}
+.relative {
+  position: relative;
+}
+.absolute {
+  position: absolute;
+}
+.h-full {
+  height: 100%;
+}
+.text-center {
+  text-align: center;
+}
+.mx-3 {
+  margin-inline: 16px;
+}
+.flex-wrap {
+  flex-wrap: wrap;
+}
+.justify-evenly {
+  justify-content: space-evenly;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+::placeholder {
+  color: white;
+  opacity: 1;
+}
+
+.ant-btn-primary {
+  color: #000 !important;
+}

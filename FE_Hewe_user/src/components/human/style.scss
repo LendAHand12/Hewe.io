@@ -1,0 +1,125 @@
+.human {
+  padding: 0px 30px;
+  .headingcont {
+    h2::after {
+      content: "Human Of Hewe";
+    }
+  }
+  .heading-p-cont {
+    display: flex;
+    justify-content: center;
+    p {
+      width: 874px;
+    }
+  }
+  .teams {
+    padding: 40px 90px 30px 90px;
+    @media (max-width: 1200px) {
+      padding: 40px 30px 30px 30px;
+    }
+    @media (max-width: 768px) {
+      padding: 40px 10px 30px 10px;
+    }
+    .membercontainer {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+      grid-gap: 1em;
+      @media (max-width: 992px) {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+      }
+      @media (max-width: 768px) {
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+      @media (max-width: 576px) {
+        grid-template-columns: 1fr 1fr;
+      }
+      @media (max-width: 400px) {
+        grid-template-columns: 1fr;
+      }
+      .memberuppercont {
+        padding-left: 0px;
+        padding-right: 0px;
+        border-radius: 20px;
+        border: 1px solid #515251;
+        background: linear-gradient(
+            225deg,
+            rgba(2, 7, 27, 0) 52.88%,
+            rgba(255, 218, 82, 0.2) 98.84%
+          ),
+          rgba(196, 196, 196, 0.1);
+
+        box-shadow: 0px 10px 30px 0px rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(5px);
+        // padding: 2px;
+        .membermidcont {
+          border-radius: 18px;
+          background-color: #02071b;
+          .membercont {
+            border-radius: 18px;
+            border-radius: 20px;
+            // border: 1px solid #515251;
+            background: linear-gradient(
+                225deg,
+                rgba(2, 7, 27, 0) 52.88%,
+                rgba(255, 218, 82, 0.2) 98.84%
+              ),
+              rgba(196, 196, 196, 0.1);
+            box-shadow: 0px 10px 30px 0px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(5px);
+            position: relative;
+            padding: 10px;
+            object-fit: cover;
+            .memberteam {
+              .details {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                h3 {
+                  color: #f4e096;
+                  text-align: center;
+                  font-size: 16px;
+                  font-style: normal;
+                  font-weight: 600;
+                  line-height: 28px;
+                  letter-spacing: 0.347px;
+
+                  @media (max-width: 992px) {
+                    font-size: 16px;
+                    font-weight: 500;
+                  }
+                }
+                height: 90px;
+                text-align: center;
+                color: black;
+                p {
+                  font-size: 14px;
+                  font-weight: 600;
+                  color: rgba(255, 255, 255, 0.762);
+                  @media (max-width: 992px) {
+                    font-size: 16px;
+                    font-weight: 400;
+                  }
+                }
+              }
+              .img-cont {
+                border-radius: 16px;
+                background: rgba(40, 43, 60, 1);
+                overflow: hidden;
+                img {
+                  width: 100%;
+                  height: 100%;
+                  object-fit: cover;
+                }
+              }
+            }
+            .icon {
+              margin-bottom: 1rem;
+              display: flex;
+              justify-content: space-evenly;
+            }
+          }
+        }
+      }
+    }
+  }
+}

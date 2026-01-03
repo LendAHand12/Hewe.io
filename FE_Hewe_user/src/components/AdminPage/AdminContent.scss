@@ -1,0 +1,14 @@
+@import "../../assets/scss/base.scss";
+
+.admin-content {
+  .title {
+    font-size: 20px;
+    font-weight: 500;
+    color: $primary-color;
+    margin-bottom: 25px;
+  }
+
+  .field + .field {
+    margin-top: 16px;
+  }
+}

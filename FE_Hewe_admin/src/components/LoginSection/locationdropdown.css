@@ -1,0 +1,12 @@
+.location-dropdown {
+    position: absolute;
+    background-color: #ffffff;
+    border: 1px solid #00000045;
+    z-index: 10;
+    border-radius: 8px;
+}
+
+.location-dropdown div {
+    padding: 0.3rem 0.2rem;
+    border-bottom: 1px solid #00000045;
+}

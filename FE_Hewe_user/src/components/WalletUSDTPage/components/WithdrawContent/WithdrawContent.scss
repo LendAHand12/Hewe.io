@@ -1,0 +1,75 @@
+.withdrawContentContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+    // max-width: 600px;
+
+    .formTransaction {
+        background-color: #fff;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        width: 680px;
+        margin: 0 auto;
+        padding: 24px 16px;
+        // border: 1px solid #ccc;
+        border-radius: 5px;
+        box-shadow:
+            rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+            rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+
+        @media screen and (min-width: 768px) {
+            padding: 32px;
+        }
+    }
+
+    .title {
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    .formItem {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        label {
+            font-weight: 500;
+        }
+    }
+
+    .available {
+        font-weight: 500;
+        display: flex;
+        justify-content: space-between;
+
+        .digit {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+    }
+
+    .description {
+        font-size: 13px;
+        font-weight: 500;
+
+        .note {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 8px;
+
+            &:nth-child(2) {
+                margin-top: 12px;
+            }
+        }
+    }
+
+    .listHistoryWithdrawContainer {
+        margin: 32px 0 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+}

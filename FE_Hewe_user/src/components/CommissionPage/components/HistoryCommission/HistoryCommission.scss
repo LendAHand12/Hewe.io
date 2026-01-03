@@ -1,0 +1,43 @@
+.HistoryCommission {
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 16px;
+
+    @media screen and (min-width: 768px) {
+      flex-direction: row;
+    }
+
+    .selectTokens {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 12px;
+    }
+  }
+
+  .rate {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .ant-table-wrapper {
+    background-color: transparent !important;
+
+    .ant-table-cell {
+      background: #101529 !important;
+      color: white;
+    }
+  }
+
+  .nodeTree {
+    margin-top: 32px;
+
+    .ant-tree-show-line .ant-tree-switcher {
+      background-color: transparent;
+    }
+  }
+}

@@ -1,0 +1,86 @@
+@import "../../../../assets/scss/base.scss";
+
+.sidebar {
+  width: 250px;
+  height: calc(100vh - 60px);
+  padding: 12px 12px 12px 0;
+  background-color: #101222;
+  position: fixed;
+  top: 60px;
+  left: 0;
+  z-index: 8;
+  transition: all 0.25s ease;
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  .btn {
+    font-size: 14px;
+    display: block;
+    padding: 12px;
+    margin-bottom: 8px;
+
+    background: transparent;
+    color: whitesmoke;
+    border-left: 5px solid $primary-color;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+
+    &:hover {
+      background: $primary-color;
+    }
+
+    cursor: pointer;
+    transition: all 0.25s ease;
+    user-select: none;
+
+    i.fa-solid,
+    i.fa-regular,
+    i.fa-brands {
+      width: 25px;
+    }
+  }
+
+  .btn-active {
+    background: $primary-color;
+  }
+}
+
+.sidebar-hide {
+  transform: translateX(-250px);
+}
+
+.btn-special {
+  position: relative;
+}
+
+.menuArrow {
+  width: fit-content !important;
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  transform-origin: 50% 50%;
+  transition: all 0.25s ease;
+}
+
+.rotate {
+  transform: translateY(-50%) rotate(180deg);
+}
+
+.btn-child {
+  padding: 12px 30px !important;
+  border-left-color: #101222 !important;
+}
+
+.collapse-menu {
+  height: 216px;
+  opacity: 1;
+  visibility: visible;
+  transition: all 0.25s ease;
+}
+
+.collapse-menu.hide {
+  height: 0px;
+  opacity: 0;
+  visibility: hidden;
+}

@@ -1,0 +1,41 @@
+@import "../../assets/scss/base.scss";
+
+.update-reward-value-component {
+  .title-area {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .title {
+      font-size: 20px;
+      font-weight: 500;
+      color: $primary-color;
+      margin-bottom: 15px;
+    }
+  }
+
+  .field {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+
+    @media screen and (max-width: 768px) {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+    }
+
+    button {
+      @media screen and (max-width: 768px) {
+        margin-left: 0 !important;
+        margin-top: 20px;
+      }
+    }
+
+    #update-reward-value-input {
+      text-align: center;
+    }
+  }
+}

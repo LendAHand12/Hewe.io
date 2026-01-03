@@ -1,0 +1,174 @@
+@import "../../assets/scss/base.scss";
+.btn33 {
+  background-color: transparent;
+  border: 2px solid #f4e096;
+  color: white;
+  padding: 8px 30px;
+  border-radius: 20px;
+  &:hover {
+    background-color: #f4e096;
+    color: black;
+    font-weight: 700;
+  }
+}
+.token-component-container {
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  padding: 30px;
+  position: relative;
+  z-index: 5;
+  color: rgb(0, 0, 0);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  row-gap: 40px;
+  column-gap: 35px;
+
+  @media screen and (max-width: 992px) {
+    column-gap: 5px;
+    padding: 10px;
+    grid-template-columns: repeat(3, 1fr);
+  }
+  @media screen and (max-width: 768px) {
+    column-gap: 5px;
+    padding: 10px;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media screen and (max-width: 576px) {
+    grid-template-columns: repeat(1, 1fr);
+    row-gap: 45px;
+    padding: 0px;
+  }
+
+  .token-package {
+    position: relative;
+    padding: 20px;
+    transition: all 0.25s ease;
+    box-shadow: 0px 4px 20px rgb(0, 0, 0, 0.15);
+    border-radius: 6px;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    .cardcont {
+      border-radius: 20px;
+      padding: 8px 20px;
+    }
+    .infocont {
+      display: flex;
+      font-variant-numeric: tabular-nums;
+      p {
+        text-transform: uppercase;
+      }
+    }
+
+    .carddesing {
+      position: absolute;
+      top: -20px;
+      left: 20px;
+      z-index: 1;
+      height: 100px;
+      width: 100px;
+      img {
+        width: 100%;
+      }
+    }
+    .package-name {
+      background-color: #f4e096;
+      padding: 4px 12px;
+      text-align: center;
+      font-weight: 600;
+      letter-spacing: 1px;
+      font-size: 18px;
+      display: block;
+      color: black;
+      border-radius: 100px;
+      width: fit-content;
+
+      @media screen and (max-width: 576px) {
+        font-size: 14px;
+        padding: 5px;
+      }
+    }
+    button {
+      border: 1px solid #f4e096;
+      border-radius: 100px;
+      padding: 7px 16px;
+      background: none;
+      color: #f4e096;
+      margin-bottom: 10px;
+      width: 100%;
+      &:hover {
+        background: #f4e096;
+        color: rgb(0, 0, 0);
+        font-weight: 700;
+      }
+    }
+
+    .bonuscont {
+      z-index: -1;
+      margin-top: -80px;
+      background: linear-gradient(
+        rgba(244, 224, 150, 1),
+        rgba(142, 130, 87, 1)
+      );
+      height: 132px;
+      border-radius: 20px;
+      display: flex;
+      align-items: end;
+      text-align: center;
+      justify-content: center;
+      padding: 9px;
+      span {
+        font-size: 24px;
+        font-weight: 700;
+        line-height: 25px;
+        @media (max-width: 1300px) {
+          font-size: 20px;
+        }
+      }
+    }
+
+    .commission {
+      margin-top: 10px;
+
+      span {
+        font-weight: 600;
+        font-size: 18px;
+      }
+    }
+  }
+}
+
+.modalNotifContainer {
+  .title {
+    font-size: 16px;
+    margin-bottom: 16px;
+  }
+}
+
+.btnHistory {
+  padding: 12px 18px;
+  border: none;
+  outline: none;
+  text-transform: uppercase;
+  background: linear-gradient($primary-color-light 0%, $primary-color 100%);
+  box-shadow: $button-shadow 2px 2px 20px -5px;
+  border-radius: 100px;
+  color: whitesmoke;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  width: 100%;
+
+  &:hover {
+    box-shadow: $button-shadow 2px 2px 30px -5px;
+    background: linear-gradient($primary-color 0%, $primary-color-light 100%);
+  }
+
+  @media screen and (min-width: 600px) {
+    width: fit-content;
+  }
+}

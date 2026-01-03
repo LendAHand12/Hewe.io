@@ -1,0 +1,28 @@
+.sidenav {
+  height: calc(100vh - 86px);
+  padding: 14px 20px;
+}
+.sidenav ul li {
+  cursor: pointer;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+  padding: 9px 24px;
+}
+.sidenav ul li svg {
+  margin-right: 15px;
+}
+.sidenav ul .active {
+  border-radius: 6px;
+  background: #f5f8fe;
+  color: #2752e7;
+  border-left: 6px solid #2752e7;
+}
+.sidenav ul .line {
+  padding: 0px 0px;
+  width: 100%;
+  height: 2px;
+  background: #e3e3e3;
+  margin: 35px 0px;
+}/*# sourceMappingURL=sidenav.css.map */

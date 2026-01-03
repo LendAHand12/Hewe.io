@@ -1,0 +1,237 @@
+.signups {
+  background-image: url("../../assets/images/login/loginbg.png");
+  background-size: cover;
+  background-position: top;
+  min-height: 100vh;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow-x: hidden;
+  padding: 150px 20px 00px 20px;
+
+  @media (max-width: 1300px) {
+    padding: 150px 20px 50px 20px;
+  }
+  @media (max-width: 1200px) {
+    align-items: center;
+    justify-content: center;
+  }
+  @media (max-width: 768px) {
+    padding: 100px 20px 50px 20px;
+  }
+
+  .formbody {
+    width: 829px;
+    z-index: 9;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+
+    padding: 38px 150px;
+    @media (max-width: 992px) {
+      padding: 38px 80px;
+      width: 100%;
+    }
+    @media (max-width: 768px) {
+      padding: 38px 80px;
+    }
+    @media (max-width: 576px) {
+      padding: 38px 40px;
+      max-width: 100%;
+    }
+    @media (max-width: 450px) {
+      padding: 38px 20px;
+      max-width: 100%;
+    }
+    h2 {
+      color: rgba(244, 224, 150, 1);
+      text-align: center;
+      font-size: 36px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+    }
+    p,
+    label {
+      padding-top: 10px;
+      color: #ffffff;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      span {
+        color: #f4e096;
+        cursor: pointer;
+      }
+    }
+    .form-controls {
+      position: relative;
+      padding: 0px 10px;
+      margin-top: 10px;
+      height: 50px;
+      flex-shrink: 0;
+      border-radius: 10px;
+      padding: 1.5px;
+      background: linear-gradient(
+        rgba(244, 224, 150, 1),
+        rgba(81, 82, 81, 0.2),
+        rgba(244, 224, 150, 1)
+      );
+      @media (max-width: 768px) {
+        width: 100%;
+      }
+      input {
+        border-radius: 8px;
+        padding: 0px 10px;
+        color: rgba(255, 255, 255);
+        background: rgba(40, 44, 60, 1);
+        width: 100%;
+        height: 100%;
+        &::placeholder {
+          color: rgba(255, 255, 255, 0.32);
+        }
+      }
+      .PhoneInput {
+        color: rgba(255, 255, 255);
+        background: rgba(40, 44, 60, 1);
+        width: 100%;
+        height: 100%;
+        padding: 0px 10px;
+        border-radius: 10px;
+        input {
+          border: none;
+          padding: 0;
+          width: 100%;
+          height: 100%;
+          &::placeholder {
+            color: rgba(255, 255, 255, 0.32);
+          }
+        }
+      }
+      .eyebtn {
+        position: absolute;
+        right: 10px;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+      }
+    }
+    .signupbtn {
+      border-radius: 10px;
+      border: 2px solid #f4e096;
+      background-color: transparent;
+      padding: 16px 0px;
+      width: 100%;
+      color: #f4e096;
+      font-size: 16px;
+    }
+    .PhoneInput {
+      height: 100%;
+    }
+    .PhoneInputCountrySelect {
+      background-color: #090e27;
+    }
+  }
+  .sideleft {
+    position: absolute;
+    left: -120px;
+    z-index: 99;
+    bottom: 0;
+    @media (max-width: 992px) {
+      height: 300px;
+      left: -60px;
+    }
+    @media (max-width: 768px) {
+      z-index: 0;
+      bottom: 0;
+      height: 300px;
+    }
+    @media (max-width: 576px) {
+      display: none;
+    }
+  }
+
+  .side1 {
+    position: absolute;
+    right: 0;
+    top: 80px;
+    @media (max-width: 992px) {
+      height: 300px;
+      right: -80px;
+    }
+    @media (max-width: 576px) {
+      height: 200px;
+      right: -80px;
+    }
+  }
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: #ffffff;
+  transition: background-color 5000s ease-in-out 0s;
+  box-shadow: inset 0 0 20px 20px #23232329;
+}
+
+input:focus {
+  outline: none;
+  border: none;
+}
+
+.signup {
+  height: 100%;
+  .formbody {
+    @media (max-width: 992px) {
+      padding: 38px 30px;
+    }
+    .form-control {
+      z-index: 999;
+      width: 100%;
+    }
+    .form-control-user {
+      width: 620px;
+      @media (max-width: 992px) {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.otp {
+  .formbody {
+    height: 471.84px;
+    padding: 100px 100px;
+  }
+  .boy {
+    height: 500px;
+    z-index: 9;
+    left: -150px;
+    // top: 0;
+    position: absolute;
+    bottom: 0;
+    @media (max-width: 992px) {
+      display: none;
+    }
+  }
+  .otpsection {
+    margin-top: 40px;
+    input {
+      border: 2px solid white;
+      margin: 0px 10px;
+      background-color: #090e27;
+      color: white;
+      width: 60px !important;
+      height: 60px;
+    }
+  }
+}

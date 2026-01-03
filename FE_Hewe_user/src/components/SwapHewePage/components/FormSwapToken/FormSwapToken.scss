@@ -1,0 +1,126 @@
+.formSwapTokenContainer {
+  width: 100%;
+  max-width: 550px;
+  margin: 0 auto;
+  line-height: 1.5;
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(16, 21, 41, 1);
+  padding: 24px 16px;
+  border-radius: 5px;
+  position: relative;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  color: #f4e096;
+  @media screen and (min-width: 768px) {
+    padding: 32px;
+  }
+
+  .token {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    font-weight: 700;
+  }
+
+  .swapBtn {
+    width: 40px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background-color: rgb(30, 35, 41);
+    transition: background-color 0.15s ease-out;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: rotate(90deg);
+    margin: 16px auto;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #383c41;
+    }
+  }
+  label {
+    font-size: 28px;
+    color: #f4e096;
+    @media (max-width: 576px) {
+      font-size: 16px;
+    }
+  }
+  input {
+    background: none;
+    border: 0;
+    color: white;
+    font-size: 22px;
+    ::placeholder {
+      color: white;
+    }
+  }
+
+  .maxBtn {
+    font-weight: 500;
+    font-size: 20px;
+    color: #f4e096;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: color 0.15s linear;
+    @media (max-width: 576px) {
+      font-size: 16px;
+    }
+
+    &__disabled {
+      cursor: default;
+    }
+  }
+
+  .rate {
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    font-size: 28px;
+    margin: 16px 0;
+    @media (max-width: 576px) {
+      font-size: 16px !important;
+    }
+    @media (max-width: 380px) {
+      font-size: 14px !important;
+    }
+    .contentRate {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 4px;
+    }
+  }
+}
+
+.modalConfirmSwapToken {
+  padding: 12px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+
+  .rate {
+    flex-wrap: wrap;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 4px;
+  }
+}
+
+.highlight {
+  font-weight: 600;
+}
+
+.iconToken {
+  width: 20px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  overflow: hidden;
+  display: inline-flex;
+}

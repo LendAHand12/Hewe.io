@@ -1,0 +1,62 @@
+.termpageV2Content {
+  padding: 200px 120px 50px 120px;
+  @media (max-width: 768px) {
+    padding: 200px 60px 50px 60px;
+  }
+  @media (max-width: 576px) {
+    padding: 200px 30px 50px 30px;
+  }
+  h2 {
+    text-align: center;
+    font-size: 36px;
+    color: white;
+    margin-bottom: 30px;
+    @media (max-width: 576px) {
+      font-size: 24px;
+    }
+  }
+  h3 {
+    margin: 20px 0px;
+    font-size: 28px;
+    color: white;
+  }
+  h5 {
+    margin: 20px 0px;
+    font-size: 22px;
+    color: white;
+  }
+  p {
+    color: white;
+    font-size: 16px;
+    padding-bottom: 16px;
+  }
+  ul {
+    padding-left: 2rem;
+    list-style-type: disc;
+    li {
+      padding: 6px 0px;
+      font-size: 16px;
+      color: white;
+    }
+  }
+  .alpha {
+    list-style-type: none;
+  }
+  .tablecont {
+    overflow-x: scroll;
+    table {
+      width: 650px;
+      overflow: scroll;
+      margin: 20px 0px;
+      color: white;
+      border-collapse: collapse;
+      width: 100%;
+      td,
+      th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+      }
+    }
+  }
+}

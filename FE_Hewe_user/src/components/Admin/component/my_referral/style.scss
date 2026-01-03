@@ -1,0 +1,79 @@
+.transdetail {
+  background-image: url("../../../assets/admin/refferal-bg.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  color: white;
+  h4 {
+    color: #fff;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%;
+  }
+  h3 {
+    color: #05ffb4;
+    font-size: 22px;
+  }
+  .invitedlink {
+    .btn2wrap {
+      padding: 3px;
+      height: 40px;
+      max-width: 250px;
+      flex-shrink: 0;
+      border-radius: 4px;
+      background: linear-gradient(to right, #02ffb3, #00a3ff);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .link {
+        overflow: hidden;
+        height: 100%;
+        width: 100%;
+        background-color: #000202;
+        padding: 7px 15px;
+      }
+      button {
+        padding: 7px 15px;
+        background-color: #000202;
+        height: 100%;
+        width: 100%;
+      }
+    }
+  }
+}
+.transtablecont {
+  margin-top: 20px;
+  .allbtn {
+    color: #2752e7;
+    padding: 8px 12px;
+    border-radius: 5px;
+    border: 1px solid #2752e7;
+    background: #fff;
+  }
+
+  table {
+    overflow-y: scroll;
+    margin-top: 25px;
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  th {
+    border-bottom: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+  td {
+    margin: 5px 0px;
+    border-bottom: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+    background-color: white;
+  }
+
+  tr {
+    background-color: #dddddd;
+  }
+}

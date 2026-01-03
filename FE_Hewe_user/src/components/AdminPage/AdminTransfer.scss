@@ -1,0 +1,38 @@
+@import "../../assets/scss/base.scss";
+
+.admin-transfer {
+  .title-area {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    @media screen and (max-width: 992px) {
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+
+    .title {
+      font-size: 20px;
+      font-weight: 500;
+      color: $primary-color;
+      margin-bottom: 25px;
+    }
+
+    .search-box {
+      width: 300px;
+
+      @media screen and (max-width: 992px) {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+    }
+
+    .pagination-box {
+      @media screen and (max-width: 992px) {
+        width: 100%;
+        margin-bottom: 25px;
+        text-align: right;
+      }
+    }
+  }
+}

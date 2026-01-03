@@ -1,0 +1,13 @@
+@import "../../assets/scss/base.scss";
+
+.token-page {
+  background-color: white;
+  animation: fadeIn;
+  animation-duration: 0.5s;
+
+  .overlay-bottom {
+    width: 100%;
+    height: 1000px;
+    background-color: #101222;
+  }
+}

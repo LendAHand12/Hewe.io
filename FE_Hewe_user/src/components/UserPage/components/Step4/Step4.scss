@@ -1,0 +1,22 @@
+.step4Container {
+    .notifSuccessContainer {
+        max-width: 600px;
+        background-color: rgb(199, 255, 199);
+        display: flex;
+        gap: 12px;
+        padding: 20px;
+        margin: 30px auto;
+
+        .notifIcon {
+            color: rgb(37, 212, 37);
+            font-size: 18px;
+        }
+
+        .notifContent {
+            .title {
+                font-weight: 500;
+                margin-bottom: 4px;
+            }
+        }
+    }
+}

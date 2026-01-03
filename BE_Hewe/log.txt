@@ -1,0 +1,436 @@
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.000858 at Wed Oct 30 2024 01:56:15 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.000857 at Wed Oct 30 2024 01:56:18 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.0008451 at Wed Oct 30 2024 03:54:23 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated amcPrice to 0.2036 at Wed Oct 30 2024 03:54:30 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.0008566 at Wed Oct 30 2024 05:27:45 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated amcPrice to 0.205 at Wed Oct 30 2024 05:27:57 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated amcPrice to 0.205 at Wed Oct 30 2024 05:28:06 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.0008674 at Wed Oct 30 2024 09:12:16 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated amcPrice to 0.2042 at Wed Oct 30 2024 09:13:14 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated amcPrice to 0.2051 at Thu Oct 31 2024 07:22:47 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated amcPrice to 0.2054 at Thu Oct 31 2024 07:23:14 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.000869 at Thu Oct 31 2024 07:23:20 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.0008689 at Thu Oct 31 2024 07:23:27 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated amcPrice to 0.2051 at Thu Oct 31 2024 07:23:44 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.000869 at Thu Oct 31 2024 07:23:52 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.0008686 at Thu Oct 31 2024 07:51:22 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated amcPrice to 0.2054 at Thu Oct 31 2024 07:51:26 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.000869 at Thu Oct 31 2024 08:06:57 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.000867 at Thu Oct 31 2024 08:10:00 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated amcPrice to 0.2038 at Thu Oct 31 2024 08:10:28 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated amcPrice to 0.2042 at Thu Oct 31 2024 08:42:34 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.000867 at Thu Oct 31 2024 08:43:07 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.00087 at Thu Oct 31 2024 09:55:29 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.000865 at Thu Oct 31 2024 14:14:49 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated amcPrice to 0.2027 at Thu Oct 31 2024 14:15:03 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated amcPrice to 0.2017 at Thu Oct 31 2024 14:15:22 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated amcPrice to 0.1959 at Fri Nov 01 2024 04:17:40 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.00087 at Fri Nov 01 2024 04:56:49 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.000867 at Fri Nov 01 2024 04:57:27 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.000865 at Fri Nov 01 2024 05:31:15 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated amcPrice to 0.1964 at Fri Nov 01 2024 05:31:27 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated amcPrice to 0.1964 at Fri Nov 01 2024 07:13:02 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.000865 at Fri Nov 01 2024 07:13:06 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated amcPrice to 0.1964 at Fri Nov 01 2024 08:43:43 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.0008574 at Fri Nov 01 2024 08:44:16 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.000858 at Fri Nov 01 2024 10:05:34 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated amcPrice to 0.1964 at Fri Nov 01 2024 10:05:45 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.0008599 at Fri Nov 01 2024 10:06:38 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated amcPrice to 0.1981 at Fri Nov 01 2024 12:44:57 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated amcPrice to 0.1994 at Fri Nov 01 2024 15:06:30 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated amcPrice to 0.195 at Sun Nov 03 2024 04:40:39 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.0008512 at Sun Nov 03 2024 04:40:51 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated amcPrice to 0.1942 at Mon Nov 04 2024 09:54:12 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.0008531 at Mon Nov 04 2024 09:54:13 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.0008575 at Mon Nov 04 2024 16:06:25 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated amcPrice to 0.1938 at Mon Nov 04 2024 16:18:46 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.0008575 at Mon Nov 04 2024 16:18:47 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.0008396 at Tue Nov 05 2024 01:28:40 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated amcPrice to 0.1927 at Tue Nov 05 2024 01:37:36 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.00084 at Tue Nov 05 2024 01:38:17 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.000845 at Tue Nov 05 2024 04:31:06 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated amcPrice to 0.1947 at Tue Nov 05 2024 04:32:31 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.000842 at Tue Nov 05 2024 07:01:37 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated amcPrice to 0.1946 at Tue Nov 05 2024 07:01:46 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated amcPrice to 0.21 at Wed Nov 06 2024 04:21:35 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.000837 at Wed Nov 06 2024 04:22:14 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated amcPrice to 0.2071 at Wed Nov 06 2024 09:27:27 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.0008342 at Wed Nov 06 2024 09:27:39 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated amcPrice to 0.209 at Wed Nov 06 2024 15:14:43 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.0008337 at Wed Nov 06 2024 15:15:06 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.0008403 at Wed Nov 06 2024 15:21:11 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated amcPrice to 0.211 at Thu Nov 07 2024 07:40:52 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated amcPrice to 0.21 at Thu Nov 07 2024 11:37:20 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.000827 at Thu Nov 07 2024 11:37:45 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated amcPrice to 0.2103 at Thu Nov 07 2024 12:19:05 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.00082 at Thu Nov 07 2024 12:19:33 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.00082 at Thu Nov 07 2024 14:07:08 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated amcPrice to 0.22 at Sun Nov 10 2024 06:26:14 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated amcPrice to 0.228 at Mon Nov 11 2024 05:01:29 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.000853 at Mon Nov 11 2024 05:01:32 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated amcPrice to 0.229 at Mon Nov 11 2024 05:01:46 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated amcPrice to 0.2484 at Tue Nov 12 2024 06:52:30 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.0008603 at Tue Nov 12 2024 06:52:33 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.000859 at Tue Nov 12 2024 08:25:37 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated amcPrice to 0.2515 at Tue Nov 12 2024 08:25:42 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.000879 at Tue Nov 12 2024 12:26:03 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.00091 at Tue Nov 12 2024 13:09:19 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated amcPrice to 0.2464 at Wed Nov 13 2024 07:33:23 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.00089 at Thu Nov 14 2024 10:29:08 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated amcPrice to 0.2464 at Thu Nov 14 2024 10:29:34 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.000893 at Thu Nov 14 2024 10:33:52 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.00088 at Thu Nov 14 2024 11:55:06 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated amcPrice to 0.2401 at Fri Nov 15 2024 03:52:19 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.000881 at Fri Nov 15 2024 04:37:09 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated amcPrice to 0.2384 at Fri Nov 15 2024 05:45:11 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated amcPrice to 0.2389 at Fri Nov 15 2024 08:00:19 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.000912 at Fri Nov 15 2024 15:47:30 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.000928 at Sat Nov 16 2024 11:54:49 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated amcPrice to 0.2391 at Sat Nov 16 2024 11:55:30 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.0009585 at Sun Nov 17 2024 04:29:17 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.0009957 at Mon Nov 18 2024 08:13:06 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated amcPrice to 0.237 at Thu Nov 21 2024 05:59:16 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.0009678 at Thu Nov 21 2024 05:59:54 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated amcPrice to 0.2356 at Fri Nov 22 2024 11:18:02 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.0009789 at Fri Nov 22 2024 11:18:13 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated amcPrice to 0.2 at Sat Nov 23 2024 01:38:27 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated amcPrice to 0.24 at Sat Nov 23 2024 04:01:27 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated amcPrice to 0.24 at Sat Nov 23 2024 06:48:31 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.000887 at Sat Nov 23 2024 06:49:42 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated amcPrice to 0.24 at Sun Nov 24 2024 12:59:43 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.000829 at Tue Dec 03 2024 11:26:22 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.000827 at Tue Dec 03 2024 14:46:25 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.00097 at Tue Dec 03 2024 16:30:27 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.00098 at Tue Dec 03 2024 16:45:43 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.00097 at Tue Dec 03 2024 16:46:16 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 6690ecc81dffd7715c10fc7b updated amcPrice to 0.0902 at Wed Dec 04 2024 02:16:39 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 6690ecc81dffd7715c10fc7b updated amcPrice to 0.24 at Wed Dec 04 2024 02:16:57 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.00137 at Wed Dec 04 2024 06:55:45 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.0013755 at Wed Dec 04 2024 07:53:34 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.00117 at Thu Dec 05 2024 03:52:42 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.00119 at Thu Dec 05 2024 04:49:28 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.0011 at Mon Dec 09 2024 15:51:21 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.0010716 at Sat Dec 14 2024 10:22:17 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.0010695 at Sat Dec 14 2024 12:57:59 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.0010493 at Sat Dec 14 2024 15:46:20 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.000987 at Wed Dec 18 2024 07:37:40 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.0009589 at Thu Dec 19 2024 07:27:08 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.0009197 at Wed Jan 08 2025 16:03:09 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.00089 at Thu Jan 09 2025 07:06:18 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.000909 at Thu Jan 09 2025 10:28:41 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.00088 at Thu Jan 09 2025 12:15:27 GMT+0000 (Coordinated Universal Time)
+
+
+2025-01-25T00:21:15.795Z - transferToken: {"receipt":{"blockHash":"0x3385f1947e5a8900bbe3a9680ec14ce2cc5708fb26586a143aec1762db8e6140","blockNumber":46061059,"contractAddress":null,"cumulativeGasUsed":1904602,"effectiveGasPrice":5000000000,"from":"0x808c40c2e50a3f976702502bad75f8f0ab16e8a3","gasUsed":24828,"logs":[],"logsBloom":"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000","status":false,"to":"0x55d398326f99059ff775485246999027b3197955","transactionHash":"0xc2dfa965a0bb28b2fb4286f9d45ba23a73d8ba7da4c62bca8ead02f63c1a762c","transactionIndex":12,"type":"0x0"}}
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.000706 at Mon Feb 03 2025 08:25:09 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.0006633 at Mon Feb 03 2025 08:26:35 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.0006679 at Mon Feb 03 2025 11:58:49 GMT+0000 (Coordinated Universal Time)
+
+
+2025-02-11T05:26:32.047Z - transferToken: {"data":null}
+
+
+2025-02-11T11:00:14.545Z - transferToken: {"data":null}
+
+
+2025-02-11T19:55:23.811Z - transferToken: {"data":null}
+
+
+2025-02-13T08:32:52.665Z - transferToken: {"data":null}
+
+
+2025-02-13T09:31:34.644Z - transferToken: {"data":null}
+
+
+2025-02-13T11:49:23.133Z - transferToken: {"data":null}
+
+
+2025-02-14T04:43:14.507Z - transferToken: {"data":null}
+
+
+Admin 6691431f1dffd7715c1114d7 updated hewePrice to 0.0006562 at Thu Feb 27 2025 07:07:20 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 6691431f1dffd7715c1114d7 updated hewePrice to 0.0006362 at Thu Feb 27 2025 11:59:24 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 6691431f1dffd7715c1114d7 updated hewePrice to 0.0006001 at Fri Feb 28 2025 06:41:00 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 6691431f1dffd7715c1114d7 updated hewePrice to 0.0006104 at Thu Mar 13 2025 07:29:55 GMT+0000 (Coordinated Universal Time)
+
+
+2025-04-22T22:24:28.997Z - transferToken: {"receipt":{"blockHash":"0x435df250fa8e70ba00b71c52f11d66d7a6460d332d63011429f46fa52b384109","blockNumber":48592801,"contractAddress":null,"cumulativeGasUsed":7156877,"effectiveGasPrice":1500000000,"from":"0xf4e0a0b3a6e24d9cf072a503a6972bcb78450a5d","gasUsed":24816,"logs":[],"logsBloom":"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000","status":false,"to":"0x55d398326f99059ff775485246999027b3197955","transactionHash":"0xe019221a67951d05af600c641cd627ac26d12104fe0b7d60d6d4a17d634395a7","transactionIndex":68,"type":"0x0"}}
+
+
+2025-05-08T10:36:04.528Z - transferToken: {"receipt":{"blockHash":"0x4ffa56eda47265bd925c6481f0db526b896dee47576b765f1bae4e4c1882d21c","blockNumber":49304969,"contractAddress":null,"cumulativeGasUsed":7921095,"effectiveGasPrice":1500000000,"from":"0x6bcaecdc7b57759e7b1497544ef0d6e84a4b1720","gasUsed":24816,"logs":[],"logsBloom":"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000","status":false,"to":"0x55d398326f99059ff775485246999027b3197955","transactionHash":"0xb48c34d33fd0e59a2f9d0d82c8234e76fbd8bc3205c65d207b94e9b4e2db144a","transactionIndex":66,"type":"0x0"}}
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.0005446 at Fri May 09 2025 14:29:36 GMT+0000 (Coordinated Universal Time)
+
+
+2025-05-09T16:04:03.879Z - transferToken: {"receipt":{"blockHash":"0x044ed0b9a3588e83a41181d3b8fe56d103bef9849e3b75fc65b6a2f0fdd790ff","blockNumber":49375644,"contractAddress":null,"cumulativeGasUsed":11670640,"effectiveGasPrice":1500000000,"from":"0x696edc8298eaf418478f5b5e9efa3091b9a91dca","gasUsed":24804,"logs":[],"logsBloom":"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000","status":false,"to":"0x55d398326f99059ff775485246999027b3197955","transactionHash":"0xa4b7e747d7ac9ac070b6bee6875fa58f0c5ae7571ae6fd74623016b415ac25eb","transactionIndex":60,"type":"0x0"}}
+
+
+2025-05-09T17:20:03.870Z - transferToken: {"receipt":{"blockHash":"0x6266e9acfd8bc7d3a212c22b9a366f47e40c1eb27d8c42f25ab957da477db772","blockNumber":49378684,"contractAddress":null,"cumulativeGasUsed":7861261,"effectiveGasPrice":1500000000,"from":"0xe9f9e4930a1b34af6193c7ee1c8d729226812507","gasUsed":24792,"logs":[],"logsBloom":"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000","status":false,"to":"0x55d398326f99059ff775485246999027b3197955","transactionHash":"0x64c5ee5188a5cfe0b829013fc989ffa5e8711d3bf82782fea920cc18bd52121d","transactionIndex":58,"type":"0x0"}}
+
+
+2025-05-09T17:27:04.104Z - transferToken: {"receipt":{"blockHash":"0xc11799cad343c58478efac053f4e0894e641e8b0cadc850afd1628856cf3afb2","blockNumber":49378964,"contractAddress":null,"cumulativeGasUsed":6550937,"effectiveGasPrice":1500000000,"from":"0x7e6ce0c765fe2ce45cdcfae0d8b592c7c18528fd","gasUsed":24804,"logs":[],"logsBloom":"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000","status":false,"to":"0x55d398326f99059ff775485246999027b3197955","transactionHash":"0x2d0111fbaf9d56e80234e980a20dae8a5e19f1fe9b68ebe906c46f40f199cd04","transactionIndex":30,"type":"0x0"}}
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.0005758 at Wed May 28 2025 06:06:55 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.0005761 at Wed May 28 2025 06:23:01 GMT+0000 (Coordinated Universal Time)
+
+
+Admin 66111e9c43339722b1833a6e updated hewePrice to 0.000565 at Mon Jun 02 2025 05:07:44 GMT+0000 (Coordinated Universal Time)
+
+

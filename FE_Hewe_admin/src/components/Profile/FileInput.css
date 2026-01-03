@@ -1,0 +1,41 @@
+.file_input_box_profile {
+    width: 180px;
+    height: 180px;
+}
+
+.drop_area_profile {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 180px !important;
+    cursor: pointer;
+}
+
+.drop_area_profile img {
+    width: 35px;
+}
+
+.file_input_box_wrapper_profile {
+    border-bottom: none;
+    overflow-x: scroll;
+    width: 100%;
+}
+
+.added_images_profile .img_box {
+    width: 180px;
+    height: 180px;
+}
+
+.img_box_profile img {
+    width: 180px;
+}
+
+.added_images_profile {
+    display: flex;
+    flex-direction: row;
+}
+
+.file_input_box_wrapper::-webkit-scrollbar {
+    display: none;
+}

@@ -1,0 +1,110 @@
+.tableContainer .ant-table {
+    background-color: transparent;
+}
+
+.tableContainer .ant-table-thead .ant-table-cell {
+    padding: 1.25rem 0.75rem;
+    @media (min-width: 640px) {
+        padding: 1.5rem 1rem;
+    }
+    white-space: nowrap;
+    color: black;
+    font-size: 14px;
+    background-color: #fff;
+}
+
+.tableContainer .ant-table-tbody .ant-table-row {
+    color: black;
+}
+
+.tableContainer .ant-table-tbody .ant-table-row .ant-table-cell {
+    font-size: 13px !important;
+    line-height: 14px;
+    vertical-align: middle;
+    background-color: #fafafa;
+}
+
+.tableContainer .ant-table-summary .ant-table-cell {
+    background-color: #fafafa;
+}
+
+.tableContainer .ant-table-summary .ant-table-cell:first-of-type {
+    border-top-left-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
+}
+
+.tableContainer .ant-table-summary .ant-table-cell:last-of-type {
+    border-top-right-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+}
+
+.ant-pagination.ant-table-pagination {
+    .ant-pagination-item-link {
+        span {
+            transform: translateY(-3px);
+        }
+    }
+}
+
+// FOR TABLE MOBILE
+.titleTableMobile {
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+}
+
+.rowTableMobile {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    width: 100%;
+    padding: 4px 12px;
+    transition: all 0.3s ease-out;
+    border-radius: 5px;
+
+    &:hover {
+        background-color: rgb(240, 240, 240);
+    }
+
+    > *:nth-of-type(1) {
+        max-width: 100px;
+        word-break: break-word;
+        text-align: left;
+        line-height: 1.5;
+    }
+
+    > *:nth-of-type(2) {
+        line-height: 1.5;
+        font-weight: 600;
+        max-width: 200px;
+        word-break: break-all;
+        text-align: right;
+    }
+}
+
+.rowActionsTableMobile {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    width: 100%;
+
+    &.mt-2 {
+        margin-top: 2px;
+    }
+
+    &.mt-4 {
+        margin-top: 4px;
+    }
+
+    &.mt-6 {
+        margin-top: 6px;
+    }
+
+    &.mt-8 {
+        margin-top: 8px;
+    }
+
+    &.mt-10 {
+        margin-top: 10px;
+    }
+}

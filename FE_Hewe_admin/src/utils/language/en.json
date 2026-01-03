@@ -1,0 +1,26 @@
+{
+    "errors": {
+        "invalid": "Given data is invalid",
+        "email": "Enter a valid email address",
+        "password": "You password should contain at least 1 upper case, 1 lower case, 1 number and should be at least 8 characters long",
+        "passwordMatch": "Password does not match",
+        "accountMatch": "Account Number does not match",
+        "terms": "Please accept terms and conditions",
+        "phone": "Please enter valid mobile number",
+        "otp": "PLease enter valid otp",
+        "startEndTime": "Start time and end time can't be same",
+        "selectStartEndTime" : "Please select start or end time",
+        "FoodType" : "Please select at least one food type",
+        "imagesLength":"Please select at least one image",
+        "length_1000":"Length should not be greater than 1000 characters",
+        "length_50":"Length should not be greater than 50 characters",
+        "length_5000":"Length should not be greater than 5000 characters",
+        "length_3000":"Length should not be greater than 3000 characters",
+        "length__min_150":"Length should not be less than 150 characters",
+        "price_less":"Price cannot be less than or equal from price",
+        "price_greater":"Price cannot be greater than to price",
+        "description":"Length should not be greater than 5000 characters",
+        "description_less":"Length should not be less than 150 characters"
+        
+      }
+}

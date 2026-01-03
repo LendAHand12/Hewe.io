@@ -1,0 +1,40 @@
+.designScrollbarSide::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* Track */
+.designScrollbarSide::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px #ffffff;
+  border-radius: 10px;
+}
+
+/* Handle */
+.designScrollbarSide::-webkit-scrollbar-thumb {
+  background: transparent linear-gradient(180deg, #02001c 0%, #02001c 100%);
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+.designScrollbarSide::-webkit-scrollbar-thumb:hover {
+  background: transparent linear-gradient(180deg, #02001c 0%, #02001c 100%);
+}
+/* 
+@media screen and (max-width: 780px) {
+    .designScrollbarSide::-webkit-scrollbar {
+        width: 6px;    
+    }
+    
+    .designScrollbarSide::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px #ffffff; 
+    border-radius: 10px;
+    }
+    
+    .designScrollbarSide::-webkit-scrollbar-thumb {
+    background: transparent linear-gradient(180deg,#E42279 0%,#6C1D63 100%);
+    border-radius: 10px;
+    }
+    
+    .designScrollbarSide::-webkit-scrollbar-thumb:hover {
+    background: transparent linear-gradient(180deg,#E42279 0%,#6C1D63 100%);
+    }
+} */

@@ -1,0 +1,212 @@
+.journey {
+  height: 100vh;
+  padding: 40px 0px 180px 0px;
+  position: relative;
+  margin-top: 120px;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  color: white;
+  text-align: start;
+  display: flex;
+  justify-content: start;
+  flex-direction: column;
+  background-image: url("../../assets/images/img/bg1.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-position-y: bottom;
+  background-size: cover;
+  background-position-x: left;
+  @media (max-width: 1200px) {
+    margin-top: 60px;
+    padding: 40px 0px 100px 0px;
+  }
+  @media (max-width: 992px) {
+    padding: 40px 0px 50px 0px;
+  }
+  .headingcont {
+    h2::after {
+      content: "Roadmap" !important;
+    }
+  }
+
+  .side1 {
+    position: absolute;
+    // bottom: -100px;
+    left: -100px;
+  }
+
+  .slick-prev {
+    top: -50px;
+    left: 85%;
+    z-index: 1 !important;
+    @media (max-width: 1200px) {
+      left: 80%;
+    }
+    @media (max-width: 900px) {
+      left: 70%;
+    }
+    @media (max-width: 576px) {
+      left: 65%;
+    }
+    @media (max-width: 500px) {
+      left: 60%;
+    }
+    @media (max-width: 450px) {
+      left: 50%;
+    }
+  }
+  .slick-prev:before {
+    // content: url("../../asset/img/prev.svg");
+  }
+  .slick-next {
+    right: 70px;
+    top: -50px;
+    z-index: 1 !important;
+  }
+  .slick-next:before {
+    // content: url("../../asset/img/next.svg");
+  }
+  .slick-next,
+  .slick-prev {
+    border-radius: 12px;
+    width: 52px;
+    height: 52px;
+    background-color: #1b1932;
+    &:hover {
+      background-color: #1b1932 !important;
+    }
+    @media (max-width: 576px) {
+      display: flex !important;
+      justify-content: center;
+      align-items: center;
+      width: 40px;
+      height: 40px;
+      padding: 5px;
+    }
+  }
+  .slick-prev:before,
+  .slick-next:before {
+    @media (max-width: 576px) {
+      font-size: 14px;
+    }
+  }
+  .bg1 {
+    z-index: -1;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    margin: auto;
+    inset: 0;
+  }
+  .sone {
+    z-index: -1;
+    position: absolute;
+    margin: auto;
+    top: -200px;
+    left: -300px;
+    mix-blend-mode: lighten;
+  }
+  .stwo {
+    z-index: -1;
+    position: absolute;
+    margin: auto;
+    top: -200px;
+    left: -300px;
+    mix-blend-mode: color-dodge;
+  }
+}
+
+.slidecont {
+  z-index: 9;
+  padding-bottom: 100px;
+  width: 100%;
+  .date {
+    padding: 8px 26px;
+    width: fit-content;
+    border-radius: 1000px;
+    background: #282c3c;
+    color: #fff;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 0.48px;
+  }
+
+  .line {
+    border-top: 2px solid rgba(70, 75, 95, 0.5);
+    margin: 40px 0px 0px 0px;
+    svg {
+      margin-top: -30px;
+    }
+  }
+  .contboxouter {
+    position: relative;
+    z-index: 99;
+    height: 270px;
+    // background: linear-gradient(100deg, #02ffb3, #02071b33, #01a5fe);
+    width: 100%;
+    padding: 2px;
+    border-radius: 18px;
+    @media (max-width: 1200px) {
+      height: 280px;
+    }
+    // @media (max-width: 1100px) {
+    //   height: 300px;
+    // }
+    @media (max-width: 1008px) {
+      height: 260px;
+    }
+    @media (max-width: 850px) {
+      height: 280px;
+    }
+    @media (max-width: 780px) {
+      height: 300px;
+    }
+    @media (max-width: 700px) {
+      height: 100%;
+    }
+    .middelcont {
+      height: 100%;
+      position: relative;
+      border-radius: 20px;
+      background: #282c3c;
+      box-shadow: 94px 171px 55px 0px rgba(0, 0, 0, 0.01),
+        60px 110px 50px 0px rgba(0, 0, 0, 0.04),
+        34px 62px 42px 0px rgba(0, 0, 0, 0.15),
+        15px 27px 31px 0px rgba(0, 0, 0, 0.26),
+        4px 7px 17px 0px rgba(0, 0, 0, 0.29);
+      border-radius: 16.802px;
+      .contboxinside {
+        .lines {
+          position: absolute;
+          top: -75px;
+          left: 20px;
+        }
+        padding: 30px 30px;
+        border-radius: 16px;
+        @media (max-width: 1370px) {
+          padding: 20px 20px;
+        }
+        height: 100%;
+        h3 {
+          color: #f4e096;
+          font-size: 22px;
+          font-style: normal;
+          font-weight: 700;
+          line-height: 28px;
+          letter-spacing: 0.54px;
+        }
+        p {
+          padding-top: 16px;
+          color: #fff;
+          font-size: 16px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: normal;
+        }
+      }
+    }
+  }
+}

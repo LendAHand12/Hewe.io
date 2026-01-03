@@ -1,0 +1,9 @@
+.MuiOutlinedInput-notchedOutline {
+    border: none !important;
+    border-bottom: 2px solid #0000002b !important;
+    border-radius: 0px !important;
+}
+label {
+    width: 100% !important;
+    text-align: start !important;
+}

@@ -1,0 +1,33 @@
+@import "../../assets/scss/base.scss";
+
+.admin-roadmap-edit {
+  .title-area {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .title {
+      font-size: 20px;
+      font-weight: 500;
+      color: $primary-color;
+      margin-bottom: 25px;
+    }
+  }
+}
+
+.add-roadmap-modal-admin {
+  form {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+
+    .field {
+      display: flex;
+
+      label {
+        min-width: 65px;
+        font-size: 14px;
+      }
+    }
+  }
+}

@@ -1,0 +1,71 @@
+@import "../../assets/scss/base.scss";
+
+.tokenInitial {
+  grid-template-columns: initial !important;
+  max-width: 700px !important;
+}
+
+.token-component-container {
+
+  // max-width: 700px !important;
+}
+
+.token-package {
+  align-items: inherit !important;
+
+  .title {
+    align-items: center;
+    display: flex;
+    font-size: 20px;
+    font-weight: 500;
+
+    .title {
+      margin-left: 10px;
+    }
+  }
+}
+
+.form {
+  font-size: 1.4rem;
+  font-weight: 500;
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 0 12px;
+  align-items: center;
+  margin-bottom: 16px;
+  margin-top: 16px;
+
+  input {
+    padding: 10px;
+    font: 400 32px/48px Poppins,
+      sans-serif;
+    border: none;
+    background-color: transparent;
+    color: var(--black);
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    transition: color .25s;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-appearance: textfield;
+    appearance: textfield;
+  }
+
+  .card {
+    .card-chird {
+      border: 1px solid var(--lines);
+      background-color: transparent;
+      border-radius: 18px;
+      padding: 9px 12px 10px;
+      display: flex;
+      align-items: center;
+      width: 184px;
+      height: 59px;
+      transition: background-color .25s, box-shadow .25s, border-color .25s;
+    }
+  }
+}

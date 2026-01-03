@@ -1,0 +1,159 @@
+.road {
+  width: 100%;
+  color: white;
+  padding: 160px 190px 30px 190px;
+  @media (max-width: 1200px) {
+    padding: 120px 100px 30px 100px;
+  }
+  @media (max-width: 992px) {
+    padding: 120px 60px 30px 60px;
+  }
+  @media (max-width: 768px) {
+    padding: 120px 30px 150px 30px;
+  }
+  h2 {
+    text-align: center;
+    color: white;
+    font-size: 40px;
+    font-weight: 900;
+    span {
+      background: linear-gradient(to bottom, #02ffb3, #00a3ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  }
+  .roadicon {
+    margin-top: 40px;
+    margin-bottom: -160px;
+  }
+  h2.amchain {
+    font-size: 40px;
+    font-weight: 900;
+    background: linear-gradient(to bottom, #f6e49a, #a17b44);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .roadcont {
+    padding-top: 280px;
+    display: flex;
+    justify-content: center;
+    background-image: url("../../assets/img/bgroad.png");
+    // border: 1px solid white;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position-x: center;
+    padding-inline: 20px;
+    .left-side,
+    .rightside {
+      width: 490px;
+      @media (max-width: 1100px) {
+        width: 400px;
+      }
+      @media (max-width: 992px) {
+        width: 350px;
+      }
+      @media (max-width: 768px) {
+        width: 300px;
+      }
+      @media (max-width: 700px) {
+        width: 250px;
+      }
+      @media (max-width: 576px) {
+        width: 100%;
+      }
+    }
+    .center-line {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      .line {
+        height: 100%;
+        width: 2px;
+        background-color: white;
+      }
+      .dot {
+        width: 16px;
+        height: 16px;
+        background-color: white;
+        border-radius: 50%;
+      }
+    }
+    .left,
+    .right {
+      height: 200px;
+      @media (max-width: 768px) {
+        height: 250px;
+      }
+      @media (max-width: 576px) {
+        height: 100%;
+      }
+      .line {
+        height: 2px;
+        width: 100px;
+        background-color: white;
+        @media (max-width: 768px) {
+          width: 50px;
+        }
+      }
+
+      .round {
+        width: 16px;
+        height: 16px;
+        background-color: white;
+        border-radius: 50%;
+        @media (max-width: 768px) {
+          width: 12px;
+          height: 12px;
+        }
+      }
+      h4 {
+        font-size: 18px;
+        @media (max-width: 768px) {
+          font-size: 14px;
+        }
+      }
+      h3 {
+        margin-top: 20px;
+        font-size: 26px;
+        @media (max-width: 768px) {
+          font-size: 20px;
+        }
+      }
+      p {
+        padding-top: 15px;
+        font-size: 14px;
+        columns: #aaaaaa;
+        @media (max-width: 768px) {
+          font-size: 13px;
+        }
+      }
+    }
+    .left {
+      margin-bottom: 250px;
+      @media (max-width: 576px) {
+        margin-bottom: 20px;
+      }
+      .line {
+        margin-right: -7px;
+      }
+    }
+    .right {
+      margin-top: 250px;
+      @media (max-width: 576px) {
+        margin-top: 20px;
+      }
+      .line {
+        margin-left: -7px;
+      }
+    }
+    .center {
+      width: 1%;
+      height: 100%;
+      background-color: white;
+    }
+  }
+}

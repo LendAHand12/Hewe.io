@@ -1,0 +1,53 @@
+.admin-team {
+  .title-area {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+
+    h2.title {
+      margin-bottom: 0 !important;
+    }
+
+    i.fa-solid.fa-plus {
+      margin-right: 5px;
+    }
+  }
+
+  .itemimg {
+    img {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      object-position: center;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 1px solid grey;
+    }
+  }
+}
+
+form.add-team-members-form,
+form.edit-team-members-form {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+
+  label {
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .field-imgg {
+    img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      object-position: center;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 1px solid grey;
+    }
+  }
+}

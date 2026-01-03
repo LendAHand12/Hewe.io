@@ -1,0 +1,180 @@
+@import "../../assets/scss/base.scss";
+
+.token-component-container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  margin-top: 50px;
+  padding: 30px;
+  position: relative;
+  z-index: 5;
+  color: white;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  row-gap: 65px;
+  column-gap: 35px;
+
+  @media screen and (max-width: 992px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media screen and (max-width: 576px) {
+    grid-template-columns: repeat(1, 1fr);
+    row-gap: 45px;
+    padding: 20px;
+  }
+
+  .token-package {
+    padding: 20px;
+    transition: all 0.25s ease;
+    background: rgba(105, 178, 11, 0.05);
+    box-shadow: rgba(255, 255, 255, 0.25) 0px 5px 34px inset;
+    border-radius: 18.8475px;
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &:hover {
+      background: rgba(105, 178, 11, 0.15);
+    }
+
+    &::before {
+      pointer-events: none;
+      content: "";
+      position: absolute;
+      inset: 0px;
+      border-radius: 18.8475px;
+      padding: 2px;
+      background: linear-gradient(
+        100.01deg,
+        rgb(105, 178, 11) 5.41%,
+        rgba(105, 178, 11, 0) 32.38%,
+        rgba(105, 178, 11, 0) 65.19%,
+        rgb(105, 178, 11) 89.79%
+      );
+      mask: linear-gradient(rgb(255, 255, 255) 0px, rgb(255, 255, 255) 0px) content-box content-box,
+        linear-gradient(rgb(255, 255, 255) 0px, rgb(255, 255, 255) 0px);
+      -webkit-mask: linear-gradient(rgb(255, 255, 255) 0px, rgb(255, 255, 255) 0px) content-box content-box,
+        linear-gradient(rgb(255, 255, 255) 0px, rgb(255, 255, 255) 0px);
+      mask-composite: xor;
+      -webkit-mask-composite: xor;
+    }
+
+    .package-name {
+      text-align: center;
+      font-weight: 600;
+      letter-spacing: 1px;
+      font-size: 18px;
+      display: block;
+      background-color: rgba(255, 255, 255, 0.8);
+      color: black;
+      border-radius: 1000px;
+      width: 50%;
+      transform: translateY(calc(-50% - 20px));
+      padding: 10px;
+
+      @media screen and (max-width: 576px) {
+        font-size: 14px;
+        padding: 5px;
+      }
+    }
+
+    .usd-price {
+      color: $primary-color;
+      text-align: center;
+      margin-top: -20px;
+
+      .u1 {
+        font-size: 19px;
+        font-weight: bold;
+        display: inline-block;
+        transform: translateY(-3px);
+        margin-right: 3px;
+
+        @media screen and (max-width: 576px) {
+          font-size: 17px;
+        }
+      }
+
+      .u2 {
+        font-size: 28px;
+        font-weight: bold;
+
+        @media screen and (max-width: 576px) {
+          font-size: 24px;
+        }
+      }
+    }
+
+    .vnd-price {
+      text-align: center;
+      font-size: 16px;
+      color: rgb(175, 175, 175);
+
+      .u1 {
+        font-size: 12px;
+        display: inline-block;
+        margin-left: 2px;
+      }
+    }
+
+    .hewe-price {
+      text-align: center;
+      font-size: 32px;
+      color: white;
+      font-weight: bold;
+      margin-top: 25px;
+
+      .u1 {
+        font-size: 17px;
+        display: block;
+      }
+
+      .uBonus {
+        color: $primary-color;
+        margin-top: -10px;
+        display: block;
+        font-size: 28px;
+      }
+    }
+
+    .commission {
+      margin-top: 10px;
+
+      span {
+        font-weight: 600;
+        font-size: 18px;
+      }
+    }
+
+    button {
+      border: none;
+      outline: none;
+      padding: 12px 42px;
+      text-transform: uppercase;
+      background: linear-gradient($primary-color-light 0%, $primary-color 100%);
+      box-shadow: $button-shadow 2px 2px 20px -5px;
+      border-radius: 100px;
+      color: whitesmoke;
+      font-weight: 600;
+      font-size: 18px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      margin-top: 20px;
+      margin-bottom: 10px;
+
+      &:hover {
+        box-shadow: $button-shadow 2px 2px 30px -5px;
+        background: linear-gradient($primary-color 0%, $primary-color-light 100%);
+      }
+
+      @media screen and (max-width: 576px) {
+        padding: 6px 24px;
+        font-size: 16px;
+        margin-bottom: 0;
+      }
+    }
+  }
+}

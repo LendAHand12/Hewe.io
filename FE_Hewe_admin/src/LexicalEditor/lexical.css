@@ -1,0 +1,15 @@
+.dropup,
+.dropright,
+.dropdown,
+.dropleft {
+  position: absolute !important;
+  z-index: 9999 !important;
+}
+.toolbar {
+  height: auto !important;
+  display: flex;
+  flex-wrap: wrap;
+}
+.link-editor {
+  z-index: 9999 !important;
+}

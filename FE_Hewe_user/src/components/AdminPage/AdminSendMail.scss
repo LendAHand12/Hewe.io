@@ -1,0 +1,30 @@
+@import "../../assets/scss/base.scss";
+
+.admin-send-mail {
+  .title {
+    font-size: 20px;
+    font-weight: 500;
+    color: $primary-color;
+    margin-bottom: 25px;
+  }
+
+  div.form {
+    width: 50%;
+
+    @media screen and (max-width: 1300px) {
+      width: 75%;
+    }
+    @media screen and (max-width: 992px) {
+      width: 100%;
+    }
+
+    .field + .field {
+      margin-top: 16px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 4px;
+    }
+  }
+}
