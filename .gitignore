@@ -1,0 +1,7 @@
+images
+.env
+node_modules
+package-lock.json
+yarn.lock
+build
+*.zip
