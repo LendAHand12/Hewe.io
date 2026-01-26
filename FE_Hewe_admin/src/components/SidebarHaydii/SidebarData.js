@@ -19,6 +19,7 @@ import Commission from "../../pages/Commission/Commission";
 import NewHeweDB from "../../pages/NewHeweDB/NewHeweDB";
 import Revenue from "../../pages/Revenue/Revenue";
 import Pool from "../../pages/Pool/Pool";
+import AdminProfile from "../../pages/AdminProfile";
 
 export const SidebarData = [
   {
@@ -157,5 +158,12 @@ export const SidebarData = [
     icon: <i class="fa-solid fa-money-bill-transfer"></i>,
     sideicon: <i class="fa-solid fa-arrow-right"></i>,
     component: <Pool />,
+  },
+  {
+    title: "Admin Profile",
+    path: "/adminPanel/profile",
+    icon: <i class="fa-solid fa-user-gear"></i>,
+    sideicon: <i class="fa-solid fa-arrow-right"></i>,
+    component: <AdminProfile />,
   },
 ];

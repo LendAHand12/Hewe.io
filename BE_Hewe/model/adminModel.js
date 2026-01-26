@@ -24,6 +24,14 @@ const adminSchema = new mongoose.Schema(
         ref: "permission",
       },
     ],
+    twoFactorSecret: {
+      type: String,
+      default: null,
+    },
+    twoFactorEnabled: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true }
 );

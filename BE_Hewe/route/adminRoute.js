@@ -3,6 +3,7 @@ const router = express.Router();
 const adminController = require("../controller/admin/auth&UserController");
 const adminRoleController = require("../controller/admin/roleController");
 const adminBlogController = require("../controller/admin/blogController");
+const twoFactorController = require("../controller/admin/twoFactorController");
 const message = require("../middleware/validationError");
 const validation = require("../validation/adminValidation");
 const VERIFY_ADMIN = require("../middleware/authMiddleware");
@@ -44,22 +45,22 @@ const {
   adminSellToken,
   searchUserByKeyword,
   getHistoryRevenue,
-	adminUpdatePool,
+  adminUpdatePool,
   getDepositAMCHistoryAdmin,
   adminGetPool,
-	extractKey,
-	searchWalletUser,
+  extractKey,
+  searchWalletUser,
   getHistoryUpdateAddress,
   getDepositHEWEHistoryAdmin,
-	approveWithdrawAmcAutoTransfer,
+  approveWithdrawAmcAutoTransfer,
   approveWithdrawHeweAutoTransfer,
-	changeBranch,
-	addDataConfigValue,
+  changeBranch,
+  addDataConfigValue,
   getDataConfigValue,
-	verifyEmailUser,
-	getSwap2025List,
+  verifyEmailUser,
+  getSwap2025List,
   markSwap2025Transaction,
-	crawOneBlock,
+  crawOneBlock,
   editHeweDBDataToId,
   getListUpdateHeweDB
 } = require("../controller/admin/newAdminController");
@@ -79,6 +80,12 @@ router.put(
   message.errorResponse,
   adminController.changePassword
 );
+
+// 2FA Management
+router.post("/setup2FA", VERIFY_ADMIN.verifyAdmin, twoFactorController.setup2FA);
+router.post("/verify2FA", VERIFY_ADMIN.verifyAdmin, twoFactorController.verify2FA);
+router.post("/disable2FA", VERIFY_ADMIN.verifyAdmin, twoFactorController.disable2FA);
+router.get("/get2FAStatus", VERIFY_ADMIN.verifyAdmin, twoFactorController.get2FAStatus);
 
 //user management
 router.get("/getAllUsers", VERIFY_ADMIN.verifyAdmin, adminController.getAllUsers);
@@ -472,7 +479,7 @@ router.get(
   query("limit").exists().notEmpty().isInt().toInt(),
   query("page").exists().notEmpty().isInt().toInt(),
   query("keyword").optional().isString(),
-	query("sortBy")
+  query("sortBy")
     .optional()
     .isString()
     .custom((value) => ["newest", "oldest"].includes(value)),
@@ -491,7 +498,7 @@ router.get(
   query("limit").exists().notEmpty().isInt().toInt(),
   query("page").exists().notEmpty().isInt().toInt(),
   query("keyword").optional().isString(),
-	query("sortBy")
+  query("sortBy")
     .optional()
     .isString()
     .custom((value) => ["newest", "oldest"].includes(value)),

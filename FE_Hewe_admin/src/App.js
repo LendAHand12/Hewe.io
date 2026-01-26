@@ -40,6 +40,7 @@ import DepositHEWE from "./pages/DepositHEWE/DepositHEWE";
 import { useGetModulesOfAdmin } from "./hooks/useGetModulesOfAdmin";
 import { SidebarData } from "./components/SidebarHaydii/SidebarData";
 import GetListUpdateHeweDBPage from "./pages/NewHeweDB/GetListUpdateHeweDB";
+import AdminProfile from "./pages/AdminProfile";
 const PublicRoute = (props) => {
   const { defaultState, setDefaultState } = props;
   const [isOpen, setIsOpen] = useState(false);
@@ -89,7 +90,7 @@ const PrivateRoute = (props) => {
             <UserManagement />
           </Route>
         );
-           routes.push(
+        routes.push(
           <Route path="/adminPanel/getListUpdateHeweDB" exact>
             <Navbar toggle={toggle} getSidebar={getSidebar} />
             {sidebarShow && <Sidebar />}
@@ -152,6 +153,12 @@ const PrivateRoute = (props) => {
     // do not remove this route
     routes.push(
       <>
+        <Route path="/adminPanel/profile" exact>
+          <Navbar toggle={toggle} getSidebar={getSidebar} />
+          {sidebarShow && <Sidebar />}
+          <AdminProfile />
+        </Route>
+
         <Route path="/adminPanel/history-update-address">
           <Navbar toggle={toggle} getSidebar={getSidebar} />
 

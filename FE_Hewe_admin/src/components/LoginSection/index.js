@@ -84,6 +84,8 @@ const InfoSection = ({
   const [OTPSend, setOtpSend] = useState(false);
   const [otpPhone, setOtpPhone] = useState("");
   const [isForgetiing, setIsForgetting] = useState(false);
+  const [show2FAInput, setShow2FAInput] = useState(false);
+  const [twoFactorToken, setTwoFactorToken] = useState("");
   const [modalData, setModalData] = useState({
     isOpen: false,
     header: "success_message",
@@ -136,16 +138,27 @@ const InfoSection = ({
   }, []);
 
   const handleLogin = async (values) => {
-    // setLoginValues(values);
     setIsLoading(true);
-    var url = "/adminLogin";
+    var url = `${process.env.REACT_APP_API_URL}/api/admin/adminLogin`;
     var formvalues = {
       email: values.email,
       password: values.password,
+      twoFactorToken: twoFactorToken || undefined,
     };
 
     try {
       const { data } = await axios.post(url, formvalues);
+
+      // Check if 2FA is required
+      if (data.require2FA) {
+        setShow2FAInput(true);
+        setIsLoading(false);
+        toast.info(`Please enter your 2FA code`, {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+        return;
+      }
+
       setUsers(data.session.access_token);
 
       console.log(data.session.access_token);
@@ -239,7 +252,7 @@ const InfoSection = ({
                                   }}
                                   error={
                                     formikBag.touched.email &&
-                                    formikBag.errors.email
+                                      formikBag.errors.email
                                       ? formikBag.errors.email
                                       : null
                                   }
@@ -286,7 +299,7 @@ const InfoSection = ({
                                   }}
                                   error={
                                     formikBag.touched.password &&
-                                    formikBag.errors.password
+                                      formikBag.errors.password
                                       ? formikBag.errors.password
                                       : null
                                   }
@@ -296,6 +309,67 @@ const InfoSection = ({
                               </div>
                             )}
                           </Field>
+
+                          {show2FAInput && (
+                            <Field name="twoFactorToken">
+                              {({ field }) => (
+                                <div className="py-3" style={{
+                                  backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                                  padding: '20px',
+                                  borderRadius: '8px',
+                                  marginTop: '10px',
+                                  border: '2px solid rgba(255, 255, 255, 0.3)'
+                                }}>
+                                  <div
+                                    className="mb-3 d-flex align-items-center justify-content-center"
+                                    style={{
+                                      gap: '10px',
+                                    }}
+                                  >
+                                    <RiLockPasswordLine
+                                      style={{ fontSize: "24px", color: "#4CAF50" }}
+                                    />
+                                    <span
+                                      style={{
+                                        fontSize: "18px",
+                                        color: "white",
+                                        fontWeight: '600'
+                                      }}
+                                    >
+                                      Two-Factor Authentication
+                                    </span>
+                                  </div>
+
+                                  <p style={{
+                                    color: '#c0c0c0',
+                                    fontSize: '14px',
+                                    textAlign: 'center',
+                                    marginBottom: '15px'
+                                  }}>
+                                    Enter the 6-digit code from your Google Authenticator app
+                                  </p>
+
+                                  <InputLogin
+                                    type="text"
+                                    value={twoFactorToken}
+                                    onChange={(e) => {
+                                      setTwoFactorToken(e.target.value);
+                                    }}
+                                    className="form-control"
+                                    placeholder="000000"
+                                    maxLength={6}
+                                    style={{
+                                      textAlign: 'center',
+                                      fontSize: '24px',
+                                      letterSpacing: '8px',
+                                      fontWeight: 'bold',
+                                      padding: '15px'
+                                    }}
+                                  />
+                                </div>
+                              )}
+                            </Field>
+                          )}
 
                           <LoginBtnWrapper>
                             <LoginButton type="submit">Log In</LoginButton>

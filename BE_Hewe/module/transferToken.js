@@ -3,8 +3,8 @@ const Web3 = require("web3");
 const { network } = require("../constants/index");
 const RPC =
   network == 97
-    ? `https://damp-smart-night.bsc-testnet.quiknode.pro/6dcdaaff5b9a2f8262793e1cf86bfbbc7ad11f76/`
-    : `https://indulgent-convincing-crater.bsc.quiknode.pro/2aa91caa6c5f1db27fbe1d6b679ec3260220944c/`;
+    ? `https://go.getblock.asia/b9f5e3691862406d8d4decff4a568364`
+    : `https://go.getblock.asia/b9f5e3691862406d8d4decff4a568364`;
 const web3 = new Web3(RPC);
 const web3Hewe = new Web3("https://node1.amchain.net/");
 
@@ -55,7 +55,7 @@ async function transferToken(contract, contractAddress, myAddress, destAddress, 
     return receipt;
   } catch (error) {
     console.log(error, "transferToken");
-	await writeLog(`${new Date().toISOString()} - transferToken: ${JSON.stringify(error)}`);
+    await writeLog(`${new Date().toISOString()} - transferToken: ${JSON.stringify(error)}`);
     return null;
   }
 }

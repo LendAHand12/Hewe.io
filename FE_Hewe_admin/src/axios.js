@@ -12,16 +12,19 @@ const instance = axios.create({
 instance.defaults.headers.common["language"] =
   window.localStorage.getItem("rcml-lang") || "en";
 instance.defaults.headers.common["Access-Control-Allow-Origin"] = "*";
-if (localStorage.accessToken) {
-  const JWT_token = localStorage.accessToken;
-  instance.defaults.headers.common["access_token"] = JWT_token;
+
+// Set Authorization header with token from localStorage
+const token = localStorage.getItem("token");
+if (token) {
+  instance.defaults.headers.common["Authorization"] = token;
 }
 
 instance.interceptors.request.use(
   async (config) => {
-    const JWT_token = localStorage.accessToken;
-    config.headers.common["access_token"] = JWT_token;
-
+    const JWT_token = localStorage.getItem("token");
+    if (JWT_token) {
+      config.headers.Authorization = JWT_token;
+    }
     return config;
   },
   (error) => {
@@ -30,8 +33,8 @@ instance.interceptors.request.use(
     });
     if (error.response.status === 401 || error.response.status === 500) {
       alert("New login detected, Login Again!");
-      localStorage.removeItem("accessToken");
-      localStorage.removeItem("userData");
+      localStorage.removeItem("token");
+      localStorage.removeItem("email");
       window.location.pathname = "/adminPanel";
     }
     return Promise.reject(error);

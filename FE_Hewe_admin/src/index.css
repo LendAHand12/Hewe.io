@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body{
-  overflow: hidden;
+  /* overflow: hidden; */ /* Commented out to allow scrolling */
 }
 /* @font-face {
     font-family: 'Segoe UI';

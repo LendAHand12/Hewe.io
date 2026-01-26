@@ -8,44 +8,76 @@ const PAID = require("../../model/paidUserModel");
 const error = require("../../utils/error");
 const JWT = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const speakeasy = require("speakeasy");
 const salt = 10;
 const mongoose = require("mongoose");
 
 exports.adminLogin = async (req, res) => {
   try {
-    const { password, email } = req.body;
+    const { password, email, twoFactorToken } = req.body;
     const findAdmin = await ADMIN.findOne({ email: email.toLowerCase() })
       .populate("access_module")
       .populate("permissions");
-    if (findAdmin) {
-      const com_pass = await bcrypt.compare(password, findAdmin.password);
-      if (!com_pass) {
+
+    if (!findAdmin) {
+      return res.status(error.status.UnprocessableEntity).json({
+        message: "Email Id Invalid.",
+        status: error.status.UnprocessableEntity,
+      });
+    }
+
+    const com_pass = await bcrypt.compare(password, findAdmin.password);
+    if (!com_pass) {
+      return res.status(error.status.UnprocessableEntity).json({
+        message: "Password invalid.",
+        status: error.status.UnprocessableEntity,
+      });
+    }
+
+    // Check if 2FA is enabled
+    if (findAdmin.twoFactorEnabled) {
+      if (!twoFactorToken) {
+        // Return success status with require2FA flag so frontend shows 2FA input
+        return res.status(error.status.OK).json({
+          message: "Please enter your 2FA code",
+          status: error.status.OK,
+          require2FA: true, // Flag for frontend to show 2FA input
+        });
+      }
+
+      // Verify 2FA token
+      const verified = speakeasy.totp.verify({
+        secret: findAdmin.twoFactorSecret,
+        encoding: 'base32',
+        token: twoFactorToken,
+        window: 2, // Allow ±60 seconds time difference
+      });
+
+      if (!verified) {
         return res.status(error.status.UnprocessableEntity).json({
-          message: "Password invalid.",
+          message: "Invalid 2FA token.",
           status: error.status.UnprocessableEntity,
         });
       }
-      const signToken = JWT.sign({ _id: findAdmin._id, email: findAdmin.email.toLowerCase() }, process.env.SECRET_KEY);
-      const createSession = await SESSION.create({
-        access_token: signToken,
-        admin_id: findAdmin._id,
-      });
-      return res.status(error.status.OK).json({
-        message: "Login Successfully.",
-        status: error.status.OK,
-        data: {
-          email: findAdmin.email,
-          role: findAdmin.role,
-          access_module: findAdmin.access_module,
-          permissions: findAdmin.permissions,
-        },
-        access_Token: signToken,
-        session: createSession,
-      });
     }
-    return res.status(error.status.UnprocessableEntity).json({
-      message: "Email Id Invalid.",
-      status: error.status.UnprocessableEntity,
+
+    // Continue with normal login flow
+    const signToken = JWT.sign({ _id: findAdmin._id, email: findAdmin.email.toLowerCase() }, process.env.SECRET_KEY);
+    const createSession = await SESSION.create({
+      access_token: signToken,
+      admin_id: findAdmin._id,
+    });
+    return res.status(error.status.OK).json({
+      message: "Login Successfully.",
+      status: error.status.OK,
+      data: {
+        email: findAdmin.email,
+        role: findAdmin.role,
+        access_module: findAdmin.access_module,
+        permissions: findAdmin.permissions,
+      },
+      access_Token: signToken,
+      session: createSession,
     });
   } catch (e) {
     return res.status(error.status.InternalServerError).json({

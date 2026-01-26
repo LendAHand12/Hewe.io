@@ -7,8 +7,8 @@ const { decrypt } = require("../module/crypto");
 
 const { Web3: Web3New } = require("web3new");
 
-const rpcTestnet = `https://damp-smart-night.bsc-testnet.quiknode.pro/6dcdaaff5b9a2f8262793e1cf86bfbbc7ad11f76/`;
-const rpcMainnet = `https://indulgent-convincing-crater.bsc.quiknode.pro/2aa91caa6c5f1db27fbe1d6b679ec3260220944c/`;
+const rpcTestnet = `https://go.getblock.asia/b9f5e3691862406d8d4decff4a568364`;
+const rpcMainnet = `https://go.getblock.asia/b9f5e3691862406d8d4decff4a568364`;
 
 let rpc = network == 97 ? rpcTestnet : rpcMainnet;
 
