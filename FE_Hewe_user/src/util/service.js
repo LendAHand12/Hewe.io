@@ -1,8 +1,8 @@
 import axios from "axios";
 
-export const DOMAIN = "http://localhost:3000/api/user/";
-export const DOMAIN3 = "http://localhost:3000";
-export const DOMAIN2 = "http://localhost:3000";
+export const DOMAIN = "http://localhost:5000/api/user/";
+export const DOMAIN3 = "http://localhost:5000";
+export const DOMAIN2 = "http://localhost:5000";
 
 // export const DOMAIN = "https://hewe.io/api/user/";
 // export const DOMAIN3 = "https://hewe.io/";
