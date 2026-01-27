@@ -1,14 +1,14 @@
-const { readContract, configureChains, createConfig } = require("@wagmi/core");
-const { publicProvider } = require("@wagmi/core/providers/public");
-const BigNumber = require("bignumber.js");
+import { readContract, configureChains, createConfig } from "@wagmi/core";
+import { publicProvider } from "@wagmi/core/providers/public";
+import BigNumber from "bignumber.js";
 
 // Polyfill fetch và các lớp liên quan
 // Thư viện @wagmi/core có dùng viem, viem có dùng fetch, mà nodejs 16 không có sẵn fetch nên sẽ bị lỗi
 // từ nodejs 18 trở lên thì đã có sẵn, mà dự án này không thể nâng lên nodejs 18 được, bắt buộc phải dùng nodejs 16 nên cần polyfill
 // nhớ cài thêm node-fetch@2 và thêm đoạn code polyfill này vào đầu file là sẽ hết lỗi
 if (typeof fetch === "undefined") {
-  const fetchPkg = require("node-fetch");
-  global.fetch = fetchPkg;
+  const fetchPkg = await import("node-fetch");
+  global.fetch = fetchPkg.default;
   global.Request = fetchPkg.Request;
   global.Response = fetchPkg.Response;
   global.Headers = fetchPkg.Headers;
@@ -25,7 +25,8 @@ const PANCAKE_CONTRACT_ADDRESS = "0x10ED43C718714eb63d5aA57B78B54704E256024E";
 // PANCAKE_ABI
 // BSC_TESTNET -> không dùng
 // BSC_MAINNET -> không dùng
-const { PANCAKE_ABI, BSC_MAINNET } = require("../constants/index");
+const constants = await import("../constants/index.js");
+const { PANCAKE_ABI, BSC_MAINNET } = constants.default || constants;
 
 const myChain = [BSC_MAINNET];
 const { chains, publicClient } = configureChains(myChain, [publicProvider()]);
@@ -62,4 +63,4 @@ async function getPricePancake() {
   return a[1] / 1e18;
 }
 
-module.exports = { getPricePancake };
+export { getPricePancake };

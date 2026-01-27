@@ -6,7 +6,7 @@ const { success, error_500, error_400 } = require("../utils/error");
 const { matchedData } = require("express-validator");
 const { arrayPeriods } = require("../constants/index");
 const { getPriceFromAPI, getPriceHeweFromAPI } = require("../module/socketXT");
-const { getPricePancake } = require("../module/pancake");
+// const { getPricePancake } = require("../module/pancake"); // Removed - using dynamic import
 const { writeLogUpdatePrices } = require("../module/log");
 
 const calcSwapRate = async () => {
@@ -42,8 +42,8 @@ exports.cronChart = async () => {
     // nếu có -> kiểm tra thời gian
     // nếu còn trong thời gian của mốc -> update record trước
     // nếu hết thời gian của mốc -> tạo record mới
-	  
-	  // cập nhật 17/9/2024: do phần chart hewe (theo kiểu pool) không còn sử dụng nữa nên bỏ không chạy hàm này nữa
+
+    // cập nhật 17/9/2024: do phần chart hewe (theo kiểu pool) không còn sử dụng nữa nên bỏ không chạy hàm này nữa
     return;
 
     let swapRate = await calcSwapRate();
@@ -115,8 +115,8 @@ exports.cronChart2 = async () => {
     if (hewePrice) {
       await CONFIG_VALUE.updateOne({ configKey: "hewePrice" }, { configValue: hewePrice });
     }
-	  
-	  // ghi lại log cập nhật giá
+
+    // ghi lại log cập nhật giá
     await writeLogUpdatePrices(
       `Cron chart 2: AMC price = ${price}, HEWE price = ${hewePrice}, time = ${new Date().toISOString()}`
     );
