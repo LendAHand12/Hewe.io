@@ -139,7 +139,7 @@ const InfoSection = ({
 
   const handleLogin = async (values) => {
     setIsLoading(true);
-    var url = `${process.env.REACT_APP_API_URL}/api/admin/adminLogin`;
+    var url = `/adminLogin`;
     var formvalues = {
       email: values.email,
       password: values.password,
