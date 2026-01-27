@@ -51,14 +51,32 @@ app.use("/api", apiRoute);
 app.use(express.static(path.join(__dirname, "public/build")));
 app.use(express.static(path.join(__dirname, 'public/build1')));
 
-app.get('/images/blog/:images', function (req, res) {
-  const requestedPath = path.normalize(path.join(__dirname, '../images/', req.params.images));
-  const imagesDir = path.resolve(__dirname, '../images/');
+// Serve images directory as static files (production-ready)
+// This handles all /images/* requests automatically
+app.use('/images', express.static(path.join(__dirname, 'images'), {
+  maxAge: process.env.NODE_ENV === 'production' ? '1d' : 0,
+  fallthrough: true, // Continue to next middleware if file not found
+}));
 
+app.get('/images/blog/:images', function (req, res) {
+  // Handle the full path: /images/blog/filename.png
+  // Images are stored in BE_Hewe/images/blog/
+  const filename = req.params.images;
+  const requestedPath = path.normalize(path.join(__dirname, 'images/blog/', filename));
+  const imagesDir = path.resolve(__dirname, 'images/blog/');
+
+  // Security check: ensure requested path is within images directory
   if (!requestedPath.startsWith(imagesDir)) {
     return res.status(400).send('Invalid path');
   }
-  res.sendFile(path.join(__dirname, '../images/', `${req.params.images}`));
+
+  // Send the file
+  res.sendFile(requestedPath, (err) => {
+    if (err) {
+      console.error('Error sending file:', err);
+      res.status(404).send('Image not found');
+    }
+  });
 });
 app.get('/adminPanel', function (req, res) {
   res.sendFile(path.join(__dirname, 'public/build1', 'index.html'));

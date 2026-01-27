@@ -279,7 +279,6 @@ const OfferManagement = ({ history, setUsers, userData }) => {
       );
       setTableData(data.data);
       setSearchedData(data.data);
-      console.log(data.data, "?????????????");
       setTotalData(data.data.length);
       setIsLoading(false);
     } catch (err) {
