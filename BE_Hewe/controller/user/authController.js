@@ -322,7 +322,7 @@ exports.setNewPassword = async (req, res) => {
 
 exports.login = async (req, res) => {
   try {
-    const { password, email } = req.body;
+    const { password, email, twoFactorToken } = req.body;
     const findUser = await USER.findOne({ email: email.toLowerCase() });
     if (!findUser) {
       return res.status(error.status.NotFound).json({
@@ -344,6 +344,36 @@ exports.login = async (req, res) => {
         status: error.status.UnprocessableEntity,
       });
     }
+
+    // Check if 2FA is enabled
+    if (findUser.twoFactorEnabled) {
+      if (!twoFactorToken) {
+        // Return success status with require2FA flag so frontend shows 2FA input
+        return res.status(error.status.OK).json({
+          message: "Please enter your 2FA code",
+          status: error.status.OK,
+          require2FA: true,
+        });
+      }
+
+      // Verify 2FA token
+      const speakeasy = require("speakeasy");
+      const verified = speakeasy.totp.verify({
+        secret: findUser.twoFactorSecret,
+        encoding: 'base32',
+        token: twoFactorToken,
+        window: 2, // Allow ±60 seconds time difference
+      });
+
+      if (!verified) {
+        return res.status(error.status.UnprocessableEntity).json({
+          message: "Invalid 2FA token.",
+          status: error.status.UnprocessableEntity,
+        });
+      }
+    }
+
+    // Continue with normal login flow
     const signToken = JWT.sign({ _id: findUser._id, email: findUser.email.toLowerCase() }, process.env.SECRET_KEY, {
       expiresIn: "3h",
     });

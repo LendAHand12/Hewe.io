@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const userAuthController = require("../controller/user/authController");
+const twoFactorController = require("../controller/user/twoFactorController");
 const BlogController = require("../controller/admin/blogController");
 const uploadController = require("../controller/user/uploadController");
 const message = require("../middleware/validationError");
@@ -33,11 +34,11 @@ const {
   buyPackageConnectWallet,
   withdrawAMC,
   getWithdrawAmcHistory,
-	testTelegram,
-	getDepositAMCHistory,
+  testTelegram,
+  getDepositAMCHistory,
   addDataToDatabaseReve,
-	getDepositHEWEHistory,
-	checkUserHeweDB,
+  getDepositHEWEHistory,
+  checkUserHeweDB,
 } = require("../controller/user/newUserController");
 const { query, body } = require("express-validator");
 const { handleValidationErrors } = require("../middleware/handleValidationErrors");
@@ -58,6 +59,13 @@ router.post("/sendOTP", validation.SendOtpValidation, message.errorResponse, use
 router.post("/forgotPassword", userAuthController.forgotPassword);
 router.put("/setNewPassword", validation.setPasswordValidation, userAuthController.setNewPassword);
 router.put("/changePassword", VERIFY_USER.verifyUserToken, userAuthController.changePassword);
+
+// 2FA Management
+router.post("/setup2FA", VERIFY_USER.verifyUserToken, twoFactorController.setup2FA);
+router.post("/verify2FA", VERIFY_USER.verifyUserToken, twoFactorController.verify2FA);
+router.post("/disable2FA", VERIFY_USER.verifyUserToken, twoFactorController.disable2FA);
+router.get("/get2FAStatus", VERIFY_USER.verifyUserToken, twoFactorController.get2FAStatus);
+
 router.get("/getTransaction", userAuthController.getTransaction);
 router.get("/getTotalReward", userAuthController.getTotalReward);
 router.post("/TokenTransactionHistroy", userAuthController.TokenTransactionHistroy);

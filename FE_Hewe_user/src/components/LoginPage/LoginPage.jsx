@@ -5,6 +5,7 @@ import { loginValidator } from "../../util/validators.js";
 import { axiosService } from "../../util/service.js";
 import { toast } from "react-toastify";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min.js";
+import { Modal, Input, Button } from "antd";
 import Header from "../HomePage/Header.jsx";
 import Overlay from "../../components/Overlay.js";
 // img
@@ -21,6 +22,9 @@ const Login = () => {
     email: "",
     password: "",
   });
+  const [show2FAModal, setShow2FAModal] = useState(false);
+  const [twoFactorToken, setTwoFactorToken] = useState("");
+  const [isVerifying2FA, setIsVerifying2FA] = useState(false);
   const handleLogin = async (values) => {
     setLoginValues(values);
     setIsLoading(true);
@@ -28,10 +32,18 @@ const Login = () => {
     let formvalues = {
       email: values.email,
       password: values.password,
+      twoFactorToken: twoFactorToken || undefined,
     };
     try {
       const { data } = await axiosService.post(url, formvalues);
-      console.log("Data is", data);
+
+      // Check if 2FA is required
+      if (data.require2FA) {
+        setShow2FAModal(true);
+        setIsLoading(false);
+        return;
+      }
+
       localStorage.setItem("token", data.access_Token);
       localStorage.setItem("user", JSON.stringify(data));
       dispatch({
@@ -52,6 +64,43 @@ const Login = () => {
         toast.error(`${error.response.data.errors[0].msg}`);
       } else {
         toast.error(error?.response?.data?.message);
+      }
+    }
+  };
+
+  const handle2FAVerify = async () => {
+    if (!twoFactorToken || twoFactorToken.length !== 6) {
+      toast.error("Please enter a valid 6-digit code");
+      return;
+    }
+
+    setIsVerifying2FA(true);
+    let url = "/login";
+    let formvalues = {
+      email: loginValues.email,
+      password: loginValues.password,
+      twoFactorToken: twoFactorToken,
+    };
+
+    try {
+      const { data } = await axiosService.post(url, formvalues);
+      localStorage.setItem("token", data.access_Token);
+      localStorage.setItem("user", JSON.stringify(data));
+      dispatch({
+        type: "USER_LOGIN",
+        payload: data,
+      });
+      setIsVerifying2FA(false);
+      setShow2FAModal(false);
+      setTwoFactorToken("");
+      toast.success("Login successfully");
+      history.push("/adminDashboard");
+    } catch (error) {
+      setIsVerifying2FA(false);
+      if (error?.response?.data?.errors) {
+        toast.error(`${error.response.data.errors[0].msg}`);
+      } else {
+        toast.error(error?.response?.data?.message || "Invalid 2FA code");
       }
     }
   };
@@ -196,6 +245,58 @@ const Login = () => {
         </div>
 
         {isLoading && <Overlay />}
+
+        {/* 2FA Verification Modal */}
+        <Modal
+          title="Two-Factor Authentication"
+          open={show2FAModal}
+          onCancel={() => {
+            setShow2FAModal(false);
+            setTwoFactorToken("");
+          }}
+          footer={[
+            <Button
+              key="cancel"
+              onClick={() => {
+                setShow2FAModal(false);
+                setTwoFactorToken("");
+              }}
+            >
+              Cancel
+            </Button>,
+            <Button
+              key="verify"
+              type="primary"
+              onClick={handle2FAVerify}
+              loading={isVerifying2FA}
+              disabled={!twoFactorToken || twoFactorToken.length !== 6}
+            >
+              Verify
+            </Button>,
+          ]}
+          width={400}
+          className="twofa-login-modal"
+        >
+          <div style={{ padding: '20px 0' }}>
+            <p style={{ marginBottom: '16px', color: '#b0b0b0' }}>
+              Enter the 6-digit code from your Google Authenticator app
+            </p>
+            <Input
+              placeholder="000000"
+              value={twoFactorToken}
+              onChange={(e) => setTwoFactorToken(e.target.value)}
+              maxLength={6}
+              size="large"
+              style={{
+                textAlign: 'center',
+                fontSize: '24px',
+                letterSpacing: '8px',
+                fontWeight: 'bold',
+              }}
+              onPressEnter={handle2FAVerify}
+            />
+          </div>
+        </Modal>
       </section>
     </>
   );

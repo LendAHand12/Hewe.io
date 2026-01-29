@@ -8,7 +8,6 @@ import "./style.scss";
 const DashbaordData = () => {
   const history = useHistory();
   const userData = JSON.parse(localStorage.getItem("user"));
-  console.log(userData?.data?.email);
 
   const [data, setData] = useState();
 
@@ -16,7 +15,6 @@ const DashbaordData = () => {
     try {
       const response = await axiosService.get(`/getTokenTransactionHistory?email=${userData?.data?.email}`);
       setData(response?.data);
-      console.log(response.data);
     } catch (error) {
       console.error("Error fetching transaction data:", error);
     }

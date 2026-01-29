@@ -70,15 +70,24 @@ const userSchema = new mongoose.Schema(
       enum: [0, 1, 2],
       default: 0,
     },
-	revenue: {
+    revenue: {
       type: Number,
       default: 0,
     },
-	revenueF1: {
+    revenueF1: {
       type: Number,
       default: 0,
     }, // doanh thu từ F1 trực tiếp của user // khác với revenue ở trên là doanh thu toàn hệ thống
-	  heweDeposit: {
+    // Two-Factor Authentication fields
+    twoFactorSecret: {
+      type: String,
+      default: null,
+    },
+    twoFactorEnabled: {
+      type: Boolean,
+      default: false,
+    },
+    heweDeposit: {
       type: Number,
       default: 0,
     },

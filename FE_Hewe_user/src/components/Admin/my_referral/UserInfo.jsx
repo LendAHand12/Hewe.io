@@ -1,5 +1,6 @@
 import { Descriptions } from "antd";
 import { useSelector } from "react-redux";
+import TwoFactorSettings from "./TwoFactorSettings/index.jsx";
 
 export const UserInfo = () => {
   const { profile } = useSelector((state) => state.userReducer);
@@ -34,6 +35,9 @@ export const UserInfo = () => {
         </Descriptions.Item>
         <Descriptions.Item label="Revenue F1">
           {profile?.revenueF1} USDT
+        </Descriptions.Item>
+        <Descriptions.Item label="2FA">
+          <TwoFactorSettings />
         </Descriptions.Item>
       </Descriptions>
     </div>
