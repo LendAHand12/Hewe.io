@@ -1,8 +1,8 @@
 import axios from "axios";
 
-export const DOMAIN = process.env.REACT_APP_API_URL || "http://localhost:5000/api/user/";
-export const DOMAIN3 = process.env.REACT_APP_DOMAIN3 || "http://localhost:5000";
-export const DOMAIN2 = process.env.REACT_APP_DOMAIN2 || "http://localhost:5000";
+export const DOMAIN = process.env.REACT_APP_API_URL;
+export const DOMAIN3 = process.env.REACT_APP_DOMAIN3;
+export const DOMAIN2 = process.env.REACT_APP_DOMAIN2;
 
 export const axiosService = axios.create({
   baseURL: DOMAIN,
