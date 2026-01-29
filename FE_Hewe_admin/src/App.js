@@ -13,6 +13,7 @@ import "./index.css";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import UserManagement from "../src/pages/User Management/UserManagement";
+import UserProfile from "../src/pages/User Management/UserProfile";
 import BuyHeweByUSDT from "./pages/BuyHeweByUSDT/BuyHeweByUSDT";
 import BuyHeweByVND from "./pages/BuyHeweByVND/BuyHeweByVND";
 import Commission from "./pages/Commission/Commission";
@@ -90,6 +91,15 @@ const PrivateRoute = (props) => {
             <UserManagement />
           </Route>
         );
+
+        routes.push(
+          <Route path="/adminPanel/user-profile/:userId" exact>
+            <Navbar toggle={toggle} getSidebar={getSidebar} />
+            {sidebarShow && <Sidebar />}
+            <UserProfile />
+          </Route>
+        );
+
         routes.push(
           <Route path="/adminPanel/getListUpdateHeweDB" exact>
             <Navbar toggle={toggle} getSidebar={getSidebar} />

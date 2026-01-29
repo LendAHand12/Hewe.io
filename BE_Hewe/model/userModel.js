@@ -91,6 +91,15 @@ const userSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
+    // Account status fields
+    isLocked: {
+      type: Boolean,
+      default: false,
+    },
+    isDeleted: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true }
 );

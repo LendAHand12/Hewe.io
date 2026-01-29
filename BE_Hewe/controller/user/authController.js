@@ -345,6 +345,22 @@ exports.login = async (req, res) => {
       });
     }
 
+    // Check if account is deleted
+    if (findUser.isDeleted) {
+      return res.status(error.status.Forbidden).json({
+        message: "This account has been deleted. Please contact support.",
+        status: error.status.Forbidden,
+      });
+    }
+
+    // Check if account is locked
+    if (findUser.isLocked) {
+      return res.status(error.status.Forbidden).json({
+        message: "This account has been locked. Please contact support.",
+        status: error.status.Forbidden,
+      });
+    }
+
     // Check if 2FA is enabled
     if (findUser.twoFactorEnabled) {
       if (!twoFactorToken) {

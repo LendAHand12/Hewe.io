@@ -4,6 +4,7 @@ const adminController = require("../controller/admin/auth&UserController");
 const adminRoleController = require("../controller/admin/roleController");
 const adminBlogController = require("../controller/admin/blogController");
 const twoFactorController = require("../controller/admin/twoFactorController");
+const userMgmtController = require("../controller/admin/userManagementController");
 const message = require("../middleware/validationError");
 const validation = require("../validation/adminValidation");
 const VERIFY_ADMIN = require("../middleware/authMiddleware");
@@ -825,5 +826,13 @@ router.post(
   handleValidationErrors,
   crawOneBlock
 );
+
+// User Management Routes
+router.get("/user/:userId/profile", VERIFY_ADMIN.verifyAdmin, userMgmtController.getUserProfile);
+router.put("/user/:userId/profile", VERIFY_ADMIN.verifyAdmin, userMgmtController.updateUserProfile);
+router.post("/user/:userId/disable-2fa", VERIFY_ADMIN.verifyAdmin, userMgmtController.disableUser2FA);
+router.post("/user/:userId/lock", VERIFY_ADMIN.verifyAdmin, userMgmtController.lockUser);
+router.post("/user/:userId/unlock", VERIFY_ADMIN.verifyAdmin, userMgmtController.unlockUser);
+router.delete("/user/:userId", VERIFY_ADMIN.verifyAdmin, userMgmtController.deleteUser);
 
 module.exports = router;

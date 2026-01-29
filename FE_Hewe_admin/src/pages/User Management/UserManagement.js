@@ -53,7 +53,7 @@ import moment from "moment";
 import "react-calendar/dist/Calendar.css";
 import DatePicker from "react-date-picker";
 import "react-date-picker/dist/DatePicker.css";
-import { FaSearch, FaTimes } from "react-icons/fa";
+import { FaSearch, FaTimes, FaUser } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import Nodata from "../../components/Nodata";
 import "./UserMng.css";
@@ -183,7 +183,6 @@ const OfferManagement = ({ history, setUsers, userData }) => {
   const [showFilter, setShowFilter] = useState(false);
   const [name, setName] = useState("");
   const handleChangePage = async (event, newPage) => {
-    console.log(newPage);
     setPage(newPage);
     localStorage.setItem("currentPage", newPage);
     getAllUserList(newPage, rowsPerPage); // Pass rowsPerPage as a parameter
@@ -211,7 +210,6 @@ const OfferManagement = ({ history, setUsers, userData }) => {
     const endIndex = startIndex + row;
 
     // Return the subset of data for the current page
-    console.log(sortedData);
     return sortedData;
   };
 
@@ -1067,8 +1065,8 @@ const OfferManagement = ({ history, setUsers, userData }) => {
                                 Updated at:{" "}
                                 {get(category, "timeWalletAddress", "")
                                   ? new Date(
-                                      get(category, "timeWalletAddress", "")
-                                    ).toLocaleString("vi-VN")
+                                    get(category, "timeWalletAddress", "")
+                                  ).toLocaleString("vi-VN")
                                   : ""}
                               </div>
                             </div>
@@ -1097,7 +1095,7 @@ const OfferManagement = ({ history, setUsers, userData }) => {
                                 category?.referredDetails[0]
                                   ?.ReceivedHewePrice !== undefined
                                   ? category?.referredDetails[0]
-                                      ?.ReceivedHewePrice
+                                    ?.ReceivedHewePrice
                                   : 0
                               );
                               setTotalRewardUSDT(
@@ -1108,7 +1106,7 @@ const OfferManagement = ({ history, setUsers, userData }) => {
                               );
                               setPaidUSDT(
                                 (category?.referredDetails[0]?.ReceivedPrice !==
-                                undefined
+                                  undefined
                                   ? category?.referredDetails[0]?.ReceivedPrice
                                   : 0) - get(category, "totalPaid_USDT", 0)
                               );
@@ -1116,9 +1114,9 @@ const OfferManagement = ({ history, setUsers, userData }) => {
                                 ((category?.referredDetails[0]
                                   ?.ReceivedHewePrice !==
                                   undefined?.ReceivedHewePrice) !==
-                                undefined
+                                  undefined
                                   ? category?.referredDetails[0]
-                                      ?.ReceivedHEWEPrice?.ReceivedHewePrice
+                                    ?.ReceivedHEWEPrice?.ReceivedHewePrice
                                   : 0) - get(category, "totalPaid_HEWE", "")
                               );
                             }}
@@ -1135,6 +1133,20 @@ const OfferManagement = ({ history, setUsers, userData }) => {
                             justifyContent: "center",
                           }}
                         >
+                          <Tooltip title="View Profile" placement="top">
+                            <Link to={`/adminPanel/user-profile/${category._id}`}>
+                              <IconButton
+                                style={{
+                                  backgroundColor: "#1976d2",
+                                  color: "#fff",
+                                  marginRight: "8px",
+                                  padding: "8px",
+                                }}
+                              >
+                                <FaUser />
+                              </IconButton>
+                            </Link>
+                          </Tooltip>
                           <Button
                             style={{
                               backgroundColor: category.verifyLAH
@@ -1153,10 +1165,9 @@ const OfferManagement = ({ history, setUsers, userData }) => {
                               setLahval(category.LAH_member);
                               setLahid(category._id);
                               setLahBool(category.verifyLAH);
-                              console.log(category.verifyLAH);
                               setName(
                                 category.name.charAt(0).toUpperCase() +
-                                  category.name.slice(1)
+                                category.name.slice(1)
                               );
                             }}
                           >
@@ -1289,7 +1300,7 @@ const OfferManagement = ({ history, setUsers, userData }) => {
                         totalPaid_HEWE: parseInt(e.target.value),
                       }))
                     }
-                    // type="number"
+                  // type="number"
                   />
                   <TextField
                     label="Transaction Hash"
@@ -1406,8 +1417,8 @@ const OfferManagement = ({ history, setUsers, userData }) => {
                       lahMember === ""
                         ? createLah
                         : () => {
-                            setModalOpen(true);
-                          }
+                          setModalOpen(true);
+                        }
                     }
                     className="mb-2"
                     style={{
@@ -1416,7 +1427,6 @@ const OfferManagement = ({ history, setUsers, userData }) => {
                       color: "white",
                     }}
                   >
-                    {console.log(lahBool, "this is lahbool")}
                     {lahval !== "" ? "Verify" : "Save"}
                   </Button>
                   {modalOpen && (

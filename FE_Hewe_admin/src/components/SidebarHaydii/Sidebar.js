@@ -151,7 +151,6 @@ const Sidebar = ({ userData, sidebar, setSidebar }) => {
     return item.access_module;
   });
   let stateAccessModule = new_routes;
-  console.log(stateAccessModule, "??????????????????");
 
   return (
     <IconContext.Provider value={{ color: "#fffff" }}>
