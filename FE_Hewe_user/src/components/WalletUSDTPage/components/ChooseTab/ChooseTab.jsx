@@ -1,6 +1,6 @@
 import { Input, Tabs } from "antd";
 import "./ChooseTab.scss";
-import { DepositContent, WithdrawContent } from "..";
+import { DepositContent, WithdrawContent, DepositWeb3 } from "..";
 import { useSelector } from "react-redux";
 import { IconUSDT } from "../../../IconUSDT/IconUSDT";
 import { formatHewe } from "../../../../util/format.js";
@@ -17,7 +17,7 @@ import { Button } from "../../../Button/Button.jsx";
 export const ChooseTab = () => {
   const { profile } = useSelector((state) => state?.userReducer);
   const { search } = useLocation();
-  const queryKey = new URLSearchParams(search).get("token") || "usdt";
+  const queryKey = new URLSearchParams(search).get("token") || "WEB3";
   const [tabKey, setTabKey] = useState(queryKey.toUpperCase());
   const history = useHistory();
   const [isShowTabHewe, setIsShowTabHewe] = useState(false);
@@ -37,8 +37,6 @@ export const ChooseTab = () => {
     setTabKey(key);
     history.push(`depositUSDT?token=${key}`);
   };
-
-  console.log("isShowTabHewe", isShowTabHewe);
 
   useEffect(() => {
     if (profile && !profile?.walletAddress) {
@@ -96,9 +94,8 @@ export const ChooseTab = () => {
 
   const TAB_ITEMS = [
     {
-      label: "Deposit USDT",
-      key: "USDT",
-      // children: <DepositContent />, // USDT
+      label: "Quick Deposit (Web3)",
+      key: "WEB3",
       children: (
         <>
           <div
@@ -109,12 +106,32 @@ export const ChooseTab = () => {
               justifyContent: "flex-end",
             }}
           >
-            {renderExtra}
+            {tabKey === "WEB3" && renderExtra}
           </div>
-          <DepositContent />
+          <DepositWeb3 />
         </>
       ),
     },
+    // {
+    //   label: "Deposit USDT",
+    //   key: "USDT",
+    //   // children: <DepositContent />, // USDT
+    //   children: (
+    //     <>
+    //       <div
+    //         style={{
+    //           display: "flex",
+    //           marginBottom: "10px",
+    //           alignItems: "flex-end",
+    //           justifyContent: "flex-end",
+    //         }}
+    //       >
+    //         {renderExtra}
+    //       </div>
+    //       <DepositContent />
+    //     </>
+    //   ),
+    // },
     {
       label: "Deposit HEWE",
       key: "HEWE",
@@ -174,7 +191,7 @@ export const ChooseTab = () => {
                 <Button onClick={handleOpenModal}>Update address</Button>
               </div>
             )}
-            
+
           </>
         </>
       ),
@@ -207,9 +224,9 @@ export const ChooseTab = () => {
         items={TAB_ITEMS}
         activeKey={tabKey}
         destroyInactiveTabPane
-        defaultActiveKey="USDT"
+        defaultActiveKey="WEB3"
         onChange={handleChangeTabKey}
-        // tabBarExtraContent={renderExtra}
+      // tabBarExtraContent={renderExtra}
       />
 
       <Modal

@@ -22,6 +22,12 @@ const depositSchema = new mongoose.Schema(
     logData: {
       type: String,
     },
+    // Web3 Deposit fields
+    depositType: { type: String, enum: ["coinpayments", "web3"], default: "coinpayments" },
+    fromAddress: { type: String }, // Địa chỉ ví gửi tiền (user wallet)
+    toAddress: { type: String }, // Địa chỉ ví nhận tiền (system wallet)
+    blockNumber: { type: Number }, // Block number của transaction
+    gasUsed: { type: String }, // Gas đã sử dụng
   },
   { timestamps: true }
 );

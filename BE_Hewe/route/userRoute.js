@@ -39,6 +39,7 @@ const {
   addDataToDatabaseReve,
   getDepositHEWEHistory,
   checkUserHeweDB,
+  completeDepositWeb3,
 } = require("../controller/user/newUserController");
 const { query, body } = require("express-validator");
 const { handleValidationErrors } = require("../middleware/handleValidationErrors");
@@ -375,4 +376,17 @@ router.post(
   checkUserHeweDB
 );
 
+///////////////////////
+// Web3 Deposit
+///////////////////////
+router.post(
+  "/completeDepositWeb3",
+  VERIFY_USER.verifyUserToken,
+  body("txHash").exists().notEmpty().isString().trim(),
+  body("amount").exists().notEmpty().isNumeric().toFloat(),
+  handleValidationErrors,
+  completeDepositWeb3
+);
+
 module.exports = router;
+

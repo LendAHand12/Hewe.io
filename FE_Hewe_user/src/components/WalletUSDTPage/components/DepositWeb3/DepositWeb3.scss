@@ -1,0 +1,142 @@
+.deposit-web3-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+
+  .header {
+    text-align: center;
+    margin-bottom: 24px;
+
+    h2 {
+      color: #fff;
+      margin-bottom: 8px;
+    }
+
+    p {
+      color: rgba(255, 255, 255, 0.65);
+    }
+  }
+
+  .connect-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+
+    .connect-content {
+      text-align: center;
+      padding: 40px 20px;
+
+      h2 {
+        color: #fff;
+        margin-bottom: 8px;
+      }
+
+      p {
+        color: rgba(255, 255, 255, 0.65);
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .wallet-info-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+
+    .wallet-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+
+      .info-item {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+
+        .label {
+          font-size: 12px;
+          color: rgba(255, 255, 255, 0.45);
+        }
+
+        .value {
+          font-size: 14px;
+          color: #fff;
+          font-weight: 500;
+
+          &.balance {
+            font-size: 16px;
+            color: #52c41a;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+          }
+        }
+      }
+    }
+  }
+
+  .steps-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .deposit-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+
+    h3 {
+      color: #fff;
+      margin-bottom: 16px;
+    }
+
+    .input-group {
+      margin-bottom: 16px;
+
+      label {
+        display: block;
+        color: rgba(255, 255, 255, 0.85);
+        margin-bottom: 8px;
+        font-weight: 500;
+      }
+
+      .quick-amounts {
+        display: flex;
+        gap: 8px;
+        margin-top: 8px;
+
+        button {
+          flex: 1;
+        }
+      }
+    }
+  }
+
+  .info-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+
+    ul {
+      li {
+        color: rgba(255, 255, 255, 0.85);
+        margin-bottom: 4px;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .deposit-web3-container {
+    padding: 12px;
+
+    .wallet-info {
+      .info-item {
+        flex: 1 1 100%;
+      }
+    }
+  }
+}

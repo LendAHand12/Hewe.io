@@ -85,9 +85,9 @@ const UserRoute = () => {
     return data.some((item) => item.referralCode === code);
   };
 
-  useEffect(() => {
-    console.log(matchReferralCode());
-  }, [data, code]);
+  // useEffect(() => {
+  //   console.log(matchReferralCode());
+  // }, [data, code]);
 
   useEffect(() => {
     if (localStorage.getItem("token") && localStorage.getItem("user")) {

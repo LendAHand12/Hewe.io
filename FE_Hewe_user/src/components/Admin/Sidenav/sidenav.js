@@ -109,8 +109,8 @@ const Sidenav = () => {
                       </li>
 
                       <li
-                        className={isActive("/depositUSDT?token=usdt")}
-                        onClick={() => history.push("/depositUSDT?token=usdt")}
+                        className={isActive("/depositUSDT?token=WEB3")}
+                        onClick={() => history.push("/depositUSDT?token=WEB3")}
                       >
                         <div className="iconcont">
                           <Bank size={32} />
@@ -118,7 +118,7 @@ const Sidenav = () => {
                         Deposit USDT
                       </li>
                       <li
-                        className={isActive("/depositUSDT?token=usdt")}
+                        className={isActive("/depositUSDT?token=hewe")}
                         onClick={() => history.push("/depositUSDT?token=hewe")}
                       >
                         <div className="iconcont">

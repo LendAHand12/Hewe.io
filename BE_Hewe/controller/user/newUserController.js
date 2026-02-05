@@ -1686,8 +1686,8 @@ exports.extendTransactionHeweDB = async (req, res) => {
     const userData = req.user;
     const userId = userData._id;
     if (!userData || !userData || !userId) return error_400(res, "User not found");
-	  
-	  return error_400(res, "Not available", false); // cập nhật 3/7/2025: đã có API mới
+
+    return error_400(res, "Not available", false); // cập nhật 3/7/2025: đã có API mới
 
     let { transactionId } = matchedData(req);
 
@@ -1829,7 +1829,7 @@ const functionExtend = async (userId, userData, transactionId, transaction, year
       newReceivedUSDT,
       receivedUSDT,
       diff,
-	  note: note || "", // ghi chú nếu có
+      note: note || "", // ghi chú nếu có
     },
   };
 
@@ -1996,7 +1996,7 @@ exports.getDepositHeweAddress = async (req, res) => {
     if (!userDataWalletAddress) return error_400(res, "Please update your wallet address", 1);
 
     // mở khoá ví cho user
-	// cập nhật 16/12/2024: bắt đầu từ ngày mai 17/12 không gọi API mở khoá nữa
+    // cập nhật 16/12/2024: bắt đầu từ ngày mai 17/12 không gọi API mở khoá nữa
     // await unblockAddress(userDataWalletAddress);
 
     let receiveHeweDepositAddress = (await CONFIG_VALUE.findOne({ configKey: "receiveHeweDeposit" }))
@@ -2030,6 +2030,74 @@ exports.getPrices = async (req, res) => {
     let priceAMC = Number((await CONFIG_VALUE.findOne({ configKey: "amcPrice" }))?.configValue);
     let priceHEWE = Number((await CONFIG_VALUE.findOne({ configKey: "hewePrice" }))?.configValue);
     success(res, "OK", { priceAMC, priceHEWE });
+  } catch (error) {
+    console.log(error);
+    error_500(res, error);
+  }
+};
+
+///////////////////////
+// Web3 Deposit - Complete Deposit
+///////////////////////
+
+exports.completeDepositWeb3 = async (req, res) => {
+  // Cộng tiền và lưu transaction sau khi deposit thành công
+  try {
+    const userData = req.user;
+    const userId = userData._id;
+    if (!userData || !userId) return error_400(res, "User not found");
+
+    const { txHash, amount } = matchedData(req);
+
+    // Kiểm tra transaction đã được xử lý chưa
+    const existed = await DEPOSIT.findOne({ transactionHash: txHash });
+    if (existed) {
+      return error_400(res, "Transaction already processed");
+    }
+
+    // Kiểm tra minimum amount
+    if (amount < 5) {
+      return error_400(res, "Minimum deposit amount is 5 USDT");
+    }
+
+    // Lấy thông tin user trước khi update
+    const userBeforeUpdate = { ...userData._doc };
+
+    // Cộng tiền vào tài khoản user
+    await USER.updateOne({ _id: userId }, { $inc: { usdtBalance: amount } });
+
+    // Lấy thông tin user sau khi update
+    const userAfterUpdate = await USER.findOne({ _id: userId });
+
+    // Lưu lịch sử deposit
+    await DEPOSIT.create({
+      userId,
+      userName: userData.name,
+      userEmail: userData.email,
+      transactionHash: txHash,
+      category: "receive",
+      coinKey: "USDT",
+      amount: amount,
+      address: process.env.SYSTEM_WALLET_ADDRESS || "N/A",
+      amountBefore: userBeforeUpdate.usdtBalance,
+      amountAfter: userAfterUpdate.usdtBalance,
+      depositType: "web3",
+      logData: JSON.stringify({
+        txHash,
+        timestamp: Date.now(),
+      }),
+    });
+
+    // Send telegram notification
+    await sendTelegramMessageToChannel(
+      `💰 Web3 Deposit\nUser: ${userData.name}\nEmail: ${userData.email}\nAmount: ${amount} USDT\nTx: ${txHash}`
+    );
+
+    success(res, "Deposit completed successfully", {
+      amount,
+      newBalance: userAfterUpdate.usdtBalance,
+      txHash,
+    });
   } catch (error) {
     console.log(error);
     error_500(res, error);
