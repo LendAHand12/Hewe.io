@@ -12,10 +12,12 @@ import { defineChain, numberToHex } from "viem";
 export const IS_DOMAIN_PRODUCT =
   DOMAIN === "https://hewe.io/api/user/" ? true : false;
 
-const chain = IS_DOMAIN_PRODUCT ? bscChain : bscTestnetChain;
+// Force use BSC Mainnet (change to bscTestnetChain if you need testnet)
+const chain = bscChain; // Always use mainnet
 export const BSC_CHAIN_ID = chain.id;
 
-export const network = IS_DOMAIN_PRODUCT ? 56 : 97;
+export const network = 56; // Always use mainnet (56), change to 97 for testnet
+
 
 export const USDTToken = USDTTokenJson;
 export const usdtAddress = USDTToken.networks[network].address;
