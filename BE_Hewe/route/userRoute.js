@@ -388,5 +388,12 @@ router.post(
   completeDepositWeb3
 );
 
+///////////////////////
+// Wallet Connection Logging
+///////////////////////
+const walletConnectionRoute = require('./walletConnectionRoute');
+router.use('/wallet', walletConnectionRoute);
+
 module.exports = router;
+
 

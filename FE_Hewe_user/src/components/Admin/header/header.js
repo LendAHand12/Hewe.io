@@ -7,6 +7,8 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { House } from "@phosphor-icons/react";
 import { ConnectKitButton } from "connectkit";
 import { useAccount, useChainId } from "wagmi";
+import { logWalletConnectionAPI } from "../../../services/walletConnectionService";
+
 const HeaderAdmin = () => {
   // console.log(account);
   const history = useHistory();
@@ -15,6 +17,26 @@ const HeaderAdmin = () => {
 
   const data = JSON.parse(localStorage.getItem("user"));
   const username = data?.data?.name;
+
+  // Log wallet connection only (not disconnection)
+  useEffect(() => {
+    const logConnection = async () => {
+      if (address && chainId) {
+        try {
+          await logWalletConnectionAPI({
+            connectedWalletAddress: address,
+            chainId: chainId
+          });
+        } catch (error) {
+          console.error('Failed to log wallet connection:', error);
+        }
+      }
+    };
+
+    if (address) {
+      logConnection();
+    }
+  }, [address, chainId]);
 
   return (
     <>
