@@ -8,7 +8,7 @@ import {
 } from '@ant-design/icons';
 import './DepositWeb3.scss';
 import { ConnectKitButton } from 'connectkit';
-import { useAccount, useChainId, useBalance } from 'wagmi';
+import { useAccount, useChainId, useWalletClient } from 'wagmi';
 import { ethers } from 'ethers';
 import { formatHewe } from '../../../../util/format';
 import { IconUSDT } from '../../../IconUSDT/IconUSDT';
@@ -20,6 +20,7 @@ const { Step } = Steps;
 export const DepositWeb3 = () => {
     const { address, isConnected } = useAccount();
     const chainId = useChainId();
+    const { data: walletClient } = useWalletClient();
     const isCorrectNetwork = chainId === BSC_CHAIN_ID;
 
     const [amount, setAmount] = useState('');
@@ -31,13 +32,13 @@ export const DepositWeb3 = () => {
     // Fetch USDT balance
     useEffect(() => {
         const fetchUSDTBalance = async () => {
-            if (!address || !isConnected) {
+            if (!address || !isConnected || !walletClient) {
                 setUsdtBalance('0');
                 return;
             }
 
             try {
-                const provider = new ethers.providers.Web3Provider(window.ethereum);
+                const provider = new ethers.providers.Web3Provider(walletClient);
                 const usdtContract = new ethers.Contract(
                     USDT_CONTRACT_ADDRESS,
                     USDT_ABI,
@@ -53,7 +54,7 @@ export const DepositWeb3 = () => {
         };
 
         fetchUSDTBalance();
-    }, [address, isConnected]);
+    }, [address, isConnected, walletClient]);
 
     // Xử lý deposit
     const handleDeposit = async () => {
@@ -82,8 +83,15 @@ export const DepositWeb3 = () => {
             setIsDepositing(true);
             setCurrentStep(1);
 
-            // Get provider and signer
-            const provider = new ethers.providers.Web3Provider(window.ethereum);
+            if (!walletClient) {
+                message.error('Wallet client not available');
+                setIsDepositing(false);
+                setCurrentStep(0);
+                return;
+            }
+
+            // Get provider from walletClient
+            const provider = new ethers.providers.Web3Provider(walletClient);
             const signer = provider.getSigner();
 
             // Create USDT contract instance
@@ -124,8 +132,10 @@ export const DepositWeb3 = () => {
                 setTimeout(() => {
                     // Refresh USDT balance
                     const fetchBalance = async () => {
+                        if (!walletClient) return;
+
                         try {
-                            const provider = new ethers.providers.Web3Provider(window.ethereum);
+                            const provider = new ethers.providers.Web3Provider(walletClient);
                             const usdtContract = new ethers.Contract(
                                 USDT_CONTRACT_ADDRESS,
                                 USDT_ABI,
