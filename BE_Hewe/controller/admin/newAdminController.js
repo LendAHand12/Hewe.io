@@ -876,7 +876,7 @@ exports.adminUpdatePricing = async (req, res) => {
 
 exports.editHeweDBDataToId = async (req, res) => {
   try {
-    const { id, percent, years} = req.body;
+    const { id, percent, years } = req.body;
     if (!id) return error_400(res, "Thiếu ID");
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -907,7 +907,7 @@ exports.editHeweDBDataToId = async (req, res) => {
     // ✅ Lấy lại thông tin user
     const { usdtamc, usdthewe, userId } = record;
     const objectIdUser = new mongoose.Types.ObjectId(userId);
-    
+
     const userData = await USER.findById(objectIdUser);
     if (!userData) return error_400(res, "Không tìm thấy dữ liệu với UserId này");
 
@@ -968,7 +968,7 @@ exports.getListUpdateHeweDB = async (req, res) => {
     let data = await TransactionUpdateLog.find(condition).sort(sort).skip(startIndex).limit(limit);
     let total = await TransactionUpdateLog.find(condition).countDocuments();
 
-  
+
 
     success(res, "OK", { array: data, total });
   } catch (error) {
