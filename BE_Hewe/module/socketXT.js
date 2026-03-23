@@ -50,6 +50,7 @@ const getPriceFromAPI = async () => {
     let res = await axios.get("https://sapi.xt.com/v4/public/ticker/price?symbol=amc_usdt");
     if (res && res.data && res.data.result && res.data.result[0]) {
       let price = res.data.result[0].p;
+      // console.log("🚀 ~ getPriceFromAPI ~ price:", price);
       lastStablePrice = price; // khi lấy được giá thì gán lại cho lastStablePrice để khi api lỗi thì sẽ trả về giá cũ chứ không phải 0
       return price;
     } else {
@@ -72,7 +73,7 @@ const getPriceHeweFromAPI = async () => {
     let response = await axios.get("https://api.lbkex.com/v2/supplement/ticker/price.do?symbol=hewe_usdt");
     let heweItem = response?.data?.data[0];
     if (heweItem) {
-      console.log("🚀 ~ getPriceHeweFromAPI ~ heweItem:", Number(heweItem.price));
+      // console.log("🚀 ~ getPriceHeweFromAPI ~ heweItem:", Number(heweItem.price));
       return Number(heweItem.price);
     } else return null;
   } catch (error) {

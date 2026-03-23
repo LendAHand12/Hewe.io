@@ -2,7 +2,7 @@ const CHART = require("../model/chartModel");
 const CHART_2 = require("../model/chart2Model");
 const CONFIG_VALUE = require("../model/configValueModel");
 const { arrayPeriodsLabel } = require("../constants/index");
-const { getPriceFromAPI } = require("../module/socketXT");
+const { getPriceFromAPI, getPriceHeweFromAPI } = require("../module/socketXT");
 
 const getLastCandle = async (period) => {
   return await CHART.findOne({ period }).sort({ createdAt: -1 });
@@ -45,8 +45,8 @@ const setupSocket = (io) => {
     // }
     // io.emit("chartDataAMC", arr2);
 
-    let priceAMC = Number((await CONFIG_VALUE.findOne({ configKey: "amcPrice" }))?.configValue);
-    let priceHEWE = Number((await CONFIG_VALUE.findOne({ configKey: "hewePrice" }))?.configValue);
+    let priceAMC = Number(await getPriceFromAPI()) || 0;
+    let priceHEWE = Number(await getPriceHeweFromAPI()) || 0;
 
     io.emit("newPrice", { priceAMC, priceHEWE });
 

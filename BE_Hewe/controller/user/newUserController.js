@@ -25,6 +25,7 @@ const HISTORY_UPDATE_WALLET = require("../../model/historyUpdateWallet");
 const AM = require("../../model/accessModuleModel");
 const ADMIN = require("../../model/adminModel");
 const error = require("../../utils/error");
+const { getPriceFromAPI, getPriceHeweFromAPI } = require("../../module/socketXT");
 const { error_400, success, error_500, error_400_delRedis } = require("../../utils/error");
 const bcrypt = require("bcrypt");
 const salt = 10;
@@ -43,7 +44,6 @@ const {
 } = require("../../utils/addCommission");
 const uuid = require("uuid");
 const { sendTelegramMessageToChannel } = require("../../module/telegram");
-const { getPriceFromAPI } = require("../../module/socketXT");
 const { getEventContractOnlyOneBlock } = require("../blockchain");
 const { transferAMC } = require("../../module/transferAMC");
 const { transferHEWE } = require("../../module/transferHEWE");
@@ -2027,8 +2027,8 @@ exports.checkUserHeweDB = async (req, res) => {
 
 exports.getPrices = async (req, res) => {
   try {
-    let priceAMC = Number((await CONFIG_VALUE.findOne({ configKey: "amcPrice" }))?.configValue);
-    let priceHEWE = Number((await CONFIG_VALUE.findOne({ configKey: "hewePrice" }))?.configValue);
+    let priceAMC = Number(await getPriceFromAPI()) || 0;
+    let priceHEWE = Number(await getPriceHeweFromAPI()) || 0;
     success(res, "OK", { priceAMC, priceHEWE });
   } catch (error) {
     console.log(error);
