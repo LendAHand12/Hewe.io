@@ -63,19 +63,19 @@ const Team = () => {
       name: "Vijendra Pratap Singh",
       details: "AI engineer",
     },
-    {
-      id: 4,
-      img: require("../../assets/teams/Mrs_jyoti.png"),
-      name: "Mrs. Jyoti Swarup",
-      details: "North India Chief Advisor",
-    },
+    // {
+    //   id: 4,
+    //   img: require("../../assets/teams/Mrs_jyoti.png"),
+    //   name: "Mrs. Jyoti Swarup",
+    //   details: "North India Chief Advisor",
+    // },
 
-    {
-      id: 12,
-      img: require("../../assets/teams/Diep_Vinh_Kien.png"),
-      name: "Diệp Vĩnh Kiên",
-      details: "Chief Technology Officer",
-    },
+    // {
+    //   id: 12,
+    //   img: require("../../assets/teams/Diep_Vinh_Kien.png"),
+    //   name: "Diệp Vĩnh Kiên",
+    //   details: "Chief Technology Officer",
+    // },
   ];
   return (
     <>
