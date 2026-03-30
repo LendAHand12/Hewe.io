@@ -434,3 +434,6 @@ Admin 66111e9c43339722b1833a6e updated hewePrice to 0.0005761 at Wed May 28 2025
 Admin 66111e9c43339722b1833a6e updated hewePrice to 0.000565 at Mon Jun 02 2025 05:07:44 GMT+0000 (Coordinated Universal Time)
 
 
+Admin 66111e9c43339722b1833a6e updated amcPrice to 0.07811914514615921 at Mon Mar 30 2026 11:45:51 GMT+0700 (Indochina Time)
+
+

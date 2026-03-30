@@ -27,32 +27,35 @@ const setupSocket = (io) => {
     });
   });
 
+  // cache giá mới nhất để mỗi lần emit luôn gửi đủ cả hai
+  let cachedAMC = 0;
+  let cachedHEWE = 0;
+
+  // lấy giá AMC từ PancakeSwap mỗi 10 giây, lưu vào DB
   setInterval(async () => {
-    // let arr = [];
-    // for (let period of arrayPeriodsLabel) {
-    //   let lastCandle = await getLastCandle(period);
-    //   arr.push(lastCandle);
-    // }
-    // io.emit("chartData", arr);
+    let price = Number(await getPriceFromAPI()) || 0;
+    console.log(`[AMC] ${new Date().toISOString()} - price: ${price}`);
+    if (price > 0) {
+      cachedAMC = price;
+      await CONFIG_VALUE.updateOne({ configKey: "amcPrice" }, { configValue: price });
+    }
 
-    // let pool = await getPoolPrice();
-    // io.emit("pool", pool);
-
-    // let arr2 = [];
-    // for (let period of arrayPeriodsLabel) {
-    //   let lastCandle = await getLastCandleChart2(period);
-    //   arr2.push(lastCandle);
-    // }
-    // io.emit("chartDataAMC", arr2);
-
-    let priceAMC = Number(await getPriceFromAPI()) || 0;
-    let priceHEWE = Number(await getPriceHeweFromAPI()) || 0;
-
-    io.emit("newPrice", { priceAMC, priceHEWE });
-
+    io.emit("newPrice", { priceAMC: cachedAMC, priceHEWE: cachedHEWE });
     // giữ lại socket priceAMC như trước để tránh lỗi
-    io.emit("priceAMC", priceAMC);
-  }, 1000);
+    io.emit("priceAMC", cachedAMC);
+  }, 10000);
+
+  // lấy giá HEWE từ LBK mỗi 5 giây, lưu vào DB
+  setInterval(async () => {
+    let price = Number(await getPriceHeweFromAPI()) || 0;
+    console.log(`[HEWE] ${new Date().toISOString()} - price: ${price}`);
+    if (price > 0) {
+      cachedHEWE = price;
+      await CONFIG_VALUE.updateOne({ configKey: "hewePrice" }, { configValue: price });
+    }
+
+    io.emit("newPrice", { priceAMC: cachedAMC, priceHEWE: cachedHEWE });
+  }, 5000);
 };
 
 module.exports = { setupSocket };
