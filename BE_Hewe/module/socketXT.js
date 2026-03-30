@@ -47,22 +47,36 @@ let lastStablePrice = 0;
 
 const getPriceFromAPI = async () => {
   try {
-    let res = await axios.get("https://sapi.xt.com/v4/public/ticker/price?symbol=amc_usdt");
-    if (res && res.data && res.data.result && res.data.result[0]) {
-      let price = res.data.result[0].p;
-      // console.log("🚀 ~ getPriceFromAPI ~ price:", price);
+    const { getPricePancake } = await import("./pancake.mjs");
+    let price = await getPricePancake();
+    if (price && price > 0) {
       lastStablePrice = price; // khi lấy được giá thì gán lại cho lastStablePrice để khi api lỗi thì sẽ trả về giá cũ chứ không phải 0
       return price;
     } else {
-      // return 0;
       return lastStablePrice;
     }
   } catch (error) {
     console.log(error);
-    // return 0;
     return lastStablePrice;
   }
 };
+
+// [OLD - XT.com] code cũ lấy giá AMC từ sàn XT qua REST API
+// const getPriceFromAPI = async () => {
+//   try {
+//     let res = await axios.get("https://sapi.xt.com/v4/public/ticker/price?symbol=amc_usdt");
+//     if (res && res.data && res.data.result && res.data.result[0]) {
+//       let price = res.data.result[0].p;
+//       lastStablePrice = price;
+//       return price;
+//     } else {
+//       return lastStablePrice;
+//     }
+//   } catch (error) {
+//     console.log(error);
+//     return lastStablePrice;
+//   }
+// };
 
 const getPriceHeweFromAPI = async () => {
   try {

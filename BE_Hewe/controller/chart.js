@@ -6,7 +6,7 @@ const { success, error_500, error_400 } = require("../utils/error");
 const { matchedData } = require("express-validator");
 const { arrayPeriods } = require("../constants/index");
 const { getPriceFromAPI, getPriceHeweFromAPI } = require("../module/socketXT");
-// const { getPricePancake } = require("../module/pancake"); // Removed - using dynamic import
+// getPricePancake được import động bên trong cronChart2 vì pancake.mjs là ES Module
 const { writeLogUpdatePrices } = require("../module/log");
 
 const calcSwapRate = async () => {
@@ -104,6 +104,7 @@ exports.cronChart2 = async () => {
   try {
     // let price = Number(await getPriceFromAPI());
     // let price = 0.24;
+    const { getPricePancake } = await import("../module/pancake.mjs");
     let price = await getPricePancake();
     if (price && price > 0) {
       await CONFIG_VALUE.updateOne({ configKey: "amcPrice" }, { configValue: roundTo8Decimals(price) });
