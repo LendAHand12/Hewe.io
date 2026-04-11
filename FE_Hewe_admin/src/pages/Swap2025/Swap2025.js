@@ -47,6 +47,9 @@ const Swap2025 = () => {
             <Radio value="USDT(BEP20)=>AMC(AMC20)">
               USDT(BEP20)={'>'}AMC(AMC20)
             </Radio>
+            <Radio value="USDT(BEP20)=>HEWE(AMC20)">
+              USDT(BEP20)={'>'}HEWE(AMC20)
+            </Radio>
             <Radio value="AMC(AMC20)=>AMC(BEP20)">AMC(AMC20)={'>'}AMC(BEP20)</Radio>
           </Radio.Group>
           <InputAntd

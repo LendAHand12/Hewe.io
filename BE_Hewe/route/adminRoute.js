@@ -801,7 +801,7 @@ router.post(
 router.get(
   "/getSwap2025List",
   VERIFY_ADMIN.verifyAdmin,
-  query("type").exists().notEmpty().isIn(["USDT(BEP20)=>AMC(AMC20)", "AMC(AMC20)=>AMC(BEP20)"]),
+  query("type").exists().notEmpty().isIn(["USDT(BEP20)=>AMC(AMC20)", "AMC(AMC20)=>AMC(BEP20)", "USDT(BEP20)=>HEWE(AMC20)"]),
   query("limit").exists().notEmpty().isInt().toInt(),
   query("page").exists().notEmpty().isInt().toInt(),
   query("keyword").optional().isString(),

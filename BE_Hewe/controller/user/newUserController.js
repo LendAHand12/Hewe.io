@@ -2027,29 +2027,38 @@ exports.checkUserHeweDB = async (req, res) => {
 };
 
 exports.swap2025 = async (req, res) => {
-  // Swap USDT(BEP20) => AMC(AMC20) từ trang chủ, không cần đăng nhập
-  // Flow: user transfer USDT on-chain -> gọi API này -> lưu lịch sử -> tự động gửi AMC về ví user
+  // Swap USDT(BEP20) => AMC(AMC20) hoặc HEWE(AMC20) từ trang chủ, không cần đăng nhập
   try {
-    const { walletAddress, amountUSDT, txHashUSDT } = matchedData(req);
+    const { walletAddress, amountUSDT, txHashUSDT, token = "AMC" } = matchedData(req);
+    const tokenUpper = token.toUpperCase(); // "AMC" hoặc "HEWE"
 
     // Kiểm tra txHash đã xử lý chưa (chống duplicate)
     const existed = await HOMEPAGE_SWAP.findOne({ txHash1: txHashUSDT });
     if (existed) return error_400(res, "Transaction already processed");
 
-    // Lấy tỷ giá AMC từ DB
-    const amcPriceConfig = await CONFIG_VALUE.findOne({ configKey: "amcPrice" });
-    const amcPrice = amcPriceConfig?.configValue || 0;
-    if (!amcPrice) return error_400(res, "AMC price not configured");
+    // Lấy tỷ giá từ DB theo token
+    const configKey = tokenUpper === "HEWE" ? "hewePrice" : "amcPrice";
+    const priceConfig = await CONFIG_VALUE.findOne({ configKey });
+    const tokenPrice = priceConfig?.configValue || 0;
+    if (!tokenPrice) return error_400(res, `${tokenUpper} price not configured`);
 
-    const amountAMC = amountUSDT / amcPrice;
+    const amountToken = amountUSDT / tokenPrice;
+    const swapType = tokenUpper === "HEWE" ? "USDT(BEP20)=>HEWE(AMC20)" : "USDT(BEP20)=>AMC(AMC20)";
 
-    const senderAddress = process.env.SWAP_AMC_SENDER_ADDRESS;
-    const senderPrivateKey = process.env.SWAP_AMC_SENDER_PRIVATE_KEY;
     const adminUsdtWallet = process.env.SWAP_ADMIN_USDT_WALLET;
+    let senderAddress, senderPrivateKey;
+
+    if (tokenUpper === "HEWE") {
+      senderAddress = process.env.SWAP_HEWE_SENDER_ADDRESS;
+      senderPrivateKey = process.env.SWAP_HEWE_SENDER_PRIVATE_KEY;
+    } else {
+      senderAddress = process.env.SWAP_AMC_SENDER_ADDRESS;
+      senderPrivateKey = process.env.SWAP_AMC_SENDER_PRIVATE_KEY;
+    }
 
     // Lưu record vào DB với status "processing"
     const record = await HOMEPAGE_SWAP.create({
-      type: "USDT(BEP20)=>AMC(AMC20)",
+      type: swapType,
       fromAddress1: walletAddress,
       toAddress1: adminUsdtWallet,
       token1: "USDT",
@@ -2057,38 +2066,44 @@ exports.swap2025 = async (req, res) => {
       txHash1: txHashUSDT,
       fromAddress2: senderAddress,
       toAddress2: walletAddress,
-      token2: "AMC",
-      amount2: amountAMC,
-      rate: amcPrice,
+      token2: tokenUpper,
+      amount2: amountToken,
+      rate: tokenPrice,
       status: "processing",
     });
 
     // Trả về ngay cho FE
-    success(res, "Transfer USDT successful. AMC is being processed...", {
+    success(res, `Transfer USDT successful. ${tokenUpper} is being processed...`, {
       amountUSDT,
-      amountAMC,
-      amcPrice,
+      amountToken,
+      tokenPrice,
+      token: tokenUpper,
       status: "processing",
     });
 
-    // Async: tự động gửi AMC về ví user
+    // Async: tự động gửi token về ví user
     ; (async () => {
       try {
-        console.log(`[Swap2025] Start transfer ${amountAMC} AMC to ${walletAddress}`);
-        const txHash = await transferAMC(senderAddress, walletAddress, amountAMC, senderPrivateKey);
+        console.log(`[Swap2025] Start transfer ${amountToken} ${tokenUpper} to ${walletAddress}`);
+        let txHash = null;
+
+        if (tokenUpper === "HEWE") {
+          const receipt = await transferHEWE(amountToken, walletAddress, senderAddress, senderPrivateKey);
+          txHash = receipt?.transactionHash || null;
+        } else {
+          txHash = await transferAMC(senderAddress, walletAddress, amountToken, senderPrivateKey);
+        }
+
         if (txHash) {
-          await HOMEPAGE_SWAP.updateOne(
-            { _id: record._id },
-            { status: "success", txHash2: txHash }
-          );
-          console.log(`[Swap2025] ✅ Transfer AMC success. txHash: ${txHash}`);
+          await HOMEPAGE_SWAP.updateOne({ _id: record._id }, { status: "success", txHash2: txHash });
+          console.log(`[Swap2025] ✅ Transfer ${tokenUpper} success. txHash: ${txHash}`);
         } else {
           await HOMEPAGE_SWAP.updateOne({ _id: record._id }, { status: "fail" });
-          console.log(`[Swap2025] ❌ Transfer AMC failed for ${walletAddress}`);
+          console.log(`[Swap2025] ❌ Transfer ${tokenUpper} failed for ${walletAddress}`);
         }
       } catch (err) {
         await HOMEPAGE_SWAP.updateOne({ _id: record._id }, { status: "fail" });
-        console.log(`[Swap2025] ❌ Transfer AMC error:`, err);
+        console.log(`[Swap2025] ❌ Transfer ${tokenUpper} error:`, err);
       }
     })();
   } catch (error) {

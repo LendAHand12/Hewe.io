@@ -142,17 +142,29 @@ const NewSwap = () => {
         hash: hash,
       });
 
-      showAlert("success", "Transfer successfully");
+      // Gọi BE lưu lịch sử và trigger auto transfer HEWE
+      try {
+        await axiosService.post("v2/swap2025", {
+          walletAddress: address,
+          amountUSDT: amountUSD,
+          txHashUSDT: hash,
+          token: "HEWE",
+        });
+        showAlert("success", "Transfer USDT successful. HEWE is being processed to your wallet...");
+      } catch (beError) {
+        console.error("[Swap2025] BE error:", beError);
+        showAlert("success", "Transfer USDT successful. Please contact support if HEWE is not received.");
+      }
     } catch (error) {
       console.log(error.message);
 
-      if (error.message.includes("transfer amount exceeds balance")) {
+      if (error.message?.includes("transfer amount exceeds balance")) {
         showAlert(
           "error",
           "Insufficient balance USDT in your wallet " + address
         );
       } else {
-        showAlert("error", error.shortMessage);
+        showAlert("error", error.shortMessage || error.message);
       }
     } finally {
       setLoading(false);
@@ -322,9 +334,9 @@ const NewSwap = () => {
                             type="primary"
                             size="large"
                             onClick={() => handleClickHewe()}
-                            disabled={
-                              !formik.values.amount || formik.values.amount < 5
-                            }
+                            // disabled={
+                            //   !formik.values.amount || formik.values.amount < 5
+                            // }
                             loading={loading}
                           >
                             Swap USDT

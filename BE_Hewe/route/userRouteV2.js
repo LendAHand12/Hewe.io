@@ -251,6 +251,7 @@ router.post(
     .toFloat()
     .custom((value) => value > 0),
   body("txHashUSDT").exists().notEmpty().isString().trim(),
+  body("token").optional().isString().trim().toUpperCase().isIn(["AMC", "HEWE"]),
   handleValidationErrors,
   swap2025
 );
