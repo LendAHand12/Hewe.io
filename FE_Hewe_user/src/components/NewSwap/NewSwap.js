@@ -13,10 +13,11 @@ import { showAlert } from "../../function/showAlert";
 import QRCode from "react-qr-code";
 import { toast } from "react-toastify";
 import { Copybtn } from "../svg";
+import { axiosService } from "../../util/service";
 
 const NewSwap = () => {
   const feeAmc = 0;
-   const feeHewe = 0;
+  const feeHewe = 0;
   const { address } = useAccount();
   const [tab, setTab] = useState("1");
   let [AMC_RATE, setAMC_RATE] = useState(0);
@@ -67,7 +68,7 @@ const NewSwap = () => {
         return;
       }
 
-      const walletAdmin = "0xdF92C71f188c7b35b35F67C565EbA5e977Ce6DB8";
+      const walletAdmin = process.env.REACT_APP_SWAP_ADMIN_USDT_WALLET;
       const amountString = (amountUSD * 1e18).toLocaleString("fullwide", {
         useGrouping: false,
       });
@@ -83,17 +84,29 @@ const NewSwap = () => {
         hash: hash,
       });
 
-      showAlert("success", "Transfer successfully");
+      // Gọi BE lưu lịch sử và trigger auto transfer AMC
+      try {
+        await axiosService.post("v2/swap2025", {
+          walletAddress: address,
+          amountUSDT: amountUSD,
+          txHashUSDT: hash,
+        });
+        showAlert("success", "Transfer USDT successful. AMC is being processed to your wallet...");
+      } catch (beError) {
+        // Transfer on-chain thành công nhưng BE gặp lỗi
+        console.error("[Swap2025] BE error:", beError);
+        showAlert("success", "Transfer USDT successful. Please contact support if AMC is not received.");
+      }
     } catch (error) {
       console.log(error.message);
 
-      if (error.message.includes("transfer amount exceeds balance")) {
+      if (error.message?.includes("transfer amount exceeds balance")) {
         showAlert(
           "error",
           "Insufficient balance USDT in your wallet " + address
         );
       } else {
-        showAlert("error", error.shortMessage);
+        showAlert("error", error.shortMessage || error.message);
       }
     } finally {
       setLoading(false);
@@ -113,7 +126,7 @@ const NewSwap = () => {
         return;
       }
 
-      const walletAdmin = "0x9C845DE6E2dc359da3A22bCe0c29fA4443714A15";
+      const walletAdmin = process.env.REACT_APP_SWAP_ADMIN_USDT_WALLET;
       const amountString = (amountUSD * 1e18).toLocaleString("fullwide", {
         useGrouping: false,
       });
@@ -148,7 +161,7 @@ const NewSwap = () => {
   const handleClick = () => {
     buyToken(formik.values.amount);
   };
-  const handleClickHewe=()=>{
+  const handleClickHewe = () => {
     buyTokenHewe(formik.values.amount)
   }
   useEffect(() => {
@@ -161,13 +174,13 @@ const NewSwap = () => {
       socket.off("newPrice");
     };
   }, []);
-useEffect(()=>{
-  if(tab==2){
-    setRecevied(`0xdF92C71f188c7b35b35F67C565EbA5e977Ce6DB8`)
-  }else if(tab==3){
-    setRecevied(`ssss`)
-  }
-},[tab])
+  useEffect(() => {
+    if (tab == 2) {
+      setRecevied(`0xdF92C71f188c7b35b35F67C565EbA5e977Ce6DB8`)
+    } else if (tab == 3) {
+      setRecevied(`ssss`)
+    }
+  }, [tab])
   return (
     <div className="d-flex newSwap">
       <div className="newSwap_bodyupper">
@@ -277,7 +290,7 @@ useEffect(()=>{
                           </Button>
                         </>
                       )}
-                       {tab == 3 && (
+                      {tab == 3 && (
                         <>
                           <div className="summary">
                             <div className="summary-item">

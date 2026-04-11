@@ -13,9 +13,10 @@ const {
   getConfigPrice,
   getTreeByUserId,
   getTransactionHeweDB_F1User,
-	getDepositHeweAddress,
-	getPrices,
-	extendHeweDB2025,
+  getDepositHeweAddress,
+  getPrices,
+  extendHeweDB2025,
+  swap2025,
 } = require("../controller/user/newUserController");
 const { query, body } = require("express-validator");
 const { handleValidationErrors } = require("../middleware/handleValidationErrors");
@@ -192,7 +193,7 @@ router.get(
   "/getTreeByUserId",
   VERIFY_USER.verifyUserToken,
   query("userId").exists().notEmpty().isString().trim(),
-	 handleValidationErrors,
+  handleValidationErrors,
   getTreeByUserId
 );
 
@@ -207,7 +208,7 @@ router.get(
     .custom((value) => arrayPeriodsLabel.includes(value)),
   query("limit").exists().notEmpty().isNumeric().toInt(),
   query("page").exists().notEmpty().isNumeric().toInt(),
-	query("token").optional().isString(), // hewe thì không cần truyền, nếu amc thì truyền amc
+  query("token").optional().isString(), // hewe thì không cần truyền, nếu amc thì truyền amc
   handleValidationErrors,
   getChart
 );
@@ -237,6 +238,21 @@ router.get("/getDepositHeweAddress", VERIFY_USER.verifyUserToken, getDepositHewe
 router.get(
   "/getPrices", // api public lấy giá token
   getPrices
+);
+
+// Swap 2025 - public endpoint (không cần đăng nhập)
+router.post(
+  "/swap2025",
+  body("walletAddress").exists().notEmpty().trim().isEthereumAddress(),
+  body("amountUSDT")
+    .exists()
+    .notEmpty()
+    .isNumeric()
+    .toFloat()
+    .custom((value) => value > 0),
+  body("txHashUSDT").exists().notEmpty().isString().trim(),
+  handleValidationErrors,
+  swap2025
 );
 
 module.exports = router;

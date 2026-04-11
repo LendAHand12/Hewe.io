@@ -50,6 +50,7 @@ const { transferHEWE } = require("../../module/transferHEWE");
 const { unblockAddress } = require("../../module/amchainapi");
 const { getDataConfigValueFn } = require("../../module/getDataConfigValue");
 const { delRedis } = require("../../database/model.redis");
+const HOMEPAGE_SWAP = require("../../model/homepageSwapTransaction");
 
 const getRateAndFeeSwap = async () => {
   try {
@@ -2019,6 +2020,77 @@ exports.checkUserHeweDB = async (req, res) => {
     });
     let result = Boolean(check);
     success(res, "OK", { isUserInHeweDB: result });
+  } catch (error) {
+    console.log(error);
+    error_500(res, error);
+  }
+};
+
+exports.swap2025 = async (req, res) => {
+  // Swap USDT(BEP20) => AMC(AMC20) từ trang chủ, không cần đăng nhập
+  // Flow: user transfer USDT on-chain -> gọi API này -> lưu lịch sử -> tự động gửi AMC về ví user
+  try {
+    const { walletAddress, amountUSDT, txHashUSDT } = matchedData(req);
+
+    // Kiểm tra txHash đã xử lý chưa (chống duplicate)
+    const existed = await HOMEPAGE_SWAP.findOne({ txHash1: txHashUSDT });
+    if (existed) return error_400(res, "Transaction already processed");
+
+    // Lấy tỷ giá AMC từ DB
+    const amcPriceConfig = await CONFIG_VALUE.findOne({ configKey: "amcPrice" });
+    const amcPrice = amcPriceConfig?.configValue || 0;
+    if (!amcPrice) return error_400(res, "AMC price not configured");
+
+    const amountAMC = amountUSDT / amcPrice;
+
+    const senderAddress = process.env.SWAP_AMC_SENDER_ADDRESS;
+    const senderPrivateKey = process.env.SWAP_AMC_SENDER_PRIVATE_KEY;
+    const adminUsdtWallet = process.env.SWAP_ADMIN_USDT_WALLET;
+
+    // Lưu record vào DB với status "processing"
+    const record = await HOMEPAGE_SWAP.create({
+      type: "USDT(BEP20)=>AMC(AMC20)",
+      fromAddress1: walletAddress,
+      toAddress1: adminUsdtWallet,
+      token1: "USDT",
+      amount1: amountUSDT,
+      txHash1: txHashUSDT,
+      fromAddress2: senderAddress,
+      toAddress2: walletAddress,
+      token2: "AMC",
+      amount2: amountAMC,
+      rate: amcPrice,
+      status: "processing",
+    });
+
+    // Trả về ngay cho FE
+    success(res, "Transfer USDT successful. AMC is being processed...", {
+      amountUSDT,
+      amountAMC,
+      amcPrice,
+      status: "processing",
+    });
+
+    // Async: tự động gửi AMC về ví user
+    ; (async () => {
+      try {
+        console.log(`[Swap2025] Start transfer ${amountAMC} AMC to ${walletAddress}`);
+        const txHash = await transferAMC(senderAddress, walletAddress, amountAMC, senderPrivateKey);
+        if (txHash) {
+          await HOMEPAGE_SWAP.updateOne(
+            { _id: record._id },
+            { status: "success", txHash2: txHash }
+          );
+          console.log(`[Swap2025] ✅ Transfer AMC success. txHash: ${txHash}`);
+        } else {
+          await HOMEPAGE_SWAP.updateOne({ _id: record._id }, { status: "fail" });
+          console.log(`[Swap2025] ❌ Transfer AMC failed for ${walletAddress}`);
+        }
+      } catch (err) {
+        await HOMEPAGE_SWAP.updateOne({ _id: record._id }, { status: "fail" });
+        console.log(`[Swap2025] ❌ Transfer AMC error:`, err);
+      }
+    })();
   } catch (error) {
     console.log(error);
     error_500(res, error);
