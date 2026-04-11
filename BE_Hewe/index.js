@@ -100,11 +100,8 @@ init = async function () {
 
     await initGetCurrentBlockBEP20();
 
-    // TEMPORARILY DISABLED: Comment out blockchain cron jobs due to RPC connection issues
-    // Uncomment when RPC endpoint is working properly
-
-    /*
-    cron.schedule("* /5 * * * * *", async function () {
+    // RE-ENABLED: Blockchain cron jobs are now active
+    cron.schedule("*/5 * * * * *", async function () {
       try {
         await getEventContract();
         await getBlockss();
@@ -112,15 +109,15 @@ init = async function () {
         console.log(error, "getEventContract");
       }
     });
-    
-    cron.schedule("* /2 * * * * *", async function () {
+
+    cron.schedule("*/2 * * * * *", async function () {
       try {
         await cronBlockAddress();
       } catch (error) {
         console.log(error, "cronBlockAddress");
       }
     });
-    
+
     const job = new RandomIntervalJob({
       minMinutes: 45,
       maxMinutes: 80,
@@ -129,9 +126,8 @@ init = async function () {
       },
     });
     job.start();
-    */
 
-    console.log('✅ Server started successfully (blockchain cron jobs disabled)');
+    console.log("✅ Server started successfully (blockchain cron jobs enabled)");
   } catch (error) {
     console.log(error);
   }
