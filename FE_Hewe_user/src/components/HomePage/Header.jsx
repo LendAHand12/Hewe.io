@@ -104,7 +104,7 @@ export default function Header({ isUsedOnHomePage, onSwapClick }) {
                 </li>
                 <li
                   onClick={() => {
-                    window.open(`http://cryptocard.hewe.io/`, "_blank");
+                    window.open(`http://crypto.hewe.io/`, "_blank");
                   }}
                 >
                   Hewe Card
@@ -185,7 +185,7 @@ export default function Header({ isUsedOnHomePage, onSwapClick }) {
                   </li>
                   <li
                     onClick={() => {
-                      window.open(`http://cryptocard.hewe.io/`, "_blank");
+                      window.open(`http://crypto.hewe.io/`, "_blank");
                     }}
                   >
                     Hewe Card
