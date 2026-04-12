@@ -103,7 +103,7 @@ init = async function () {
     // RE-ENABLED: Blockchain cron jobs are now active
     cron.schedule("*/5 * * * * *", async function () {
       try {
-        await getEventContract();
+        // await getEventContract();
         await getBlockss();
       } catch (error) {
         console.log(error, "getEventContract");
