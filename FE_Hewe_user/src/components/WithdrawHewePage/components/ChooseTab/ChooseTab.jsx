@@ -19,16 +19,16 @@ export const ChooseTab = () => {
   }, [queryKey]);
 
   const TAB_ITEMS = [
-    // {
-    //   label: "Withdraw HEWE",
-    //   key: "HEWE",
-    //   children: <WithdrawContent />, // rút HEWE
-    // },
-    // {
-    //   label: "Withdraw AMC",
-    //   key: "AMC",
-    //   children: <WithdrawContentAMC />, // rút AMC
-    // },
+    {
+      label: "Withdraw HEWE",
+      key: "HEWE",
+      children: <WithdrawContent />, // rút HEWE
+    },
+    {
+      label: "Withdraw AMC",
+      key: "AMC",
+      children: <WithdrawContentAMC />, // rút AMC
+    },
   ];
 
   const renderExtraContent = () => {

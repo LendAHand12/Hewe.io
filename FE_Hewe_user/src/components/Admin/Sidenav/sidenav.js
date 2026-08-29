@@ -141,7 +141,7 @@ const Sidenav = () => {
                         </div>
                         Withdraw USDT
                       </li>
-                      {/* <li
+                      <li
                         className={isActive("/withdrawToken?token=hewe")}
                         onClick={() =>
                           history.push("/withdrawToken?token=hewe")
@@ -151,8 +151,8 @@ const Sidenav = () => {
                           <Coins size={32} />
                         </div>
                         Withdraw HEWE
-                      </li>*/}
-                      {/* <li
+                      </li>
+                      <li
                         className={isActive("/withdrawToken?token=amc")}
                         onClick={() => history.push("/withdrawToken?token=amc")}
                       >
@@ -160,7 +160,7 @@ const Sidenav = () => {
                           <Coins size={32} />
                         </div>
                         Withdraw AMC
-                      </li> */}
+                      </li>
                       {/* đang ẩn phần rút AMC. mở lại thì mở sidenav, chooseTab và component WithdrawContentAMC */}
                       {/* Đã ẩn ngày 30/8/2024 */}
                     </div>
