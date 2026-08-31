@@ -111,9 +111,9 @@ const UserRoute = () => {
         ) : null}
         {/* <Route exact path={"/adminpanel"} component={LoginPage} /> */}
         <Route exact path={"/login"} component={LoginPage} />
-        <Route exact path={"/signup"} component={Signup} />
+        {/* <Route exact path={"/signup"} component={Signup} /> */}
         <Route exact path={"/reset-password"} component={ForgotPassword} />
-        <Route exact path={"/signup/:refCode"} component={Signup} />
+        {/* <Route exact path={"/signup/:refCode"} component={Signup} /> */}
         <Route exact path={"/term"} component={TermPage} />
         {/* <Route exact path={"/termV2"} component={TermPageV2} /> */}
         <Route exact path={"/privacy"} component={PrivacyPage} />
@@ -131,7 +131,7 @@ const UserRoute = () => {
         <Route exact path={"/verifyEmail"} component={VerifyEmail} />
         <Route exact path={"/adminDashboard"} component={DashBoardPage} />
         {/* <Route exact path={"/adminReferral"} component={ReferralPage} /> */}
-        <Route exact path={"/depositUSDT"} component={WalletUSDT} />
+        {/* <Route exact path={"/depositUSDT"} component={WalletUSDT} /> */}
 
         <Route exact path={"/withdrawUSDT"} component={WithdrawUSDT} />
         <Route exact path={"/withdrawToken"} component={WithdrawHewe} />

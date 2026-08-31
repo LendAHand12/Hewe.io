@@ -101,14 +101,14 @@ const Sidenav = () => {
                     </li>
 
                     <div className="collapsedContainer">
-                      <li className={isActive("/swapHewe")} onClick={() => history.push("/swapHewe")}>
+                      {/* <li className={isActive("/swapHewe")} onClick={() => history.push("/swapHewe")}>
                         <div className="iconcont">
                           <Swap size={32} />
                         </div>
                         Swap Token
-                      </li>
+                      </li> */}
 
-                      <li
+                      {/* <li
                         className={isActive("/depositUSDT?token=WEB3")}
                         onClick={() => history.push("/depositUSDT?token=WEB3")}
                       >
@@ -116,8 +116,8 @@ const Sidenav = () => {
                           <Bank size={32} />
                         </div>
                         Deposit USDT
-                      </li>
-                      <li
+                      </li> */}
+                      {/* <li
                         className={isActive("/depositUSDT?token=hewe")}
                         onClick={() => history.push("/depositUSDT?token=hewe")}
                       >
@@ -134,7 +134,7 @@ const Sidenav = () => {
                           <Bank size={32} />
                         </div>
                         Deposit AMC
-                      </li>
+                      </li> */}
                       <li className={isActive("/withdrawUSDT")} onClick={() => history.push("/withdrawUSDT")}>
                         <div className="iconcont">
                           <Bank size={32} />

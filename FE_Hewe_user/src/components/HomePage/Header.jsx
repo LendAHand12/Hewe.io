@@ -129,12 +129,12 @@ export default function Header({ isUsedOnHomePage, onSwapClick }) {
                 <li className="headerbtn" onClick={() => Login()}>
                   Login
                 </li>
-                <li
+                {/* <li
                   className="headerbtn ms-3"
                   onClick={() => history.push("/signup")}
                 >
                   Signup
-                </li>
+                </li> */}
               </ul>
             ) : (
               <ul className="d-flex align-items-center mb-0">
