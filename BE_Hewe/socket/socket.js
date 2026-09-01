@@ -31,6 +31,10 @@ const setupSocket = (io) => {
   let cachedAMC = 0;
   let cachedHEWE = 0;
 
+  /*
+  // ==========================================
+  // [CODE GỐC - LẤY GIÁ AMC TỪ PANCAKESWAP]
+  // ==========================================
   // lấy giá AMC từ PancakeSwap mỗi 10 giây, lưu vào DB
   setInterval(async () => {
     let price = Number(await getPriceFromAPI()) || 0;
@@ -44,17 +48,51 @@ const setupSocket = (io) => {
     // giữ lại socket priceAMC như trước để tránh lỗi
     io.emit("priceAMC", cachedAMC);
   }, 10000);
+  */
+
+  // ==========================================
+  // [HIỆN TẠI - DÙNG GIÁ AMC DO ADMIN SET CỨNG]
+  // ==========================================
+  // lấy giá AMC từ DB (giá do admin set) mỗi 10 giây
+  setInterval(async () => {
+    try {
+      let amcConfig = await CONFIG_VALUE.findOne({ configKey: "amcPrice" });
+      let price = amcConfig ? Number(amcConfig.configValue) || 0 : 0;
+      console.log(`[AMC - Admin Price] ${new Date().toISOString()} - price: ${price}`);
+      if (price > 0) {
+        cachedAMC = price;
+      }
+
+      io.emit("newPrice", { priceAMC: cachedAMC, priceHEWE: cachedHEWE });
+      // giữ lại socket priceAMC như trước để tránh lỗi
+      io.emit("priceAMC", cachedAMC);
+    } catch (error) {
+      console.log("Error in AMC socket interval:", error);
+    }
+  }, 10000);
 
   // lấy giá HEWE từ LBK mỗi 5 giây, lưu vào DB
   setInterval(async () => {
-    let price = Number(await getPriceHeweFromAPI()) || 0;
-    console.log(`[HEWE] ${new Date().toISOString()} - price: ${price}`);
-    if (price > 0) {
-      cachedHEWE = price;
-      await CONFIG_VALUE.updateOne({ configKey: "hewePrice" }, { configValue: price });
-    }
+    try {
+      let price = Number(await getPriceHeweFromAPI()) || 0;
+      console.log(`[HEWE] ${new Date().toISOString()} - price: ${price}`);
+      if (price > 0) {
+        cachedHEWE = price;
+        await CONFIG_VALUE.updateOne({ configKey: "hewePrice" }, { configValue: price });
+      }
 
-    io.emit("newPrice", { priceAMC: cachedAMC, priceHEWE: cachedHEWE });
+      // Đảm bảo cachedAMC có giá trị từ DB nếu chưa được nạp
+      if (cachedAMC === 0) {
+        let amcConfig = await CONFIG_VALUE.findOne({ configKey: "amcPrice" });
+        if (amcConfig && Number(amcConfig.configValue)) {
+          cachedAMC = Number(amcConfig.configValue);
+        }
+      }
+
+      io.emit("newPrice", { priceAMC: cachedAMC, priceHEWE: cachedHEWE });
+    } catch (error) {
+      console.log("Error in HEWE socket interval:", error);
+    }
   }, 5000);
 };
 

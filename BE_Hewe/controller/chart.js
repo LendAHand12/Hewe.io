@@ -102,13 +102,22 @@ function roundTo8Decimals(num) {
 
 exports.cronChart2 = async () => {
   try {
-    // let price = Number(await getPriceFromAPI());
-    // let price = 0.24;
+    /*
+    // ==========================================
+    // [CODE GỐC - LẤY GIÁ AMC TỪ PANCAKESWAP]
+    // ==========================================
     const { getPricePancake } = await import("../module/pancake.mjs");
     let price = await getPricePancake();
     if (price && price > 0) {
       await CONFIG_VALUE.updateOne({ configKey: "amcPrice" }, { configValue: roundTo8Decimals(price) });
     }
+    */
+
+    // ==========================================
+    // [HIỆN TẠI - DÙNG GIÁ AMC DO ADMIN SET CỨNG]
+    // ==========================================
+    let amcConfig = await CONFIG_VALUE.findOne({ configKey: "amcPrice" });
+    let price = amcConfig ? Number(amcConfig.configValue) || 0 : 0;
 
     // lấy giá HEWE từ sàn coinstore cập nhật vào db
     // nếu API lỗi hoặc không lấy được (null) thì thôi không cập nhật, giữ nguyên giá cũ
