@@ -28,7 +28,8 @@ exports.createSubAdmin = async (req, res) => {
     const createSubAdmin = await ADMIN.create(refData);
     const signToken = JWT.sign(
       { _id: createSubAdmin._id, email: createSubAdmin.email.toLowerCase() },
-      process.env.SECRET_KEY
+      process.env.SECRET_KEY,
+      { expiresIn: "12h" }
     );
     const createSession = await SESSION.create({
       access_token: signToken,

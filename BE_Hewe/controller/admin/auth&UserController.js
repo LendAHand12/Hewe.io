@@ -62,7 +62,11 @@ exports.adminLogin = async (req, res) => {
     }
 
     // Continue with normal login flow
-    const signToken = JWT.sign({ _id: findAdmin._id, email: findAdmin.email.toLowerCase() }, process.env.SECRET_KEY);
+    const signToken = JWT.sign(
+      { _id: findAdmin._id, email: findAdmin.email.toLowerCase() },
+      process.env.SECRET_KEY,
+      { expiresIn: "12h" }
+    );
     const createSession = await SESSION.create({
       access_token: signToken,
       admin_id: findAdmin._id,

@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import { axiosService } from "../../util/service.js";
 import Overlay from "../../components/Overlay";
 import { resetPasswordValidator } from "../../util/validators";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { useHistory, useLocation } from "react-router-dom/cjs/react-router-dom.min";
 import "./style.scss";
 import Header from "../HomePage/Header.jsx";
 import { EyeClosed } from "@phosphor-icons/react";
@@ -16,6 +16,7 @@ var CryptoJS = require("crypto-js");
 
 const ResetPassword = () => {
   const history = useHistory();
+  const location = useLocation();
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -23,23 +24,34 @@ const ResetPassword = () => {
   }, []);
 
   let searchParamData = window.location.search;
-  let newParamData = searchParamData.replace("?id=", "");
-
-  // Decrypt
-  var bytes = CryptoJS.AES.decrypt(newParamData, "secret_key_123");
-  var originalText = bytes.toString(CryptoJS.enc.Utf8);
-
-  console.log(originalText);
+  let newParamData = "";
+  let originalText = "";
+  if (searchParamData.includes("?id=")) {
+    newParamData = decodeURIComponent(searchParamData.replace("?id=", ""));
+    try {
+      var bytes = CryptoJS.AES.decrypt(newParamData, "secret_key_123");
+      originalText = bytes.toString(CryptoJS.enc.Utf8);
+    } catch (e) {
+      console.error("Failed to decrypt email:", e);
+    }
+  }
+  if (!originalText && location.state?.email) {
+    originalText = location.state.email;
+  }
 
   const handleReset = async (values) => {
+    if (!originalText) {
+      toast.error("Session expired or invalid email. Please start over.");
+      history.push("/verifyEmail");
+      return;
+    }
     setIsLoading(true);
     try {
       const { data } = await axiosService.put("/setNewPassword", {
         email: originalText,
         newPassword: values.password,
       });
-      console.log(data);
-      toast.success(`${data.message}`);
+      toast.success(`${data.message || "Password updated successfully"}`);
 
       history.push("/login");
       setIsLoading(false);
@@ -48,7 +60,7 @@ const ResetPassword = () => {
       if (error?.response?.data?.errors) {
         toast.error(`${error.response.data.errors[0].msg}`);
       } else {
-        toast.error(`${error?.response?.data?.message}`);
+        toast.error(`${error?.response?.data?.message || "Failed to reset password"}`);
       }
     }
   };
@@ -139,7 +151,7 @@ const ResetPassword = () => {
                         className="errormessage"
                       />
                     </div>
-                    <button type="submit" className="loginbtn mt-5">
+                    <button type="submit" className="loginbtn mt-5" disabled={isLoading}>
                       Reset Password
                     </button>
                   </Form>

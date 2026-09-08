@@ -112,7 +112,7 @@ const UserRoute = () => {
         {/* <Route exact path={"/adminpanel"} component={LoginPage} /> */}
         <Route exact path={"/login"} component={LoginPage} />
         {/* <Route exact path={"/signup"} component={Signup} /> */}
-        <Route exact path={"/reset-password"} component={ForgotPassword} />
+        <Route exact path={"/reset-password"} component={VerifyEmail} />
         {/* <Route exact path={"/signup/:refCode"} component={Signup} /> */}
         <Route exact path={"/term"} component={TermPage} />
         {/* <Route exact path={"/termV2"} component={TermPageV2} /> */}

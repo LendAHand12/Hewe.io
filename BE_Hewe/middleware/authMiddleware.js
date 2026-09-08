@@ -24,7 +24,17 @@ const verifyUserToken = async (req, res, next) => {
     const session = await SESSION.findOne({ access_token: token });
 
     if (session) {
-      let decode = JWT.verify(token, process.env.SECRET_KEY);
+      let decode;
+      try {
+        decode = JWT.verify(token, process.env.SECRET_KEY);
+      } catch (jwtError) {
+        await SESSION.deleteOne({ access_token: token });
+        return res.status(error.status.Unauthorized).json({
+          message: "Token expired or invalid",
+          status: error.status.Unauthorized,
+        });
+      }
+
       if (!decode) {
         return res.status(error.status.Unauthorized).json({
           message: "Unauthorized",
@@ -67,7 +77,6 @@ const verifyAdmin = async (req, res, next) => {
     }
 
     if (!token) {
-
       return res.status(error.status.Unauthorized).json({
         message: "Unauthorized",
         status: error.status.Unauthorized,
@@ -76,7 +85,17 @@ const verifyAdmin = async (req, res, next) => {
     const session = await SESSION.findOne({ access_token: token });
 
     if (session) {
-      let decode = JWT.verify(token, process.env.SECRET_KEY);
+      let decode;
+      try {
+        decode = JWT.verify(token, process.env.SECRET_KEY);
+      } catch (jwtError) {
+        await SESSION.deleteOne({ access_token: token });
+        return res.status(error.status.Unauthorized).json({
+          message: "Token expired or invalid",
+          status: error.status.Unauthorized,
+        });
+      }
+
       if (!decode) {
         return res.status(error.status.Unauthorized).json({
           message: "Unauthorized",
@@ -85,7 +104,6 @@ const verifyAdmin = async (req, res, next) => {
       }
       let adminData = await ADMIN.findOne({ _id: decode._id, email: decode.email });
       if (!adminData) {
-        
         return res.status(error.status.Unauthorized).json({
           message: "Unauthorized",
           status: error.status.Unauthorized,

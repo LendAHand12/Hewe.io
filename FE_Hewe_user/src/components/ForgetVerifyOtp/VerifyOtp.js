@@ -37,11 +37,27 @@ const ForgetPasswordVerifyOtp = () => {
   }, []);
   // Decrypt
   let searchParamData = window.location.search;
-  let newParamData = searchParamData.replace("?id=", "");
-  var bytes = CryptoJS.AES.decrypt(newParamData, "secret_key_123");
-  var originalText = bytes.toString(CryptoJS.enc.Utf8);
+  let newParamData = "";
+  let originalText = "";
+  if (searchParamData.includes("?id=")) {
+    newParamData = decodeURIComponent(searchParamData.replace("?id=", ""));
+    try {
+      var bytes = CryptoJS.AES.decrypt(newParamData, "secret_key_123");
+      originalText = bytes.toString(CryptoJS.enc.Utf8);
+    } catch (e) {
+      console.error("Failed to decrypt email:", e);
+    }
+  }
+  if (!originalText && state?.email) {
+    originalText = state.email;
+  }
 
   const verifyOTP = async (values) => {
+    if (!originalText) {
+      toast.error("Invalid email session. Please try again from the beginning.");
+      history.push("/verifyEmail");
+      return;
+    }
     setOtpFormValues(values);
     setIsLoading(true);
     try {
@@ -56,19 +72,18 @@ const ForgetPasswordVerifyOtp = () => {
         type: "USER_LOGIN",
         payload: data,
       });
-      history.push(`/ResetPassword?id=${newParamData}`);
-      toast.success(data?.message);
+      history.push(`/resetPassword?id=${encodeURIComponent(newParamData)}`, { email: originalText });
+      toast.success(data?.message || "OTP Verified");
     } catch (error) {
       setIsLoading(false);
       if (error?.response?.data?.errors) {
         toast.error(`${error.response.data.errors[0].msg}`);
       } else {
-        toast.error(`${error?.response?.data?.message}`);
+        toast.error(`${error?.response?.data?.message || "Verification failed"}`);
       }
     }
   };
 
-  console.log("userDeatils is ", userDetails);
   return (
     <>
       <section className="otpcont">
@@ -77,7 +92,7 @@ const ForgetPasswordVerifyOtp = () => {
           <div className="formbody text-center">
             <h2>Please Enter your OTP</h2>
             <p>
-              We've sent a code to <span>{originalText}</span>
+              We've sent a code to <span>{originalText || state?.email}</span>
             </p>
             <Formik
               enableReinitialize
@@ -107,12 +122,12 @@ const ForgetPasswordVerifyOtp = () => {
                     <div className="mt-5 mb-3">
                       <CountdownTimer
                         className="text-white"
-                        totalSec={5 * 6000}
-                        otpData={state}
+                        totalSec={300}
+                        otpData={state || { email: originalText }}
                       />
                     </div>
                     <div className="custom-btn-wrap px-7">
-                      <button type="submit" className="loginbtn custom-btn">
+                      <button type="submit" className="loginbtn custom-btn" disabled={isLoading}>
                         Verify
                       </button>
                     </div>

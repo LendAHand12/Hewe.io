@@ -28,22 +28,21 @@ const VerifyEmail = () => {
         email: values.email,
       });
 
-      console.log(data);
+      toast.success(data?.message || "OTP Sent, Please verify.");
 
       var ciphertext = CryptoJS.AES.encrypt(
         values.email,
         "secret_key_123"
       ).toString();
-      console.log(ciphertext);
 
-      history.push(`/forgetverifyOtp?id=${ciphertext}`, values);
+      history.push(`/forgetverifyOtp?id=${encodeURIComponent(ciphertext)}`, values);
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
       if (error?.response?.data?.errors) {
         toast.error(`${error.response.data.errors[0].msg}`);
       } else {
-        toast.error(`${error?.response?.data?.message}`);
+        toast.error(`${error?.response?.data?.message || "Something went wrong"}`);
       }
     }
   };
@@ -64,9 +63,6 @@ const VerifyEmail = () => {
               onSubmit={(values) => sendOTP(values)}
             >
               {(formikBag) => {
-                {
-                  console.log(formikBag);
-                }
                 return (
                   <Form className="formStyle">
                     <div className="form-field m-auto form-controls my-5">
@@ -90,7 +86,7 @@ const VerifyEmail = () => {
                       <button
                         type="submit"
                         className="loginbtn "
-                        disabled={sendOTP}
+                        disabled={isLoading}
                       >
                         Verify
                       </button>
