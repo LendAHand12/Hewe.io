@@ -190,20 +190,38 @@ exports.sendOTP = async (req, res, next) => {
 exports.forgotPassword = async (req, res) => {
   try {
     const { email } = req.body;
-    const find = await USER.findOne({ email: email.toLowerCase() });
-    if (find) {
-      const sendOtp = await SendOTPMail(req.body.email.toLowerCase());
-      const update = await USER.findOneAndUpdate(
-        { email: email.toLowerCase() },
-        // {$set:{otp:1234,otpTime:new Date}},
-        { $set: { otp: sendOtp.otp, otpTime: sendOtp.otpTime } },
-        { new: true }
-      );
-      return res.status(error.status.OK).send({
-        message: "OTP Sent, Please verify.",
-        status: error.status.OK,
+    if (!email) {
+      return res.status(error.status.BadRequest).json({
+        message: "Email is required.",
+        status: error.status.BadRequest,
       });
     }
+
+    const find = await USER.findOne({ email: email.toLowerCase() });
+    if (!find) {
+      return res.status(error.status.NotFound).json({
+        message: "Email not found. Please check and try again.",
+        status: error.status.NotFound,
+      });
+    }
+
+    const sendOtp = await SendOTPMail(email.toLowerCase());
+    if (sendOtp.error || !sendOtp.otp) {
+      return res.status(error.status.InternalServerError).json({
+        message: "Failed to send verification email. Please try again later.",
+        status: error.status.InternalServerError,
+      });
+    }
+
+    await USER.findOneAndUpdate(
+      { email: email.toLowerCase() },
+      { $set: { otp: sendOtp.otp, otpTime: sendOtp.otpTime } },
+      { new: true }
+    );
+    return res.status(error.status.OK).json({
+      message: "OTP Sent, Please verify.",
+      status: error.status.OK,
+    });
   } catch (e) {
     return res.status(error.status.InternalServerError).json({
       message: e.message,
@@ -297,21 +315,36 @@ exports.otpVerification = async (req, res) => {
 exports.setNewPassword = async (req, res) => {
   try {
     const { email, newPassword } = req.body;
-    const find = await USER.findOne({ email: email.toLowerCase(), isOtpVerified: true });
-    if (find) {
-      const hashed = await bcrypt.hash(newPassword, salt);
-      const passwordUpdate = await USER.updateOne({ email: email.toLowerCase() }, { password: hashed });
-      if (passwordUpdate) {
-        return res.status(error.status.OK).send({
-          message: "New password set successfully",
-          status: error.status.OK,
-        });
-      }
-      return res.status(error.status.BadRequest).send({
-        message: "Unable to set password",
+    if (!email || !newPassword) {
+      return res.status(error.status.BadRequest).json({
+        message: "Email and new password are required.",
         status: error.status.BadRequest,
       });
     }
+
+    const find = await USER.findOne({ email: email.toLowerCase(), isOtpVerified: true });
+    if (!find) {
+      return res.status(error.status.NotFound).json({
+        message: "User not found or email is not verified.",
+        status: error.status.NotFound,
+      });
+    }
+
+    const hashed = await bcrypt.hash(newPassword, salt);
+    const passwordUpdate = await USER.updateOne(
+      { email: email.toLowerCase() },
+      { $set: { password: hashed, otp: null } }
+    );
+    if (passwordUpdate) {
+      return res.status(error.status.OK).json({
+        message: "New password set successfully",
+        status: error.status.OK,
+      });
+    }
+    return res.status(error.status.BadRequest).json({
+      message: "Unable to set password",
+      status: error.status.BadRequest,
+    });
   } catch (err) {
     return res.status(error.status.InternalServerError).json({
       message: err.message,
