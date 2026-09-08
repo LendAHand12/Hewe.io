@@ -6,7 +6,7 @@ export const DOMAIN2 = process.env.REACT_APP_DOMAIN2;
 
 export const axiosService = axios.create({
   baseURL: DOMAIN,
-  timeout: 10000,
+  timeout: 30000,
 });
 
 const refreshToken = async () => {

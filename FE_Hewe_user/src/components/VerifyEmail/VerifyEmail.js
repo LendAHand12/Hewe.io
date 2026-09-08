@@ -11,7 +11,7 @@ import Header from "../HomePage/Header.jsx";
 import side1 from "../../assets/images/login/rightside.png";
 import sideleft from "../../assets/images/login/leftside.png";
 import Footer1 from "../HomePage/Footer1.js";
-var CryptoJS = require("crypto-js");
+import CryptoJS from "crypto-js";
 
 const VerifyEmail = () => {
   const history = useHistory();
@@ -41,8 +41,12 @@ const VerifyEmail = () => {
       setIsLoading(false);
       if (error?.response?.data?.errors) {
         toast.error(`${error.response.data.errors[0].msg}`);
+      } else if (error?.response?.data?.message) {
+        toast.error(`${error.response.data.message}`);
+      } else if (error?.code === "ECONNABORTED" || error?.message?.includes("timeout")) {
+        toast.error("Request timeout. Please check your email for OTP or try again.");
       } else {
-        toast.error(`${error?.response?.data?.message || "Something went wrong"}`);
+        toast.error(error?.message || "Something went wrong. Please try again.");
       }
     }
   };

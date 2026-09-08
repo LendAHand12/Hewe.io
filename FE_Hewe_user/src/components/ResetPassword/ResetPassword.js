@@ -12,7 +12,7 @@ import { EyeClosed } from "@phosphor-icons/react";
 import Footer1 from "../HomePage/Footer1.js";
 import side1 from "../../assets/images/login/rightside.png";
 import sideleft from "../../assets/images/login/leftside.png";
-var CryptoJS = require("crypto-js");
+import CryptoJS from "crypto-js";
 
 const ResetPassword = () => {
   const history = useHistory();

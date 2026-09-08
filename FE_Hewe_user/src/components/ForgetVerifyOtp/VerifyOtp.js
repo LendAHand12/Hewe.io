@@ -17,7 +17,7 @@ import sideleft from "../../assets/images/login/leftside.png";
 import "./style.scss";
 import Header from "../HomePage/Header.jsx";
 import Footer1 from "../HomePage/Footer1.js";
-var CryptoJS = require("crypto-js");
+import CryptoJS from "crypto-js";
 const ForgetPasswordVerifyOtp = () => {
   const dispatch = useDispatch();
   const history = useHistory();
