@@ -2,6 +2,7 @@ const { matchedData } = require("express-validator");
 const { success, error_500, error_400 } = require("../../utils/error");
 const BUY_TRANSACTION_HISTORY = require("../../model/buyTransactionHistoryModel");
 const WITHDRAW_HEWE = require("../../model/withdrawHeweModel");
+const WITHDRAW_HEWE_DEPOSIT = require("../../model/withdrawHeweDepositModel");
 const WITHDRAW_AMC = require("../../model/withdrawAmcModel");
 const WITHDRAW = require("../../model/withdrawModel");
 const USER = require("../../model/userModel");
@@ -267,6 +268,105 @@ exports.rejectWithdrawHewe = async (req, res) => {
     };
 
     await WITHDRAW_HEWE.updateOne(
+      { _id: transactionId },
+      { status: "rejected", reason, timeAdminRejected: new Date(), adminLogData: JSON.stringify(adminLogData) }
+    );
+
+    success(res, "Transaction rejected", true);
+  } catch (error) {
+    console.log(error);
+    error_500(res, error);
+  }
+};
+
+exports.getAllTransactionsWithdrawHeweDeposit = async (req, res) => {
+  try {
+    const loginAdmin = req.loginAdmin;
+    const adminId = loginAdmin._id;
+
+    let { limit, page, keyword } = matchedData(req);
+
+    let condition = {};
+    if (keyword) {
+      condition = {
+        $or: [
+          { transactionHash: { $regex: keyword, $options: "i" } },
+          { address: { $regex: keyword, $options: "i" } },
+          { userName: { $regex: keyword, $options: "i" } },
+          { userEmail: { $regex: keyword, $options: "i" } },
+        ],
+      };
+    }
+
+    const startIndex = (page - 1) * limit;
+    const data = await WITHDRAW_HEWE_DEPOSIT.find(condition).sort({ createdAt: -1 }).skip(startIndex).limit(limit);
+    const total = await WITHDRAW_HEWE_DEPOSIT.find(condition).countDocuments();
+
+    success(res, "OK", { array: data, total });
+  } catch (error) {
+    console.log(error);
+    error_500(res, error);
+  }
+};
+
+exports.approveWithdrawHeweDeposit = async (req, res) => {
+  // admin xác nhận đã chuyển thủ công HEWE Deposit cho user: nhập hash giao dịch, cập nhật trạng thái
+  // số HEWE Deposit đã trừ lúc user tạo yêu cầu nên không cần trừ nữa
+  try {
+    const loginAdmin = req.loginAdmin;
+    const adminId = loginAdmin._id;
+
+    const { transactionId, transactionHash } = matchedData(req);
+
+    // check giao dịch tồn tại, trạng thái là pending thì mới cho admin xác nhận
+    const transactionData = await WITHDRAW_HEWE_DEPOSIT.findOne({ _id: transactionId, status: "pending" });
+    if (!transactionData) return error_400(res, "Transaction not found or already processed");
+
+    const adminLogData = {
+      adminId,
+    };
+
+    await WITHDRAW_HEWE_DEPOSIT.updateOne(
+      { _id: transactionId },
+      { status: "approved", transactionHash, timeAdminApproved: new Date(), adminLogData: JSON.stringify(adminLogData) }
+    );
+
+    success(res, "Transaction approved successfully", true);
+  } catch (error) {
+    console.log(error);
+    error_500(res, error);
+  }
+};
+
+exports.rejectWithdrawHeweDeposit = async (req, res) => {
+  // admin từ chối lệnh rút HEWE Deposit: nhập lý do từ chối, trả lại số HEWE Deposit đã trừ lúc tạo giao dịch
+  try {
+    const loginAdmin = req.loginAdmin;
+    const adminId = loginAdmin._id;
+
+    const { transactionId, reason } = matchedData(req);
+
+    // check giao dịch tồn tại, trạng thái là pending thì mới cho admin huỷ
+    const transactionData = await WITHDRAW_HEWE_DEPOSIT.findOne({ _id: transactionId, status: "pending" });
+    if (!transactionData) return error_400(res, "Transaction not found or already processed");
+
+    // trả lại số HEWE Deposit đã trừ lúc tạo giao dịch
+    const userId = transactionData.userId;
+    const userBefore = await USER.findOne({ _id: userId });
+    await USER.updateOne({ _id: userId }, { $inc: { heweDeposit: transactionData.amount } });
+    const userAfter = await USER.findOne({ _id: userId });
+
+    const adminLogData = {
+      adminId,
+      userBefore: {
+        heweDeposit: userBefore.heweDeposit,
+      },
+      userAfter: {
+        heweDeposit: userAfter.heweDeposit,
+      },
+    };
+
+    await WITHDRAW_HEWE_DEPOSIT.updateOne(
       { _id: transactionId },
       { status: "rejected", reason, timeAdminRejected: new Date(), adminLogData: JSON.stringify(adminLogData) }
     );

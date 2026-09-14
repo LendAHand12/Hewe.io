@@ -8,6 +8,7 @@ const BUY_TRANSACTION_HISTORY = require("../../model/buyTransactionHistoryModel"
 const BANK = require("../../model/bankModel");
 const WITHDRAW = require("../../model/withdrawModel");
 const WITHDRAW_HEWE = require("../../model/withdrawHeweModel");
+const WITHDRAW_HEWE_DEPOSIT = require("../../model/withdrawHeweDepositModel");
 const WITHDRAW_AMC = require("../../model/withdrawAmcModel");
 const WALLET_USER = require("../../model/walletUserModel");
 const DEPOSIT = require("../../model/depositModel");
@@ -613,6 +614,76 @@ exports.getWithdrawHeweHistory = async (req, res) => {
     const data = await WITHDRAW_HEWE.find({ userId }).sort({ createdAt: -1 }).skip(startIndex).limit(limit);
 
     const total = await WITHDRAW_HEWE.find({ userId }).countDocuments();
+
+    success(res, "OK", { array: data, total });
+  } catch (error) {
+    console.log(error);
+    error_500(res, error);
+  }
+};
+
+exports.withdrawHeweDeposit = async (req, res) => {
+  // rút HEWE Deposit: admin luôn duyệt và chuyển thủ công, không có rút tự động
+  try {
+    const userData = req.user;
+    const userId = userData._id;
+    if (!userData || !userData || !userId) return error_400(res, "User not found");
+
+    const { method, address, amount } = matchedData(req);
+
+    // check balance HEWE Deposit
+    if (userData.heweDeposit < amount) return error_400(res, "Insufficient balance HEWE Deposit");
+
+    // subtract HEWE Deposit balance
+    await USER.updateOne({ _id: userId }, { $inc: { heweDeposit: amount * -1 } });
+
+    // fetch user after update
+    const userAfterUpdate = await USER.findOne({ _id: userId });
+    const logData = {
+      before: {
+        heweDeposit: userData.heweDeposit,
+      },
+      after: {
+        heweDeposit: userAfterUpdate.heweDeposit,
+      },
+    };
+
+    // create withdraw hewe deposit record // luôn ở trạng thái pending chờ admin duyệt thủ công
+    await WITHDRAW_HEWE_DEPOSIT.create({
+      userId,
+      userName: userData.name,
+      userEmail: userData.email,
+      method,
+      address,
+      amount,
+      timestamp: Date.now().toString(),
+      logData: JSON.stringify(logData),
+    });
+
+    // send telegram channel
+    await sendTelegramMessageToChannel(
+      `Withdraw HEWE Deposit\nUser: ${userData.name}\nEmail: ${userData.email}\nAmount: ${amount}\nAddress: ${address}\nMethod: ${method}`
+    );
+
+    success(res, "Request to withdraw HEWE Deposit successfully", true);
+  } catch (error) {
+    console.log(error);
+    error_500(res, error);
+  }
+};
+
+exports.getWithdrawHeweDepositHistory = async (req, res) => {
+  try {
+    const userData = req.user;
+    const userId = userData._id;
+    if (!userData || !userData || !userId) return error_400(res, "User not found");
+
+    let { limit, page } = matchedData(req);
+
+    const startIndex = (page - 1) * limit;
+    const data = await WITHDRAW_HEWE_DEPOSIT.find({ userId }).sort({ createdAt: -1 }).skip(startIndex).limit(limit);
+
+    const total = await WITHDRAW_HEWE_DEPOSIT.find({ userId }).countDocuments();
 
     success(res, "OK", { array: data, total });
   } catch (error) {

@@ -85,7 +85,7 @@ const getPriceHeweFromAPI = async () => {
     // if (heweItem) return Number(heweItem.price);
     // else return null;
     let response = await axios.get("https://api.lbkex.com/v2/supplement/ticker/price.do?symbol=hewe_usdt");
-    let heweItem = response?.data?.data[0];
+    let heweItem = response?.data?.data?.[0];
     if (heweItem) {
       // console.log("🚀 ~ getPriceHeweFromAPI ~ heweItem:", Number(heweItem.price));
       return Number(heweItem.price);

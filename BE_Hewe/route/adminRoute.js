@@ -15,6 +15,9 @@ const {
   getAllTransactionsWithdrawHewe,
   approveWithdrawHewe,
   rejectWithdrawHewe,
+  getAllTransactionsWithdrawHeweDeposit,
+  approveWithdrawHeweDeposit,
+  rejectWithdrawHeweDeposit,
   getSwapHistoryAdmin,
   getDepositUSDTHistoryAdmin,
   setUSDTBalance,
@@ -234,6 +237,45 @@ router.post(
     .notEmpty(),
   handleValidationErrors,
   rejectWithdrawHewe
+);
+
+///////////////////////
+// rút HEWE Deposit - admin luôn duyệt và chuyển thủ công
+///////////////////////
+router.get(
+  "/getAllTransactionsWithdrawHeweDeposit",
+  VERIFY_ADMIN.verifyAdmin,
+  query("limit").exists().notEmpty().isNumeric().toInt(),
+  query("page").exists().notEmpty().isNumeric().toInt(),
+  query("keyword").optional().isString(),
+  handleValidationErrors,
+  getAllTransactionsWithdrawHeweDeposit
+);
+router.post(
+  "/approveWithdrawHeweDeposit",
+  VERIFY_ADMIN.verifyAdmin,
+  body("transactionId")
+    .exists()
+    .notEmpty()
+    .custom((value) => isValidObjectId(value)),
+  body("transactionHash") // mã hash / ghi chú admin chuyển hewe deposit cho user
+    .exists()
+    .notEmpty(),
+  handleValidationErrors,
+  approveWithdrawHeweDeposit
+);
+router.post(
+  "/rejectWithdrawHeweDeposit",
+  VERIFY_ADMIN.verifyAdmin,
+  body("transactionId")
+    .exists()
+    .notEmpty()
+    .custom((value) => isValidObjectId(value)),
+  body("reason") // lý do từ chối
+    .exists()
+    .notEmpty(),
+  handleValidationErrors,
+  rejectWithdrawHeweDeposit
 );
 
 ///////////////////////

@@ -24,6 +24,8 @@ const {
   getWithdrawUSDTHistory,
   withdrawHEWE,
   getWithdrawHeweHistory,
+  withdrawHeweDeposit,
+  getWithdrawHeweDepositHistory,
   updateUSDTBalance,
   getDepositHistory,
   addDataToDatabase,
@@ -274,6 +276,38 @@ router.get(
   handleValidationErrors,
   getWithdrawHeweHistory
 );
+
+///////////////////////
+// rút HEWE Deposit - luôn chờ admin duyệt và chuyển thủ công
+///////////////////////
+router.post(
+  "/withdrawHeweDeposit",
+  limiter,
+  recaptcha,
+  VERIFY_USER.verifyUserToken,
+  body("method")
+    .exists()
+    .notEmpty()
+    .custom((value) => value === "AMC20"),
+  body("address").exists().notEmpty(),
+  body("amount")
+    .exists()
+    .notEmpty()
+    .isNumeric()
+    .custom((value) => value > 0)
+    .toFloat(),
+  handleValidationErrors,
+  withdrawHeweDeposit
+);
+router.get(
+  "/getWithdrawHeweDepositHistory",
+  VERIFY_USER.verifyUserToken,
+  query("limit").exists().notEmpty().isNumeric().toInt(),
+  query("page").exists().notEmpty().isNumeric().toInt(),
+  handleValidationErrors,
+  getWithdrawHeweDepositHistory
+);
+
 router.post(
   "/withdrawAMC",
   limiter,
