@@ -1970,9 +1970,11 @@ exports.extendHeweDB2025 = async (req, res) => {
   }
 };
 
-exports.callFunctionExtend = async (userId, userData, transactionId, transaction, year, note) => {
-  await functionExtend(userId, userData, transactionId, transaction, year, note);
-};
+// TẮT tự động gia hạn HeweDB - giữ lại code để bật lại khi cần, không xoá
+// (dùng bởi cronJobAutoRenewHeweDB trong controller/cronjob.js)
+// exports.callFunctionExtend = async (userId, userData, transactionId, transaction, year, note) => {
+//   await functionExtend(userId, userData, transactionId, transaction, year, note);
+// };
 
 exports.getConfigPrice = async (req, res) => {
   try {
