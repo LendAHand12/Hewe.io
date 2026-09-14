@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { roundDisplay } from "../../../../function/round.js";
 import { WithdrawContent } from "../index.js";
 import { WithdrawContentAMC } from "../WithdrawContent/WithdrawContentAMC.jsx";
+import { WithdrawContentHeweDeposit } from "../WithdrawContent/WithdrawContentHeweDeposit.jsx";
 import "./ChooseTab.scss";
 import { useHistory, useLocation } from "react-router-dom/cjs/react-router-dom.js";
 
@@ -29,6 +30,11 @@ export const ChooseTab = () => {
       key: "AMC",
       children: <WithdrawContentAMC />, // rút AMC
     },
+    {
+      label: "Withdraw HEWE Deposit",
+      key: "HEWEDEPOSIT",
+      children: <WithdrawContentHeweDeposit />, // rút HEWE Deposit - admin chuyển thủ công
+    },
   ];
 
   const renderExtraContent = () => {
@@ -44,6 +50,12 @@ export const ChooseTab = () => {
       return (
         <div className="center-flex-vertical" style={{ fontWeight: 600 }}>
           <span style={{ fontWeight: 700 }}></span> {roundDisplay(profile?.amcBalance || 0)} AMC
+        </div>
+      );
+    } else if (activeTab == "HEWEDEPOSIT") {
+      return (
+        <div className="center-flex-vertical" style={{ fontWeight: 600 }}>
+          <span style={{ fontWeight: 700 }}></span> {roundDisplay(profile?.heweDeposit || 0)} HEWE
         </div>
       );
     }

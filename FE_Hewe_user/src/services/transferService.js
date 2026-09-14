@@ -34,6 +34,24 @@ export const requestWithdrawHEWEAPI = ({
   });
 };
 
+export const requestWithdrawHeweDepositAPI = ({
+  method,
+  address,
+  amount,
+  fee,
+  gRec,
+  symbol,
+}) => {
+  return axiosService.post("withdrawHeweDeposit", {
+    method,
+    address,
+    amount,
+    fee,
+    gRec,
+    symbol: `USDT.${symbol}`,
+  });
+};
+
 export const requestWithdrawAMCAPI = ({
   method,
   address,
@@ -85,6 +103,16 @@ export const getHistoryWithdrawUSDTAPI = ({ limit, page, status = "" }) => {
 export const getHistoryWithdrawHEWEAPI = ({ limit, page, status = "" }) => {
   return axiosService.get(
     `getWithdrawHeweHistory?limit=${limit}&page=${page}&status=${status}`
+  );
+};
+
+export const getHistoryWithdrawHeweDepositAPI = ({
+  limit,
+  page,
+  status = "",
+}) => {
+  return axiosService.get(
+    `getWithdrawHeweDepositHistory?limit=${limit}&page=${page}&status=${status}`
   );
 };
 

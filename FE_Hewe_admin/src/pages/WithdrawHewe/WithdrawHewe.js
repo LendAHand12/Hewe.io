@@ -43,9 +43,9 @@ import Input from "../../components/Input";
 import { Modal } from "../../components/Modal";
 import Nodata from "../../components/Nodata";
 import { subadminValidator } from "../../utils/validators";
-import { useWithdrawHewe } from "./useWithdrawHewe";
+import { useWithdrawHewe, useWithdrawHeweDeposit } from "./useWithdrawHewe";
 import { Table as TableAntd, Modal as ModalAntd } from "../../components/AntdComponent";
-import { Input as InputAntd } from "antd";
+import { Input as InputAntd, Tabs } from "antd";
 
 const useStyles = makeStyles((theme) => ({
   textMiddle: {
@@ -327,6 +327,33 @@ const WithdrawHewe = ({ history, setUsers, userData }) => {
     isLoadingAutoTransfer,
   } = useWithdrawHewe();
 
+  // GET LIST WITHDRAW HEWE DEPOSIT
+  const {
+    x: xDeposit,
+    y: yDeposit,
+    totalItems: totalItemsDeposit,
+    currentPage: currentPageDeposit,
+    isPendingReview: isPendingReviewDeposit,
+    data: dataDeposit,
+    loading: loadingDeposit,
+    columns: columnsDeposit,
+    limitPerRow: limitPerRowDeposit,
+    isOpenModalApprove: isOpenModalApproveDeposit,
+    isOpenModalReject: isOpenModalRejectDeposit,
+    inputHash: inputHashDeposit,
+    inputReason: inputReasonDeposit,
+    keyword: keywordDeposit,
+    handleChangeKeyword: handleChangeKeywordDeposit,
+    handleCloseModalApprove: handleCloseModalApproveDeposit,
+    handleCloseModalReject: handleCloseModalRejectDeposit,
+    handleRequestApprove: handleRequestApproveDeposit,
+    handleRequestReject: handleRequestRejectDeposit,
+    handleSetCurrentPage: handleSetCurrentPageDeposit,
+    handleSetLimitPerRow: handleSetLimitPerRowDeposit,
+    handleChangeInputReason: handleChangeInputReasonDeposit,
+    handleChangeInputHash: handleChangeInputHashDeposit,
+  } = useWithdrawHeweDeposit();
+
   return (
     <>
       <div>
@@ -364,35 +391,85 @@ const WithdrawHewe = ({ history, setUsers, userData }) => {
                   overflowY: "auto",
                 }}
               >
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "flex-end",
-                    marginBottom: "8px",
-                  }}
-                >
-                  <InputAntd
-                    placeholder="Search..."
-                    style={{ maxWidth: "350px" }}
-                    value={keyword}
-                    onChange={handleChangeKeyword}
-                  />
-                </div>
+                <Tabs
+                  items={[
+                    {
+                      key: "HEWE",
+                      label: "Withdraw HEWE",
+                      children: (
+                        <>
+                          <div
+                            style={{
+                              display: "flex",
+                              justifyContent: "flex-end",
+                              marginBottom: "8px",
+                            }}
+                          >
+                            <InputAntd
+                              placeholder="Search..."
+                              style={{ maxWidth: "350px" }}
+                              value={keyword}
+                              onChange={handleChangeKeyword}
+                            />
+                          </div>
 
-                <TableAntd
-                  isShowTitle={true}
-                  title="History transaction"
-                  rowKey="id"
-                  x={x}
-                  y={y}
-                  totalItems={totalItems}
-                  data={data}
-                  currentPage={currentPage}
-                  isLoading={loading || isLoadingAutoTransfer}
-                  columns={columns}
-                  onChangePage={handleSetCurrentPage}
-                  limit={limitPerRow}
-                  onChangeLimitPerRow={handleSetLimitPerRow}
+                          <TableAntd
+                            isShowTitle={true}
+                            title="History transaction"
+                            rowKey="id"
+                            x={x}
+                            y={y}
+                            totalItems={totalItems}
+                            data={data}
+                            currentPage={currentPage}
+                            isLoading={loading || isLoadingAutoTransfer}
+                            columns={columns}
+                            onChangePage={handleSetCurrentPage}
+                            limit={limitPerRow}
+                            onChangeLimitPerRow={handleSetLimitPerRow}
+                          />
+                        </>
+                      ),
+                    },
+                    {
+                      key: "HEWEDEPOSIT",
+                      label: "Withdraw HEWE Deposit",
+                      children: (
+                        <>
+                          <div
+                            style={{
+                              display: "flex",
+                              justifyContent: "flex-end",
+                              marginBottom: "8px",
+                            }}
+                          >
+                            <InputAntd
+                              placeholder="Search..."
+                              style={{ maxWidth: "350px" }}
+                              value={keywordDeposit}
+                              onChange={handleChangeKeywordDeposit}
+                            />
+                          </div>
+
+                          <TableAntd
+                            isShowTitle={true}
+                            title="History transaction"
+                            rowKey="id"
+                            x={xDeposit}
+                            y={yDeposit}
+                            totalItems={totalItemsDeposit}
+                            data={dataDeposit}
+                            currentPage={currentPageDeposit}
+                            isLoading={loadingDeposit}
+                            columns={columnsDeposit}
+                            onChangePage={handleSetCurrentPageDeposit}
+                            limit={limitPerRowDeposit}
+                            onChangeLimitPerRow={handleSetLimitPerRowDeposit}
+                          />
+                        </>
+                      ),
+                    },
+                  ]}
                 />
               </div>
             </Paper>
@@ -628,6 +705,37 @@ const WithdrawHewe = ({ history, setUsers, userData }) => {
           placeholder="Enter reason reject"
           value={inputReason}
           onChange={handleChangeInputReason}
+        />
+      </ModalAntd>
+
+      <ModalAntd
+        title="Approve transaction"
+        isOpen={isOpenModalApproveDeposit}
+        onCancel={handleCloseModalApproveDeposit}
+        loading={isPendingReviewDeposit}
+        onConfirm={handleRequestApproveDeposit}
+      >
+        <InputAntd
+          style={{ margin: "12px 0" }}
+          placeholder="Enter hash / note of manual transfer"
+          value={inputHashDeposit}
+          onChange={handleChangeInputHashDeposit}
+        />
+      </ModalAntd>
+
+      <ModalAntd
+        title="Reject transaction"
+        isOpen={isOpenModalRejectDeposit}
+        onCancel={handleCloseModalRejectDeposit}
+        loading={isPendingReviewDeposit}
+        onConfirm={handleRequestRejectDeposit}
+        isDangerButton={true}
+      >
+        <InputAntd
+          style={{ margin: "12px 0" }}
+          placeholder="Enter reason reject"
+          value={inputReasonDeposit}
+          onChange={handleChangeInputReasonDeposit}
         />
       </ModalAntd>
 
