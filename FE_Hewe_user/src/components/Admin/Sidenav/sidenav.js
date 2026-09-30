@@ -1,4 +1,15 @@
-import { Bank, Coins, HandCoins, House, List, SignOut, Swap, Wallet, X } from "@phosphor-icons/react";
+import {
+  Bank,
+  ChatCircleDots,
+  Coins,
+  HandCoins,
+  House,
+  List,
+  SignOut,
+  Swap,
+  Wallet,
+  X,
+} from "@phosphor-icons/react";
 import React, { useEffect, useState } from "react";
 import { useHistory, useLocation } from "react-router-dom/cjs/react-router-dom.min";
 import { toast } from "react-toastify";
@@ -90,6 +101,13 @@ const Sidenav = () => {
                       <HandCoins size={32} />
                     </div>
                     Commission
+                  </li>
+
+                  <li className={isActive("/supportTicket")} onClick={() => history.push("/supportTicket")}>
+                    <div className="iconcont">
+                      <ChatCircleDots size={32} />
+                    </div>
+                    Support Ticket
                   </li>
 
                   <div className={`dropdownMenuCustom ${toggle ? "opened" : ""}`}>

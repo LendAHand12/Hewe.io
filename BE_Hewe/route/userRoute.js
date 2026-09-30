@@ -42,6 +42,10 @@ const {
   getDepositHEWEHistory,
   checkUserHeweDB,
   completeDepositWeb3,
+  createTicket,
+  getMyTickets,
+  getTicketMessages,
+  sendTicketMessage,
 } = require("../controller/user/newUserController");
 const { query, body } = require("express-validator");
 const { handleValidationErrors } = require("../middleware/handleValidationErrors");
@@ -420,6 +424,51 @@ router.post(
   body("amount").exists().notEmpty().isNumeric().toFloat(),
   handleValidationErrors,
   completeDepositWeb3
+);
+
+///////////////////////
+// Support Ticket - user tạo ticket và nhắn tin với admin tới khi admin đóng ticket
+///////////////////////
+router.post(
+  "/createTicket",
+  limiter,
+  VERIFY_USER.verifyUserToken,
+  body("subject").exists().notEmpty().isString().trim(),
+  body("message").exists().notEmpty().isString().trim(),
+  handleValidationErrors,
+  createTicket
+);
+router.get(
+  "/getMyTickets",
+  VERIFY_USER.verifyUserToken,
+  query("limit").exists().notEmpty().isNumeric().toInt(),
+  query("page").exists().notEmpty().isNumeric().toInt(),
+  handleValidationErrors,
+  getMyTickets
+);
+router.get(
+  "/getTicketMessages",
+  VERIFY_USER.verifyUserToken,
+  query("ticketId")
+    .exists()
+    .notEmpty()
+    .custom((value) => isValidObjectId(value)),
+  query("limit").exists().notEmpty().isNumeric().toInt(),
+  query("page").exists().notEmpty().isNumeric().toInt(),
+  handleValidationErrors,
+  getTicketMessages
+);
+router.post(
+  "/sendTicketMessage",
+  limiter,
+  VERIFY_USER.verifyUserToken,
+  body("ticketId")
+    .exists()
+    .notEmpty()
+    .custom((value) => isValidObjectId(value)),
+  body("message").exists().notEmpty().isString().trim(),
+  handleValidationErrors,
+  sendTicketMessage
 );
 
 ///////////////////////

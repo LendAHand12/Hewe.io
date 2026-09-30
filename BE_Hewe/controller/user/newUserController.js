@@ -25,6 +25,8 @@ const COMMISSION = require("../../model/commissionModel");
 const HISTORY_UPDATE_WALLET = require("../../model/historyUpdateWallet");
 const AM = require("../../model/accessModuleModel");
 const ADMIN = require("../../model/adminModel");
+const TICKET = require("../../model/ticketModel");
+const TICKET_MESSAGE = require("../../model/ticketMessageModel");
 const error = require("../../utils/error");
 const { getPriceFromAPI, getPriceHeweFromAPI } = require("../../module/socketXT");
 const { error_400, success, error_500, error_400_delRedis } = require("../../utils/error");
@@ -2258,6 +2260,108 @@ exports.completeDepositWeb3 = async (req, res) => {
       newBalance: userAfterUpdate.usdtBalance,
       txHash,
     });
+  } catch (error) {
+    console.log(error);
+    error_500(res, error);
+  }
+};
+
+exports.createTicket = async (req, res) => {
+  try {
+    const userData = req.user;
+    const userId = userData._id;
+    if (!userData || !userData || !userId) return error_400(res, "User not found");
+
+    const { subject, message } = matchedData(req);
+
+    const ticket = await TICKET.create({
+      userId,
+      userName: userData.name,
+      userEmail: userData.email,
+      subject,
+      status: "open",
+      lastMessageAt: new Date(),
+    });
+
+    await TICKET_MESSAGE.create({
+      ticketId: ticket._id,
+      senderType: "user",
+      senderId: userId,
+      senderName: userData.name,
+      message,
+    });
+
+    success(res, "Ticket created successfully", ticket);
+  } catch (error) {
+    console.log(error);
+    error_500(res, error);
+  }
+};
+
+exports.getMyTickets = async (req, res) => {
+  try {
+    const userData = req.user;
+    const userId = userData._id;
+    if (!userData || !userData || !userId) return error_400(res, "User not found");
+
+    let { limit, page } = matchedData(req);
+
+    const startIndex = (page - 1) * limit;
+    const data = await TICKET.find({ userId }).sort({ lastMessageAt: -1 }).skip(startIndex).limit(limit);
+    const total = await TICKET.find({ userId }).countDocuments();
+
+    success(res, "OK", { array: data, total });
+  } catch (error) {
+    console.log(error);
+    error_500(res, error);
+  }
+};
+
+exports.getTicketMessages = async (req, res) => {
+  try {
+    const userData = req.user;
+    const userId = userData._id;
+    if (!userData || !userData || !userId) return error_400(res, "User not found");
+
+    let { ticketId, limit, page } = matchedData(req);
+
+    const ticket = await TICKET.findOne({ _id: ticketId, userId });
+    if (!ticket) return error_400(res, "Ticket not found");
+
+    const startIndex = (page - 1) * limit;
+    const data = await TICKET_MESSAGE.find({ ticketId }).sort({ createdAt: 1 }).skip(startIndex).limit(limit);
+    const total = await TICKET_MESSAGE.find({ ticketId }).countDocuments();
+
+    success(res, "OK", { array: data, total, ticket });
+  } catch (error) {
+    console.log(error);
+    error_500(res, error);
+  }
+};
+
+exports.sendTicketMessage = async (req, res) => {
+  try {
+    const userData = req.user;
+    const userId = userData._id;
+    if (!userData || !userData || !userId) return error_400(res, "User not found");
+
+    const { ticketId, message } = matchedData(req);
+
+    const ticket = await TICKET.findOne({ _id: ticketId, userId });
+    if (!ticket) return error_400(res, "Ticket not found");
+    if (ticket.status === "closed") return error_400(res, "Ticket is closed");
+
+    const newMessage = await TICKET_MESSAGE.create({
+      ticketId,
+      senderType: "user",
+      senderId: userId,
+      senderName: userData.name,
+      message,
+    });
+
+    await TICKET.updateOne({ _id: ticketId }, { lastMessageAt: new Date() });
+
+    success(res, "Message sent successfully", newMessage);
   } catch (error) {
     console.log(error);
     error_500(res, error);

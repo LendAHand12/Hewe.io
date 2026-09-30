@@ -49,6 +49,10 @@ import "react-date-picker/dist/DatePicker.css";
 import { SlClose } from "react-icons/sl";
 import { Modal } from "../../components/Modal";
 import Nodata from "../../components/Nodata";
+import { Input as InputAntd, Tabs } from "antd";
+import { Table as TableAntd } from "../../components/AntdComponent";
+import { useTickets } from "./useTickets";
+import { TicketThreadDrawer } from "./TicketThreadDrawer";
 
 const useStyles = makeStyles((theme) => ({
   textMiddle: {
@@ -111,56 +115,6 @@ const useStyles = makeStyles((theme) => ({
     width: "21%",
   },
 }));
-// const IOSSwitch = styled((props) => (
-//   <Switch focusVisibleClassName=".Mui-focusVisible" disableRipple {...props} />
-// ))(({ theme }) => ({
-//   width: 42,
-//   height: 26,
-//   padding: 0,
-//   "& .MuiSwitch-switchBase": {
-//     padding: 0,
-//     margin: 2,
-//     transitionDuration: "300ms",
-//     "&.Mui-checked": {
-//       transform: "translateX(16px)",
-//       color: "#fff",
-//       "& + .MuiSwitch-track": {
-//         backgroundColor: theme.palette.mode === "dark" ? "#2ECA45" : "#02001c",
-//         opacity: 1,
-//         border: 0,
-//       },
-//       "&.Mui-disabled + .MuiSwitch-track": {
-//         opacity: 0.5,
-//       },
-//     },
-//     "&.Mui-focusVisible .MuiSwitch-thumb": {
-//       color: "#33cf4d",
-//       border: "6px solid #fff",
-//     },
-//     "&.Mui-disabled .MuiSwitch-thumb": {
-//       color:
-//         theme.palette.mode === "light"
-//           ? theme.palette.grey[100]
-//           : theme.palette.grey[600],
-//     },
-//     "&.Mui-disabled + .MuiSwitch-track": {
-//       opacity: theme.palette.mode === "light" ? 0.7 : 0.3,
-//     },
-//   },
-//   "& .MuiSwitch-thumb": {
-//     boxSizing: "border-box",
-//     width: 22,
-//     height: 22,
-//   },
-//   "& .MuiSwitch-track": {
-//     borderRadius: 26 / 2,
-//     backgroundColor: theme.palette.mode === "light" ? "#E9E9EA" : "#39393D",
-//     opacity: 1,
-//     transition: theme.transitions.create(["background-color"], {
-//       duration: 500,
-//     }),
-//   },
-// }));
 const IOSSwitch = styled((props) => (
   <Switch focusVisibleClassName=".Mui-focusVisible" disableRipple {...props} />
 ))(({ theme }) => ({
@@ -453,6 +407,387 @@ const OfferManagement = ({ history, setUsers, userData }) => {
       document.removeEventListener("click", handleClickOutside);
     };
   }, []);
+
+  const {
+    x: xTickets,
+    y: yTickets,
+    totalItems: totalItemsTickets,
+    currentPage: currentPageTickets,
+    data: dataTickets,
+    loading: loadingTickets,
+    columns: columnsTickets,
+    limitPerRow: limitPerRowTickets,
+    keyword: keywordTickets,
+    handleChangeKeyword: handleChangeKeywordTickets,
+    handleSetCurrentPage: handleSetCurrentPageTickets,
+    handleSetLimitPerRow: handleSetLimitPerRowTickets,
+    isOpenThread,
+    handleCloseThread,
+    ticketFocus,
+    messages,
+    isLoadingThread,
+    isSendingMessage,
+    isClosingTicket,
+    handleSendMessage,
+    handleCloseTicket,
+  } = useTickets();
+
+  const tabItems = [
+    {
+      key: "contact",
+      label: "Liên hệ",
+      children: (
+        <>
+          <div
+            className="d-flex align-items-center justify-content-center"
+            style={{ width: "100%" }}
+          >
+            <div
+              className="d-flex justify-content-center align-items-center"
+              style={{ width: "100%" }}
+            >
+              <SearchContainer style={{ width: "100%" }}>
+                <SearchBar>
+                  <SearchIcon>
+                    <FaSearch style={{ color: "#c4c4c4" }} />
+                  </SearchIcon>
+                  <SearchInput
+                    type="text"
+                    value={searchVal}
+                    onChange={(e) => setSearchVal(e.target.value)}
+                    placeholder="Search by Email"
+                  ></SearchInput>
+                  {searchVal && (
+                    <SearchIcon
+                      onClick={() => {
+                        setSearchVal("");
+                      }}
+                      style={{
+                        borderRadius: "10px",
+                        height: "100%",
+                        position: "absolute",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <FaTimes
+                        style={{ color: "#c4c4c4", cursor: "pointer" }}
+                      />
+                    </SearchIcon>
+                  )}
+                </SearchBar>
+              </SearchContainer>
+            </div>
+            <div style={{ position: "relative" }} ref={filterRef}>
+              <Tooltip
+                title={
+                  <span style={{ color: "white", fontSize: "16px" }}>
+                    Filter
+                  </span>
+                }
+                arrow
+              >
+                <IconButton
+                  className=""
+                  style={{
+                   backgroundColor: "transparent",
+                   borderRadius:"10px",
+                    color: "#02001C",
+                    marginLeft: "5px",
+                    border: "2px solid gray",
+                    height: "40px",
+                    width:"40px"
+                  }}
+                  onClick={() => {
+                    setShowFilter(!showFilter);
+                  }}
+                >
+                <i class="fa-solid fa-filter"></i>
+                </IconButton>
+              </Tooltip>
+              {showFilter ? (
+                <div
+                  className="box arrow-top"
+                  style={{
+                    display: "flex",
+                    position: "absolute",
+                    backgroundColor: "whitesmoke",
+                    zIndex: 5,
+                    borderRadius: "10px",
+                    marginLeft: "-120px",
+                  }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "5px",
+                      backgroundColor: "white",
+                      borderRadius: "5px",
+                      padding: "5px",
+                      margin: "20px",
+                      // width: "250px",
+                    }}
+                  >
+                    <span style={{ color: "black" }}>From:</span>
+                    <DatePicker
+                      value={startDate}
+                      dateFormat="DD/MM/YYYY"
+                      onChange={(date) => {
+                        setStartDate(date);
+                      }}
+                    />
+                    <span style={{ color: "black" }}>To:</span>
+                    <DatePicker
+                      onChange={(date) => {
+                        setEndDate(date);
+                      }}
+                      minDate={startDate}
+                      value={endDate}
+                      dateFormat="DD/MM/YYYY"
+                    />
+
+                    <div
+                      style={{
+                        display: "flex",
+                        gap: "10px",
+                        justifyContent: "center",
+                        marginTop: "15px",
+                      }}
+                    >
+                      <span
+                        style={{
+                          background:
+                            "transparent linear-gradient(90deg, #02001c 0%, #02001c 100%) 0% 0% no-repeat padding-box",
+
+                          color: "#fff",
+                          cursor: "pointer",
+                          borderRadius: "5px",
+                          padding: "5px 10px",
+                        }}
+                        onClick={() => {
+                          if (startDate === null && endDate === null) {
+                            toast.info(
+                              "Please Select Both Dates To Get Filtered Data",
+                              {
+                                position: toast.POSITION.TOP_RIGHT,
+                              }
+                            );
+                          } else if (
+                            startDate === null ||
+                            endDate === null
+                          ) {
+                            toast.info(
+                              "Please Select Both Dates To Get Filtered Data",
+                              {
+                                position: toast.POSITION.TOP_RIGHT,
+                              }
+                            );
+                          } else if (
+                            startDate !== null &&
+                            endDate !== null
+                          ) {
+                            setShowFilter(false);
+                            getUserListFilter(startDate, endDate);
+                          }
+                        }}
+                      >
+                        {" "}
+                        Apply
+                      </span>
+                      <span
+                        style={{
+                          background:
+                            "transparent linear-gradient(90deg, #02001c 0%, #02001c 100%) 0% 0% no-repeat padding-box",
+                          color: "#fff",
+                          cursor: "pointer",
+                          borderRadius: "5px",
+                          padding: "5px 10px",
+                        }}
+                        onClick={() => {
+                          setStartDate(null);
+                          setEndDate(null);
+                          getAllContactList();
+                          setShowFilter(false);
+                        }}
+                      >
+                        {" "}
+                        Reset
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                false
+              )}
+            </div>
+          </div>
+
+          <Paper
+            className={classes.paperTableHeight}
+            style={{
+              overflow: "hidden",
+              marginBottom: "0.5rem",
+              width: "100%",
+              marginLeft: 0,
+            }}
+          >
+            <TableContainer className={classes.tableContainerHeight}>
+              <Table stickyHeader>
+                <TableHead>
+                  <TableRow>
+                    <TableCell
+                      className={classes.tablePadding}
+                      style={{ fontWeight: "800" }}
+                    >
+                      S.&nbsp;No.
+                    </TableCell>
+                    <TableCell className={classes.tablePadding}>
+                      Date
+                    </TableCell>
+                    <TableCell className={classes.tablePadding}>
+                      Email
+                    </TableCell>
+                    <TableCell className={classes.tablePadding}>
+                      Phone Number
+                    </TableCell>
+                    <TableCell className={classes.tablePadding}>
+                      Subject
+                    </TableCell>
+                    <TableCell className={classes.tablePadding}>
+                      Description
+                    </TableCell>
+                  </TableRow>
+                </TableHead>
+
+                <TableBody>
+                  {recordsAfterPagingAndSorting().map((category, index) => (
+                    <TableRow key={category.id}>
+                      <TableCell
+                        component="th"
+                        scope="row"
+                        className={classes.textMiddle}
+                      >
+                        {index + 1 + page * rowsPerPage}
+                      </TableCell>
+                      <TableCell className={classes.textMiddle}>
+                        {moment(get(category, "createdAt", "")).format(
+                          "DD/MM/YYYY"
+                        )}
+                      </TableCell>
+
+                      <TableCell className={classes.textMiddle}>
+                        <div>{get(category, "email", "")}</div>
+                      </TableCell>
+                      <TableCell className={classes.textMiddle}>
+                        <div className="d-flex justify-content-center">
+                          <div style={{ marginRight: "5px" }}>
+                            {get(category, "country_code", "")}
+                          </div>{" "}
+                          <div>{get(category, "phone_number", "")}</div>
+                        </div>
+                      </TableCell>
+
+                      <TableCell className={classes.textMiddle}>
+                        <div> {get(category, "subject", "")}</div>
+                      </TableCell>
+                      <TableCell className={classes.textMiddle}>
+                        <div style={{width:'200px'}}>
+                        {category.description.length <= 50 ? (
+                          category.description
+                        ) : (
+                          <>
+                            {category.description.slice(0, 50)}...
+                            <Button
+                              onClick={() => {
+                                setOpenModal(true);
+                                setDesc(get(category, "description"));
+                              }}
+                              style={{
+                                textTransform: "lowercase",
+                              }}
+                            >
+                              See more
+                            </Button>
+                          </>
+                        )}
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>    {tableData.length === 0 ? (
+              <Nodata TextToDisplay="No Data Found." fontSize="24px" />
+            ) : (
+              false
+            )}
+            </TableContainer>
+
+            <TablePagination
+              className={classes.tablePaginationStyle}
+              rowsPerPageOptions={[15, 30, 100]}
+              component="div"
+              count={totalData}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+            />
+          </Paper>
+        </>
+      ),
+    },
+    {
+      key: "tickets",
+      label: "Tickets",
+      children: (
+        <>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "flex-end",
+              marginBottom: "8px",
+            }}
+          >
+            <InputAntd
+              placeholder="Search by user name / email / subject..."
+              style={{ maxWidth: "350px" }}
+              value={keywordTickets}
+              onChange={handleChangeKeywordTickets}
+            />
+          </div>
+
+          <TableAntd
+            rowKey="_id"
+            x={xTickets}
+            y={yTickets}
+            totalItems={totalItemsTickets}
+            data={dataTickets}
+            currentPage={currentPageTickets}
+            isLoading={loadingTickets}
+            columns={columnsTickets}
+            onChangePage={handleSetCurrentPageTickets}
+            limit={limitPerRowTickets}
+            onChangeLimitPerRow={handleSetLimitPerRowTickets}
+          />
+
+          <TicketThreadDrawer
+            isOpen={isOpenThread}
+            onClose={handleCloseThread}
+            ticket={ticketFocus}
+            messages={messages}
+            isLoading={isLoadingThread}
+            isSending={isSendingMessage}
+            isClosing={isClosingTicket}
+            onSendMessage={handleSendMessage}
+            onCloseTicket={handleCloseTicket}
+          />
+        </>
+      ),
+    },
+  ];
+
   return (
     <>
       <div>
@@ -482,302 +817,9 @@ const OfferManagement = ({ history, setUsers, userData }) => {
                   Support Ticket
                 </DashHeading>
               </MenuAndBack>
-              <div
-                className="d-flex align-items-center justify-content-center"
-                style={{ width: "100%" }}
-              >
-                <div
-                  className="d-flex justify-content-center align-items-center"
-                  style={{ width: "100%" }}
-                >
-                  <SearchContainer style={{ width: "100%" }}>
-                    <SearchBar>
-                      <SearchIcon>
-                        <FaSearch style={{ color: "#c4c4c4" }} />
-                      </SearchIcon>
-                      <SearchInput
-                        type="text"
-                        value={searchVal}
-                        onChange={(e) => setSearchVal(e.target.value)}
-                        placeholder="Search by Email"
-                      ></SearchInput>
-                      {searchVal && (
-                        <SearchIcon
-                          onClick={() => {
-                            setSearchVal("");
-                          }}
-                          style={{
-                            borderRadius: "10px",
-                            height: "100%",
-                            position: "absolute",
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                          }}
-                        >
-                          <FaTimes
-                            style={{ color: "#c4c4c4", cursor: "pointer" }}
-                          />
-                        </SearchIcon>
-                      )}
-                    </SearchBar>
-                  </SearchContainer>
-                </div>
-                <div style={{ position: "relative" }} ref={filterRef}>
-                  <Tooltip
-                    title={
-                      <span style={{ color: "white", fontSize: "16px" }}>
-                        Filter
-                      </span>
-                    }
-                    arrow
-                  >
-                    <IconButton
-                      className=""
-                      style={{
-                       backgroundColor: "transparent",
-                       borderRadius:"10px",
-                        color: "#02001C",
-                        marginLeft: "5px",
-                        border: "2px solid gray",
-                        height: "40px",
-                        width:"40px"
-                      }}
-                      onClick={() => {
-                        setShowFilter(!showFilter);
-                      }}
-                    >
-                    <i class="fa-solid fa-filter"></i>
-                    </IconButton>
-                  </Tooltip>
-                  {showFilter ? (
-                    <div
-                      className="box arrow-top"
-                      style={{
-                        display: "flex",
-                        position: "absolute",
-                        backgroundColor: "whitesmoke",
-                        zIndex: 5,
-                        borderRadius: "10px",
-                        marginLeft: "-120px",
-                      }}
-                    >
-                      <div
-                        style={{
-                          display: "flex",
-                          flexDirection: "column",
-                          gap: "5px",
-                          backgroundColor: "white",
-                          borderRadius: "5px",
-                          padding: "5px",
-                          margin: "20px",
-                          // width: "250px",
-                        }}
-                      >
-                        <span style={{ color: "black" }}>From:</span>
-                        <DatePicker
-                          value={startDate}
-                          dateFormat="DD/MM/YYYY"
-                          onChange={(date) => {
-                            setStartDate(date);
-                          }}
-                        />
-                        <span style={{ color: "black" }}>To:</span>
-                        <DatePicker
-                          onChange={(date) => {
-                            setEndDate(date);
-                          }}
-                          minDate={startDate}
-                          value={endDate}
-                          dateFormat="DD/MM/YYYY"
-                        />
-
-                        <div
-                          style={{
-                            display: "flex",
-                            gap: "10px",
-                            justifyContent: "center",
-                            marginTop: "15px",
-                          }}
-                        >
-                          <span
-                            style={{
-                              background:
-                                "transparent linear-gradient(90deg, #02001c 0%, #02001c 100%) 0% 0% no-repeat padding-box",
-
-                              color: "#fff",
-                              cursor: "pointer",
-                              borderRadius: "5px",
-                              padding: "5px 10px",
-                            }}
-                            onClick={() => {
-                              if (startDate === null && endDate === null) {
-                                toast.info(
-                                  "Please Select Both Dates To Get Filtered Data",
-                                  {
-                                    position: toast.POSITION.TOP_RIGHT,
-                                  }
-                                );
-                              } else if (
-                                startDate === null ||
-                                endDate === null
-                              ) {
-                                toast.info(
-                                  "Please Select Both Dates To Get Filtered Data",
-                                  {
-                                    position: toast.POSITION.TOP_RIGHT,
-                                  }
-                                );
-                              } else if (
-                                startDate !== null &&
-                                endDate !== null
-                              ) {
-                                setShowFilter(false);
-                                getUserListFilter(startDate, endDate);
-                              }
-                            }}
-                          >
-                            {" "}
-                            Apply
-                          </span>
-                          <span
-                            style={{
-                              background:
-                                "transparent linear-gradient(90deg, #02001c 0%, #02001c 100%) 0% 0% no-repeat padding-box",
-                              color: "#fff",
-                              cursor: "pointer",
-                              borderRadius: "5px",
-                              padding: "5px 10px",
-                            }}
-                            onClick={() => {
-                              setStartDate(null);
-                              setEndDate(null);
-                              getAllContactList();
-                              setShowFilter(false);
-                            }}
-                          >
-                            {" "}
-                            Reset
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  ) : (
-                    false
-                  )}
-                </div>
-              </div>
             </DashboardHeading>
 
-            <Paper
-              className={classes.paperTableHeight}
-              style={{
-                overflow: "hidden",
-                marginBottom: "0.5rem",
-              }}
-            >
-              <TableContainer className={classes.tableContainerHeight}>
-                <Table stickyHeader>
-                  <TableHead>
-                    <TableRow>
-                      <TableCell
-                        className={classes.tablePadding}
-                        style={{ fontWeight: "800" }}
-                      >
-                        S.&nbsp;No.
-                      </TableCell>
-                      <TableCell className={classes.tablePadding}>
-                        Date
-                      </TableCell>
-                      <TableCell className={classes.tablePadding}>
-                        Email
-                      </TableCell>
-                      <TableCell className={classes.tablePadding}>
-                        Phone Number
-                      </TableCell>
-                      <TableCell className={classes.tablePadding}>
-                        Subject
-                      </TableCell>
-                      <TableCell className={classes.tablePadding}>
-                        Description
-                      </TableCell>
-                    </TableRow>
-                  </TableHead>
-
-                  <TableBody>
-                    {recordsAfterPagingAndSorting().map((category, index) => (
-                      <TableRow key={category.id}>
-                        <TableCell
-                          component="th"
-                          scope="row"
-                          className={classes.textMiddle}
-                        >
-                          {index + 1 + page * rowsPerPage}
-                        </TableCell>
-                        <TableCell className={classes.textMiddle}>
-                          {moment(get(category, "createdAt", "")).format(
-                            "DD/MM/YYYY"
-                          )}
-                        </TableCell>
-
-                        <TableCell className={classes.textMiddle}>
-                          <div>{get(category, "email", "")}</div>
-                        </TableCell>
-                        <TableCell className={classes.textMiddle}>
-                          <div className="d-flex justify-content-center">
-                            <div style={{ marginRight: "5px" }}>
-                              {get(category, "country_code", "")}
-                            </div>{" "}
-                            <div>{get(category, "phone_number", "")}</div>
-                          </div>
-                        </TableCell>
-
-                        <TableCell className={classes.textMiddle}>
-                          <div> {get(category, "subject", "")}</div>
-                        </TableCell>
-                        <TableCell className={classes.textMiddle}>
-                          <div style={{width:'200px'}}>
-                          {category.description.length <= 50 ? (
-                            category.description
-                          ) : (
-                            <>
-                              {category.description.slice(0, 50)}...
-                              <Button
-                                onClick={() => {
-                                  setOpenModal(true);
-                                  setDesc(get(category, "description"));
-                                }}
-                                style={{
-                                  textTransform: "lowercase",
-                                }}
-                              >
-                                See more
-                              </Button>
-                            </>
-                          )}
-                          </div>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>    {tableData.length === 0 ? (
-                <Nodata TextToDisplay="No Data Found." fontSize="24px" />
-              ) : (
-                false
-              )}
-              </TableContainer>
-          
-              <TablePagination
-                className={classes.tablePaginationStyle}
-                rowsPerPageOptions={[15, 30, 100]}
-                component="div"
-                count={totalData}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                onPageChange={handleChangePage}
-                onRowsPerPageChange={handleChangeRowsPerPage}
-              />
-            </Paper>
+            <Tabs items={tabItems} style={{ width: "95%", marginLeft: "2rem" }} />
           </DashboardWrapper>
         </DashboardContainer>
       </div>

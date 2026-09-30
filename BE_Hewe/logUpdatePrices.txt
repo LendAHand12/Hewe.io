@@ -1145,3 +1145,15 @@ Cron chart 2: AMC price = 0.07087, HEWE price = null, time = 2026-09-14T02:41:57
 Cron chart 2: AMC price = 0.07087, HEWE price = null, time = 2026-09-14T02:42:11.497Z
 Cron chart 2: AMC price = 0.07087, HEWE price = null, time = 2026-09-14T02:42:22.729Z
 Cron chart 2: AMC price = 0.07087, HEWE price = null, time = 2026-09-14T03:47:51.777Z
+Cron chart 2: AMC price = 0.07087, HEWE price = null, time = 2026-09-30T04:10:28.077Z
+Cron chart 2: AMC price = 0.07087, HEWE price = null, time = 2026-09-30T04:23:35.928Z
+Cron chart 2: AMC price = 0.07087, HEWE price = null, time = 2026-09-30T04:23:40.641Z
+Cron chart 2: AMC price = 0.07087, HEWE price = null, time = 2026-09-30T04:23:52.397Z
+Cron chart 2: AMC price = 0.07087, HEWE price = null, time = 2026-09-30T04:24:09.577Z
+Cron chart 2: AMC price = 0.07087, HEWE price = null, time = 2026-09-30T04:24:23.419Z
+Cron chart 2: AMC price = 0.07087, HEWE price = null, time = 2026-09-30T04:24:32.501Z
+Cron chart 2: AMC price = 0.07087, HEWE price = null, time = 2026-09-30T04:24:42.129Z
+Cron chart 2: AMC price = 0.07087, HEWE price = null, time = 2026-09-30T04:24:59.517Z
+Cron chart 2: AMC price = 0.07087, HEWE price = null, time = 2026-09-30T04:25:17.554Z
+Cron chart 2: AMC price = 0.07087, HEWE price = null, time = 2026-09-30T04:25:30.568Z
+Cron chart 2: AMC price = 0.07087, HEWE price = null, time = 2026-09-30T04:54:16.840Z

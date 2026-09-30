@@ -91,6 +91,27 @@ const DashBoardPage = () => {
 
                 <div
                   className=" d-xl-block  align-items-center referalcont  p-2"
+                >
+                  <div className="mb-2">
+                    <h4>Need help?</h4>
+                    <p className="mt-3" style={{ color: "#fff" }}>
+                      Create a support ticket and chat with our team.
+                    </p>
+                    <div style={{ textAlign: "right" }}>
+                      <Button
+                        size="large"
+                        onClick={() =>
+                          history.push("/supportTicket", { openCreate: true })
+                        }
+                      >
+                        Create Ticket
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  className=" d-xl-block  align-items-center referalcont  p-2"
                   style={{ marginTop: "16px" }}
                 >
                   <div className="mb-2">

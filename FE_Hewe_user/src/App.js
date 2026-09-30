@@ -15,6 +15,7 @@ import { Commission } from "./components/Admin/Commission/Commission";
 import DashBoardPage from "./components/Admin/DashBoardPage/DashBoardPage";
 import HeweDBPage from "./components/Admin/HeweDB/HeweDBPage.jsx";
 import ReferralPage from "./components/Admin/ReferralPage/referral";
+import { SupportTicket } from "./components/Admin/SupportTicket/SupportTicket";
 import { SwapHewe } from "./components/Admin/SwapHewe/SwapHewe";
 import SwapTokenPage from "./components/Admin/SwapTokenPage/SwapTokenPage";
 import { WalletUSDT } from "./components/Admin/WalletUSDT/WalletUSDT";
@@ -136,6 +137,7 @@ const UserRoute = () => {
         <Route exact path={"/withdrawUSDT"} component={WithdrawUSDT} />
         <Route exact path={"/withdrawToken"} component={WithdrawHewe} />
         <Route exact path={"/hewedb"} component={HeweDBPage} />
+        <Route exact path={"/supportTicket"} component={SupportTicket} />
         <Route exact path={"/commission"} component={Commission} />
         <Route exact path={"/swapHewe"} component={SwapHewe} />
         <Route exact path={"/chart"} component={ChartPage} />

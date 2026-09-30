@@ -34,6 +34,8 @@ const { getEventContractOnlyOneBlock2025 } = require("../blockchain");
 
 const { default: mongoose } = require("mongoose");
 const TransactionUpdateLog = require("../../model/TransactionUpdateLog");
+const TICKET = require("../../model/ticketModel");
+const TICKET_MESSAGE = require("../../model/ticketMessageModel");
 exports.getAllTransactionsBuyBCFVND = async (req, res) => {
   try {
     const loginAdmin = req.loginAdmin;
@@ -1908,6 +1910,100 @@ exports.crawOneBlock = async (req, res) => {
     await getEventContractOnlyOneBlock2025(blockNumber);
 
     success(res, "Done", true);
+  } catch (error) {
+    console.log(error);
+    error_500(res, error);
+  }
+};
+
+exports.getAllTickets = async (req, res) => {
+  try {
+    let { limit, page, keyword, status } = matchedData(req);
+
+    let condition = {};
+    if (status) condition.status = status;
+    if (keyword) {
+      condition.$or = [
+        { userName: { $regex: keyword, $options: "i" } },
+        { userEmail: { $regex: keyword, $options: "i" } },
+        { subject: { $regex: keyword, $options: "i" } },
+      ];
+    }
+
+    const startIndex = (page - 1) * limit;
+    const data = await TICKET.find(condition).sort({ lastMessageAt: -1 }).skip(startIndex).limit(limit);
+    const total = await TICKET.find(condition).countDocuments();
+
+    success(res, "OK", { array: data, total });
+  } catch (error) {
+    console.log(error);
+    error_500(res, error);
+  }
+};
+
+exports.getTicketMessagesAdmin = async (req, res) => {
+  try {
+    let { ticketId, limit, page } = matchedData(req);
+
+    const ticket = await TICKET.findOne({ _id: ticketId });
+    if (!ticket) return error_400(res, "Ticket not found");
+
+    const startIndex = (page - 1) * limit;
+    const data = await TICKET_MESSAGE.find({ ticketId }).sort({ createdAt: 1 }).skip(startIndex).limit(limit);
+    const total = await TICKET_MESSAGE.find({ ticketId }).countDocuments();
+
+    success(res, "OK", { array: data, total, ticket });
+  } catch (error) {
+    console.log(error);
+    error_500(res, error);
+  }
+};
+
+exports.sendTicketMessageAdmin = async (req, res) => {
+  try {
+    const loginAdmin = req.loginAdmin;
+    const adminId = loginAdmin._id;
+
+    const { ticketId, message } = matchedData(req);
+
+    const ticket = await TICKET.findOne({ _id: ticketId });
+    if (!ticket) return error_400(res, "Ticket not found");
+    if (ticket.status === "closed") return error_400(res, "Ticket is closed");
+
+    const newMessage = await TICKET_MESSAGE.create({
+      ticketId,
+      senderType: "admin",
+      senderId: adminId,
+      senderName: loginAdmin.email,
+      message,
+    });
+
+    await TICKET.updateOne({ _id: ticketId }, { lastMessageAt: new Date() });
+
+    success(res, "Message sent successfully", newMessage);
+  } catch (error) {
+    console.log(error);
+    error_500(res, error);
+  }
+};
+
+exports.closeTicket = async (req, res) => {
+  try {
+    const loginAdmin = req.loginAdmin;
+    const adminId = loginAdmin._id;
+
+    const { ticketId } = matchedData(req);
+
+    const ticket = await TICKET.findOne({ _id: ticketId });
+    if (!ticket) return error_400(res, "Ticket not found");
+    if (ticket.status === "closed") return error_400(res, "Ticket already closed");
+
+    await TICKET.updateOne(
+      { _id: ticketId },
+      { status: "closed", closedAt: new Date(), closedByAdminId: adminId }
+    );
+
+    success(res, "Ticket closed successfully", true);
   } catch (error) {
     console.log(error);
     error_500(res, error);

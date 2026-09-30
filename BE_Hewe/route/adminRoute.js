@@ -66,7 +66,11 @@ const {
   markSwap2025Transaction,
   crawOneBlock,
   editHeweDBDataToId,
-  getListUpdateHeweDB
+  getListUpdateHeweDB,
+  getAllTickets,
+  getTicketMessagesAdmin,
+  sendTicketMessageAdmin,
+  closeTicket
 } = require("../controller/admin/newAdminController");
 const { body, query } = require("express-validator");
 const { handleValidationErrors } = require("../middleware/handleValidationErrors");
@@ -876,5 +880,52 @@ router.post("/user/:userId/disable-2fa", VERIFY_ADMIN.verifyAdmin, userMgmtContr
 router.post("/user/:userId/lock", VERIFY_ADMIN.verifyAdmin, userMgmtController.lockUser);
 router.post("/user/:userId/unlock", VERIFY_ADMIN.verifyAdmin, userMgmtController.unlockUser);
 router.delete("/user/:userId", VERIFY_ADMIN.verifyAdmin, userMgmtController.deleteUser);
+
+///////////////////////
+// Support Ticket - admin xem, nhắn tin và đóng ticket
+///////////////////////
+router.get(
+  "/getAllTickets",
+  VERIFY_ADMIN.verifyAdmin,
+  query("limit").exists().notEmpty().isNumeric().toInt(),
+  query("page").exists().notEmpty().isNumeric().toInt(),
+  query("keyword").optional().isString(),
+  query("status").optional().isIn(["open", "closed"]),
+  handleValidationErrors,
+  getAllTickets
+);
+router.get(
+  "/getTicketMessagesAdmin",
+  VERIFY_ADMIN.verifyAdmin,
+  query("ticketId")
+    .exists()
+    .notEmpty()
+    .custom((value) => isValidObjectId(value)),
+  query("limit").exists().notEmpty().isNumeric().toInt(),
+  query("page").exists().notEmpty().isNumeric().toInt(),
+  handleValidationErrors,
+  getTicketMessagesAdmin
+);
+router.post(
+  "/sendTicketMessageAdmin",
+  VERIFY_ADMIN.verifyAdmin,
+  body("ticketId")
+    .exists()
+    .notEmpty()
+    .custom((value) => isValidObjectId(value)),
+  body("message").exists().notEmpty().isString().trim(),
+  handleValidationErrors,
+  sendTicketMessageAdmin
+);
+router.post(
+  "/closeTicket",
+  VERIFY_ADMIN.verifyAdmin,
+  body("ticketId")
+    .exists()
+    .notEmpty()
+    .custom((value) => isValidObjectId(value)),
+  handleValidationErrors,
+  closeTicket
+);
 
 module.exports = router;
