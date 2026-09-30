@@ -124,7 +124,8 @@ export default function HistoryTable({
               paddingInline: 10,
             }}
           >
-            {record?.status == "inprocess" && isShowButton && (
+            {/* ẨN nút Renew - giữ lại code để bật lại khi cần, không xoá */}
+            {/* {record?.status == "inprocess" && isShowButton && (
               <Button
                 onClick={() => {
                   setSelectedTransaction(record);
@@ -134,7 +135,7 @@ export default function HistoryTable({
               >
                 Renew
               </Button>
-            )}
+            )} */}
 
             {record?.status == "inprocess" && isShowButton && (
               <Button
