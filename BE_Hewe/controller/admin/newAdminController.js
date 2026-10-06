@@ -1109,10 +1109,20 @@ exports.getHeweDBData = async (req, res) => {
       // tìm trong lịch sử gửi mail lấy thông tin email đã gửi
       let emailRecord = await MAIL_HISTORY.findOne({ transactionId: record._id });
 
+      // lần ký đầu tiên: đi ngược chuỗi previousTransactionId tới giao dịch gốc (type "new")
+      let root = record;
+      for (let i = 0; i < 50 && root.previousTransactionId; i++) {
+        const prev = await TRANSACTION_HEWEDB.findOne({ transactionId: root.previousTransactionId });
+        if (!prev) break;
+        root = prev;
+      }
+      // lúc ký đầu usdthewe = usdtamc = số USDT user nhập
+      const initialUSDT = root.usdthewe || 0;
+
       if (emailRecord) {
-        resultData.push({ ...record._doc, emailRecord });
+        resultData.push({ ...record._doc, emailRecord, initialUSDT });
       } else {
-        resultData.push({ ...record._doc, emailRecord: null });
+        resultData.push({ ...record._doc, emailRecord: null, initialUSDT });
       }
     }
 
