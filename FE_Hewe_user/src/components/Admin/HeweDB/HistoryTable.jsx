@@ -1,4 +1,4 @@
-import { Button, Modal, Radio, Table } from "antd";
+import { Button, Input, Modal, Radio, Table } from "antd";
 import React, { useEffect, useState } from "react";
 import Countdown from "react-countdown";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
@@ -24,6 +24,8 @@ export default function HistoryTable({
   const [openModal2, setOpenModal2] = useState(false);
   const [selectedTransaction, setSelectedTransaction] = useState(undefined);
   const [value4, setValue4] = useState(1); // duration terms for renew
+  const [openStopModal, setOpenStopModal] = useState(false);
+  const [stopReason, setStopReason] = useState("");
 
   const renderer = ({ days, hours, completed }) => {
     if (completed) return <></>;
@@ -46,6 +48,10 @@ export default function HistoryTable({
           Completed
         </p>
       );
+    } else if (record?.status == "stopped") {
+      return (
+        <p style={{ fontSize: 16, fontWeight: 600, color: "red" }}>Stopped</p>
+      );
     } else if (record?.status == "extend") {
       return (
         <p style={{ fontSize: 16, fontWeight: 600, color: "green" }}>
@@ -53,6 +59,26 @@ export default function HistoryTable({
         </p>
       );
     } else return <></>;
+  };
+
+  const renderStopRequest = (stopRequest) => {
+    if (stopRequest.status === "pending")
+      return <span style={{ color: "orange" }}>Waiting for admin approval</span>;
+    if (stopRequest.status === "approved")
+      return (
+        <span style={{ color: "#1677ff" }}>
+          Approved - interest {roundDisplay(stopRequest.interestUSDT)} USDT will
+          be sent to you
+        </span>
+      );
+    if (stopRequest.status === "completed")
+      return (
+        <span style={{ color: "green" }}>
+          Completed - interest {roundDisplay(stopRequest.interestUSDT)} USDT
+          paid
+        </span>
+      );
+    return <></>;
   };
 
   const columns = [
@@ -98,6 +124,13 @@ export default function HistoryTable({
               <p>{renderStatus(record)}</p>
             </div>
 
+            {record?.stopRequest && record.stopRequest.status !== "rejected" && (
+              <div className="summaryItemTable">
+                <span>Stop request</span>
+                <p>{renderStopRequest(record.stopRequest)}</p>
+              </div>
+            )}
+
             {record?.status == "inprocess" && (
               <div className="summaryItemTable">
                 <span>Time left</span>
@@ -114,6 +147,8 @@ export default function HistoryTable({
       render: (_, record) => {
         let endTime = new Date(record?.endTime).getTime();
         let isShowButton = Date.now() > endTime;
+        // đang có yêu cầu ngưng sớm chờ admin xử lý
+        let hasOpenStopRequest = record?.stopRequest?.status === "pending";
 
         return (
           <div
@@ -137,15 +172,31 @@ export default function HistoryTable({
               </Button>
             )} */}
 
-            {record?.status == "inprocess" && isShowButton && (
+            {record?.status == "inprocess" &&
+              isShowButton &&
+              !hasOpenStopRequest && (
+                <Button
+                  onClick={() => {
+                    setSelectedTransaction(record);
+                    setOpenModal(true);
+                  }}
+                  size="large"
+                >
+                  Withdraw
+                </Button>
+              )}
+
+            {record?.status == "inprocess" && !hasOpenStopRequest && (
               <Button
+                danger
                 onClick={() => {
                   setSelectedTransaction(record);
-                  setOpenModal(true);
+                  setStopReason("");
+                  setOpenStopModal(true);
                 }}
                 size="large"
               >
-                Withdraw
+                Stop early
               </Button>
             )}
           </div>
@@ -189,6 +240,31 @@ export default function HistoryTable({
           handleGetProfile();
         }
       );
+    } catch (error) {
+      console.log(error);
+      showAlert("error", error.response.data.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const requestStop = async (transactionId, reason) => {
+    try {
+      if (loading) return;
+      if (!executeRecaptcha) return;
+
+      setLoading(true);
+
+      await executeRecaptcha("requestStopHeweDB").then(async (token) => {
+        let res = await axiosService.post(`/v2/requestStopHeweDB`, {
+          transactionId,
+          reason,
+          gRec: token,
+        });
+        showAlert("success", res.data.message);
+        setCurrent(1);
+        getData(ROWS, 1);
+      });
     } catch (error) {
       console.log(error);
       showAlert("error", error.response.data.message);
@@ -332,6 +408,57 @@ export default function HistoryTable({
           <div className="summary-item">
             <span>Amount AMC</span>
             <p>{roundDisplay(selectedTransaction?.amc)}</p>
+          </div>
+        </div>
+      </Modal>
+
+      <Modal
+        open={openStopModal}
+        onCancel={() => setOpenStopModal(false)}
+        onOk={() => {
+          setOpenStopModal(false);
+          requestStop(selectedTransaction?.transactionId, stopReason);
+        }}
+        centered
+        okButtonProps={{
+          size: "large",
+          style: { color: "black", fontWeight: 600 },
+          loading: loading,
+        }}
+        cancelButtonProps={{ size: "large" }}
+        destroyOnClose
+        okText="Send request"
+        cancelText="Cancel"
+        title="Stop HEWE DB transaction early"
+        className="HeweDBMainJ24-modal"
+        maskClosable={false}
+      >
+        <div className="summary">
+          <p style={{ marginBottom: 15 }}>
+            Your request will be sent to admin for approval. After approval, the
+            admin will calculate and send your interest separately.
+          </p>
+          <div className="summary-item">
+            <span>Amount HEWE</span>
+            <p>{roundDisplay(selectedTransaction?.hewe)}</p>
+          </div>
+          <div className="summary-item">
+            <span>Amount AMC</span>
+            <p>{roundDisplay(selectedTransaction?.amc)}</p>
+          </div>
+          <div className="summary-item">
+            <span>Received USDT</span>
+            <p>{roundDisplay(selectedTransaction?.receivedUSDT)}</p>
+          </div>
+          <div style={{ marginTop: 15 }}>
+            <span>Reason (optional)</span>
+            <Input.TextArea
+              rows={3}
+              maxLength={500}
+              value={stopReason}
+              onChange={(e) => setStopReason(e.target.value)}
+              style={{ marginTop: 8 }}
+            />
           </div>
         </div>
       </Modal>

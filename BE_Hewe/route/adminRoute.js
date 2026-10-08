@@ -67,6 +67,10 @@ const {
   crawOneBlock,
   editHeweDBDataToId,
   getListUpdateHeweDB,
+  getStopRequestsHeweDB,
+  approveStopRequestHeweDB,
+  rejectStopRequestHeweDB,
+  completeStopRequestHeweDB,
   getAllTickets,
   getTicketMessagesAdmin,
   sendTicketMessageAdmin,
@@ -552,6 +556,61 @@ router.get(
   handleValidationErrors,
   getListUpdateHeweDB
 );
+// yêu cầu ngưng HEWE DB sớm của user
+router.get(
+  "/getStopRequestsHeweDB",
+  VERIFY_ADMIN.verifyAdmin,
+  query("limit").exists().notEmpty().isInt().toInt(),
+  query("page").exists().notEmpty().isInt().toInt(),
+  query("keyword").optional().isString(),
+  query("status")
+    .optional({ checkFalsy: true }) // "Tất cả" gửi status rỗng
+    .isString()
+    .custom((value) => ["pending", "approved", "rejected", "completed"].includes(value)),
+  handleValidationErrors,
+  getStopRequestsHeweDB
+);
+router.post(
+  "/approveStopRequestHeweDB",
+  VERIFY_ADMIN.verifyAdmin,
+  body("requestId")
+    .exists()
+    .notEmpty()
+    .custom((value) => isValidObjectId(value)),
+  body("interestUSDT") // số lãi admin tự tính (USDT)
+    .exists()
+    .notEmpty()
+    .isNumeric()
+    .toFloat()
+    .custom((value) => value >= 0),
+  body("adminNote").optional().isString().trim(),
+  handleValidationErrors,
+  approveStopRequestHeweDB
+);
+router.post(
+  "/rejectStopRequestHeweDB",
+  VERIFY_ADMIN.verifyAdmin,
+  body("requestId")
+    .exists()
+    .notEmpty()
+    .custom((value) => isValidObjectId(value)),
+  body("reason").exists().notEmpty().isString().trim(),
+  handleValidationErrors,
+  rejectStopRequestHeweDB
+);
+router.post(
+  "/completeStopRequestHeweDB",
+  VERIFY_ADMIN.verifyAdmin,
+  body("requestId")
+    .exists()
+    .notEmpty()
+    .custom((value) => isValidObjectId(value)),
+  body("transactionHash").optional().isString().trim(),
+  body("adminNote").optional().isString().trim(),
+  handleValidationErrors,
+  completeStopRequestHeweDB
+);
+
 router.get(
   "/getHeweDBData_F1User", // lịch sử hewe db của F1 của user
   VERIFY_ADMIN.verifyAdmin,

@@ -21,6 +21,7 @@ const BUY_TOKEN_V2 = require("../../model/buyTokenV2Model");
 const COMMISSION_V2 = require("../../model/commissionV2Model");
 const TRANSACTION_OLD = require("../../model/TransactionHistoryModel");
 const TRANSACTION_HEWEDB = require("../../model/transactionDbModel");
+const HEWEDB_STOP_REQUEST = require("../../model/heweDBStopRequestModel");
 const COMMISSION = require("../../model/commissionModel");
 const HISTORY_UPDATE_WALLET = require("../../model/historyUpdateWallet");
 const AM = require("../../model/accessModuleModel");
@@ -1587,7 +1588,57 @@ exports.getTransactionHeweDB = async (req, res) => {
       status: { $ne: "extend" },
     }).countDocuments();
 
-    success(res, "Create transaction successfully", { array: data, total });
+    // đính kèm yêu cầu ngưng sớm mới nhất của từng giao dịch (nếu có)
+    const stopRequests = await HEWEDB_STOP_REQUEST.find({ heweDbId: { $in: data.map((d) => d._id) } }).sort({
+      createdAt: -1,
+    });
+    const array = data.map((d) => {
+      const stopRequest = stopRequests.find((s) => String(s.heweDbId) === String(d._id)) || null;
+      return { ...d._doc, stopRequest };
+    });
+
+    success(res, "Create transaction successfully", { array, total });
+  } catch (error) {
+    console.log(error);
+    error_500(res, error);
+  }
+};
+
+exports.requestStopHeweDB = async (req, res) => {
+  // user yêu cầu ngưng ký quỹ sớm (không cần chờ hết kỳ hạn), chờ admin duyệt
+  try {
+    const userData = req.user;
+    const userId = userData._id;
+    if (!userData || !userId) return error_400(res, "User not found");
+
+    const { transactionId, reason } = matchedData(req);
+
+    const transaction = await TRANSACTION_HEWEDB.findOne({ transactionId, userId, status: "inprocess" });
+    if (!transaction) return error_400(res, "Transaction not found");
+
+    const existed = await HEWEDB_STOP_REQUEST.findOne({
+      heweDbId: transaction._id,
+      status: { $in: ["pending", "approved"] },
+    });
+    if (existed) return error_400(res, "You already have a stop request for this transaction");
+
+    await HEWEDB_STOP_REQUEST.create({
+      userId,
+      userName: userData.name,
+      userEmail: userData.email,
+      heweDbId: transaction._id,
+      transactionId: transaction.transactionId,
+      hewe: transaction.hewe,
+      amc: transaction.amc,
+      receivedUSDT: transaction.receivedUSDT,
+      percent: transaction.percent,
+      startTime: transaction.startTime,
+      endTime: transaction.endTime,
+      reason: reason || "",
+      status: "pending",
+    });
+
+    success(res, "Stop request submitted successfully", true);
   } catch (error) {
     console.log(error);
     error_500(res, error);
@@ -1637,6 +1688,10 @@ exports.completeTransactionHeweDB = async (req, res) => {
       status: "inprocess",
     });
     if (!transaction) return error_400(res, "Transaction not found");
+
+    // đang có yêu cầu ngưng sớm chờ admin xử lý thì không cho hoàn thành
+    const openStopRequest = await HEWEDB_STOP_REQUEST.findOne({ heweDbId: transaction._id, status: "pending" });
+    if (openStopRequest) return error_400(res, "This transaction has a pending stop request");
 
     // kiểm tra giao dịch phải qua 365 ngày mới được hoàn thành
     let currentTime = Date.now();
@@ -1955,6 +2010,10 @@ exports.extendHeweDB2025 = async (req, res) => {
       status: "inprocess",
     });
     if (!transaction) return error_400(res, "Transaction not found");
+
+    // đang có yêu cầu ngưng sớm chờ admin xử lý thì không cho gia hạn
+    const openStopRequest = await HEWEDB_STOP_REQUEST.findOne({ heweDbId: transaction._id, status: "pending" });
+    if (openStopRequest) return error_400(res, "This transaction has a pending stop request");
 
     // phải qua 365 ngày mới được gia hạn
     let currentTime = Date.now();

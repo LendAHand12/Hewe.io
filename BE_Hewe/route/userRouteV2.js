@@ -16,6 +16,7 @@ const {
   getDepositHeweAddress,
   getPrices,
   extendHeweDB2025,
+  requestStopHeweDB,
   swap2025,
 } = require("../controller/user/newUserController");
 const { query, body } = require("express-validator");
@@ -157,6 +158,17 @@ router.post(
   body("transactionId").exists().notEmpty().isString().trim(),
   handleValidationErrors,
   completeTransactionHeweDB
+);
+
+router.post(
+  // user yêu cầu ngưng ký quỹ sớm
+  "/requestStopHeweDB",
+  recaptcha,
+  VERIFY_USER.verifyUserToken,
+  body("transactionId").exists().notEmpty().isString().trim(),
+  body("reason").optional().isString().trim().isLength({ max: 500 }),
+  handleValidationErrors,
+  requestStopHeweDB
 );
 
 router.post(

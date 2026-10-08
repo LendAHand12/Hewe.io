@@ -90,6 +90,7 @@ export default function NewHeweDBManage() {
         status: (record) => {
           if (record.status === "inprocess") return "Active";
           else if (record.status === "completed") return "Completed";
+          else if (record.status === "stopped") return "Stopped";
         },
       },
     });
@@ -237,6 +238,8 @@ export default function NewHeweDBManage() {
           return (
             <p style={{ color: "green", fontWeight: "bold" }}>Completed</p>
           );
+        else if (record.status === "stopped")
+          return <p style={{ color: "red", fontWeight: "bold" }}>Stopped</p>;
       },
     },
   ];
@@ -265,6 +268,11 @@ export default function NewHeweDBManage() {
       <h4>HEWE DB Transaction</h4>
       <NavLink to="/adminPanel/getListUpdateHeweDB">
         <Button type="primary">Xem danh sách cập nhật HEWE DB</Button>
+      </NavLink>{" "}
+      <NavLink to="/adminPanel/stopRequestsHeweDB">
+        <Button type="primary" danger>
+          Yêu cầu ngưng HEWE DB sớm
+        </Button>
       </NavLink>
       <div
         style={{

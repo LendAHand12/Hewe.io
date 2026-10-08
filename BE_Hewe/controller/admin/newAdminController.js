@@ -17,6 +17,7 @@ const COMMISSION = require("../../model/commissionModel");
 const COMMISSION_V2 = require("../../model/commissionV2Model");
 const CONFIG_VALUE = require("../../model/configValueModel");
 const TRANSACTION_HEWEDB = require("../../model/transactionDbModel");
+const HEWEDB_STOP_REQUEST = require("../../model/heweDBStopRequestModel");
 const HOMEPAGE_SWAP = require("../../model/homepageSwapTransaction");
 const REFERRAL = require("../../model/referralModel");
 const REVENUE = require("../../model/revenueModel");
@@ -2014,6 +2015,120 @@ exports.closeTicket = async (req, res) => {
     );
 
     success(res, "Ticket closed successfully", true);
+  } catch (error) {
+    console.log(error);
+    error_500(res, error);
+  }
+};
+
+///////////////////////
+// yêu cầu ngưng HEWE DB sớm của user
+// hệ thống không động tới HEWE/AMC/USDT của user, lãi do admin tự tính và tự chuyển ngoài hệ thống
+///////////////////////
+exports.getStopRequestsHeweDB = async (req, res) => {
+  try {
+    const { limit, page, keyword, status } = matchedData(req);
+
+    let condition = {};
+    if (status) condition.status = status;
+    if (keyword) {
+      condition.$or = [
+        { userName: { $regex: keyword, $options: "i" } },
+        { userEmail: { $regex: keyword, $options: "i" } },
+      ];
+    }
+
+    const startIndex = (page - 1) * limit;
+    const array = await HEWEDB_STOP_REQUEST.find(condition).sort({ createdAt: -1 }).skip(startIndex).limit(limit);
+    const total = await HEWEDB_STOP_REQUEST.find(condition).countDocuments();
+
+    success(res, "OK", { array, total });
+  } catch (error) {
+    console.log(error);
+    error_500(res, error);
+  }
+};
+
+exports.approveStopRequestHeweDB = async (req, res) => {
+  // admin duyệt: nhập số lãi (USDT) đã tính, giao dịch HEWE DB chuyển sang "stopped"
+  try {
+    const adminId = req.loginAdmin._id;
+    const { requestId, interestUSDT, adminNote } = matchedData(req);
+
+    // chỉ chuyển từ pending sang approved, tránh duyệt 2 lần
+    const request = await HEWEDB_STOP_REQUEST.findOneAndUpdate(
+      { _id: requestId, status: "pending" },
+      {
+        $set: {
+          status: "approved",
+          interestUSDT,
+          adminNote: adminNote || "",
+          approvedBy: adminId,
+          approvedAt: new Date(),
+        },
+      },
+      { new: true }
+    );
+    if (!request) return error_400(res, "Request not found or already processed");
+
+    // đánh dấu giao dịch đã ngưng
+    const updated = await TRANSACTION_HEWEDB.updateOne(
+      { _id: request.heweDbId, status: "inprocess" },
+      { $set: { status: "stopped" } }
+    );
+    if (updated.modifiedCount === 0) {
+      // giao dịch không còn inprocess (đã xử lý ở nơi khác) -> hoàn tác duyệt
+      await HEWEDB_STOP_REQUEST.updateOne(
+        { _id: requestId },
+        { $set: { status: "pending", interestUSDT: 0, adminNote: "" }, $unset: { approvedBy: 1, approvedAt: 1 } }
+      );
+      return error_400(res, "HEWE DB transaction is no longer active");
+    }
+
+    success(res, "Stop request approved", true);
+  } catch (error) {
+    console.log(error);
+    error_500(res, error);
+  }
+};
+
+exports.rejectStopRequestHeweDB = async (req, res) => {
+  try {
+    const adminId = req.loginAdmin._id;
+    const { requestId, reason } = matchedData(req);
+
+    const request = await HEWEDB_STOP_REQUEST.findOneAndUpdate(
+      { _id: requestId, status: "pending" },
+      { $set: { status: "rejected", rejectReason: reason, rejectedBy: adminId, rejectedAt: new Date() } },
+      { new: true }
+    );
+    if (!request) return error_400(res, "Request not found or already processed");
+
+    success(res, "Stop request rejected", true);
+  } catch (error) {
+    console.log(error);
+    error_500(res, error);
+  }
+};
+
+exports.completeStopRequestHeweDB = async (req, res) => {
+  // admin đã trả lãi xong cho user -> hoàn thành yêu cầu (chỉ ghi nhận, không đổi số dư)
+  try {
+    const adminId = req.loginAdmin._id;
+    const { requestId, transactionHash, adminNote } = matchedData(req);
+
+    const set = { status: "completed", completedBy: adminId, completedAt: new Date() };
+    if (transactionHash) set.transactionHash = transactionHash;
+    if (adminNote) set.adminNote = adminNote;
+
+    const request = await HEWEDB_STOP_REQUEST.findOneAndUpdate(
+      { _id: requestId, status: "approved" },
+      { $set: set },
+      { new: true }
+    );
+    if (!request) return error_400(res, "Request not found or not approved yet");
+
+    success(res, "Stop request completed", true);
   } catch (error) {
     console.log(error);
     error_500(res, error);

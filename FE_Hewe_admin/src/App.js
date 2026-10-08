@@ -41,6 +41,7 @@ import DepositHEWE from "./pages/DepositHEWE/DepositHEWE";
 import { useGetModulesOfAdmin } from "./hooks/useGetModulesOfAdmin";
 import { SidebarData } from "./components/SidebarHaydii/SidebarData";
 import GetListUpdateHeweDBPage from "./pages/NewHeweDB/GetListUpdateHeweDB";
+import StopRequestsHeweDBPage from "./pages/NewHeweDB/StopRequestsHeweDB";
 import AdminProfile from "./pages/AdminProfile";
 const PublicRoute = (props) => {
   const { defaultState, setDefaultState } = props;
@@ -105,6 +106,14 @@ const PrivateRoute = (props) => {
             <Navbar toggle={toggle} getSidebar={getSidebar} />
             {sidebarShow && <Sidebar />}
             <GetListUpdateHeweDBPage />
+          </Route>
+        );
+
+        routes.push(
+          <Route path="/adminPanel/stopRequestsHeweDB" exact>
+            <Navbar toggle={toggle} getSidebar={getSidebar} />
+            {sidebarShow && <Sidebar />}
+            <StopRequestsHeweDBPage />
           </Route>
         );
 

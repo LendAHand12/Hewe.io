@@ -67,7 +67,7 @@ const transactionDbSchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      enum: ["inprocess", "completed", "extend"], // inprocess, completed (hết chu kỳ kết thúc luôn), extend (hết chu kỳ gia hạn thêm)
+      enum: ["inprocess", "completed", "extend", "stopped"], // inprocess, completed (hết chu kỳ kết thúc luôn), extend (hết chu kỳ gia hạn thêm), stopped (user xin ngưng sớm và admin đã duyệt)
       default: "inprocess",
     },
     logData: {
