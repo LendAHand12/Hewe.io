@@ -3,12 +3,14 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import { Modal } from "../../..";
 import { createTicketAPI } from "../../../../services/ticketService";
+import { TicketImagePicker } from "./TicketImagePicker";
 
 const { TextArea } = Input;
 
 export const CreateTicketModal = ({ isOpen, onClose, onCreated }) => {
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
+  const [images, setImages] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const isDisabled = subject.trim() === "" || message.trim() === "";
@@ -16,6 +18,7 @@ export const CreateTicketModal = ({ isOpen, onClose, onCreated }) => {
   const handleReset = () => {
     setSubject("");
     setMessage("");
+    setImages([]);
   };
 
   const handleClose = () => {
@@ -32,6 +35,7 @@ export const CreateTicketModal = ({ isOpen, onClose, onCreated }) => {
       const res = await createTicketAPI({
         subject: subject.trim(),
         message: message.trim(),
+        images,
       });
 
       toast.success(res.data.message);
@@ -72,6 +76,15 @@ export const CreateTicketModal = ({ isOpen, onClose, onCreated }) => {
             placeholder="Describe your issue in detail..."
             rows={5}
             maxLength={2000}
+          />
+        </div>
+        <div>
+          <div style={{ marginBottom: "6px" }}>Images (optional)</div>
+          <TicketImagePicker
+            files={images}
+            onChange={setImages}
+            maxFiles={5}
+            disabled={isSubmitting}
           />
         </div>
       </div>

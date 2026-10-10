@@ -3,9 +3,11 @@ import { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
 import { Button } from "../../..";
 import {
+  getTicketImageUrl,
   getTicketMessagesAPI,
   sendTicketMessageAPI,
 } from "../../../../services/ticketService";
+import { TicketImagePicker } from "./TicketImagePicker";
 import { convertTimeCreateAt } from "../../../../util/adminBizpointUtils";
 
 const { TextArea } = Input;
@@ -16,6 +18,7 @@ export const TicketThread = ({ ticketId, onBack }) => {
   const [messages, setMessages] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [messageText, setMessageText] = useState("");
+  const [images, setImages] = useState([]);
   const [isSending, setIsSending] = useState(false);
   const messageListRef = useRef(null);
   const intervalRef = useRef(null);
@@ -54,8 +57,13 @@ export const TicketThread = ({ ticketId, onBack }) => {
 
     setIsSending(true);
     try {
-      await sendTicketMessageAPI({ ticketId, message: messageText.trim() });
+      await sendTicketMessageAPI({
+        ticketId,
+        message: messageText.trim(),
+        images,
+      });
       setMessageText("");
+      setImages([]);
       await fetchMessages({ silent: true });
     } catch (error) {
       toast.error(error?.response?.data?.message || "Something went wrong");
@@ -145,6 +153,37 @@ export const TicketThread = ({ ticketId, onBack }) => {
                   }}
                 >
                   {msg.message}
+                  {msg.images?.length > 0 && (
+                    <div
+                      style={{
+                        display: "flex",
+                        flexWrap: "wrap",
+                        gap: "8px",
+                        marginTop: "8px",
+                      }}
+                    >
+                      {msg.images.map((path) => (
+                        <a
+                          key={path}
+                          href={getTicketImageUrl(path)}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <img
+                            src={getTicketImageUrl(path)}
+                            alt="attachment"
+                            style={{
+                              maxWidth: "160px",
+                              maxHeight: "160px",
+                              borderRadius: "6px",
+                              objectFit: "cover",
+                              display: "block",
+                            }}
+                          />
+                        </a>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </div>
             );
@@ -166,8 +205,16 @@ export const TicketThread = ({ ticketId, onBack }) => {
               placeholder="Type your message..."
               autoSize={{ minRows: 4, maxRows: 4 }}
               disabled={isSending}
-              style={{ marginBottom: '20px' }}
+              style={{ marginBottom: '12px' }}
             />
+            <div style={{ marginBottom: "16px" }}>
+              <TicketImagePicker
+                files={images}
+                onChange={setImages}
+                maxFiles={1}
+                disabled={isSending}
+              />
+            </div>
             <Button
               className="prcolor"
               onClick={handleSend}

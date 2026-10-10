@@ -58,6 +58,12 @@ app.use('/images', express.static(path.join(__dirname, 'images'), {
   fallthrough: true, // Continue to next middleware if file not found
 }));
 
+// Ảnh đính kèm ticket (public/ticket-images, folder được tạo sẵn trong module/ticketUpload.js)
+app.use('/ticket-images', express.static(path.join(__dirname, 'public/ticket-images'), {
+  maxAge: process.env.NODE_ENV === 'production' ? '1d' : 0,
+  index: false,
+}));
+
 app.get('/images/blog/:images', function (req, res) {
   // Handle the full path: /images/blog/filename.png
   // Images are stored in BE_Hewe/images/blog/

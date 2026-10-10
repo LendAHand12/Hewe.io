@@ -48,6 +48,7 @@ const {
   sendTicketMessage,
 } = require("../controller/user/newUserController");
 const { query, body } = require("express-validator");
+const { uploadTicketImages, handleValidationErrorsAndCleanup } = require("../module/ticketUpload");
 const { handleValidationErrors } = require("../middleware/handleValidationErrors");
 const { isValidObjectId } = require("mongoose");
 const { recaptcha } = require("../middleware/recaptcha");
@@ -433,9 +434,10 @@ router.post(
   "/createTicket",
   limiter,
   VERIFY_USER.verifyUserToken,
+  uploadTicketImages(5),
   body("subject").exists().notEmpty().isString().trim(),
   body("message").exists().notEmpty().isString().trim(),
-  handleValidationErrors,
+  handleValidationErrorsAndCleanup,
   createTicket
 );
 router.get(
@@ -462,12 +464,13 @@ router.post(
   "/sendTicketMessage",
   limiter,
   VERIFY_USER.verifyUserToken,
+  uploadTicketImages(1),
   body("ticketId")
     .exists()
     .notEmpty()
     .custom((value) => isValidObjectId(value)),
   body("message").exists().notEmpty().isString().trim(),
-  handleValidationErrors,
+  handleValidationErrorsAndCleanup,
   sendTicketMessage
 );
 

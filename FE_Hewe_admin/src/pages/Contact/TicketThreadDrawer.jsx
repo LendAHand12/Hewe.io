@@ -113,6 +113,22 @@ export const TicketThreadDrawer = ({
                   }}
                 >
                   {msg.message}
+                  {msg.images?.length > 0 && (
+                    <div style={{ display: "flex", flexWrap: "wrap", gap: "8px", marginTop: "8px" }}>
+                      {msg.images.map((path) => {
+                        const src = `${process.env.REACT_APP_API_URL}${path}`;
+                        return (
+                          <a key={path} href={src} target="_blank" rel="noopener noreferrer">
+                            <img
+                              src={src}
+                              alt="attachment"
+                              style={{ maxWidth: "160px", maxHeight: "160px", borderRadius: "6px", objectFit: "cover", display: "block" }}
+                            />
+                          </a>
+                        );
+                      })}
+                    </div>
+                  )}
                 </div>
               </div>
             );

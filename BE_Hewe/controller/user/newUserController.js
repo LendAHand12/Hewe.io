@@ -28,6 +28,7 @@ const AM = require("../../model/accessModuleModel");
 const ADMIN = require("../../model/adminModel");
 const TICKET = require("../../model/ticketModel");
 const TICKET_MESSAGE = require("../../model/ticketMessageModel");
+const { getUploadedImageUrls, removeUploadedFiles } = require("../../module/ticketUpload");
 const error = require("../../utils/error");
 const { getPriceFromAPI, getPriceHeweFromAPI } = require("../../module/socketXT");
 const { error_400, success, error_500, error_400_delRedis } = require("../../utils/error");
@@ -2348,10 +2349,12 @@ exports.createTicket = async (req, res) => {
       senderId: userId,
       senderName: userData.name,
       message,
+      images: getUploadedImageUrls(req),
     });
 
     success(res, "Ticket created successfully", ticket);
   } catch (error) {
+    removeUploadedFiles(req);
     console.log(error);
     error_500(res, error);
   }
@@ -2407,8 +2410,14 @@ exports.sendTicketMessage = async (req, res) => {
     const { ticketId, message } = matchedData(req);
 
     const ticket = await TICKET.findOne({ _id: ticketId, userId });
-    if (!ticket) return error_400(res, "Ticket not found");
-    if (ticket.status === "closed") return error_400(res, "Ticket is closed");
+    if (!ticket) {
+      removeUploadedFiles(req);
+      return error_400(res, "Ticket not found");
+    }
+    if (ticket.status === "closed") {
+      removeUploadedFiles(req);
+      return error_400(res, "Ticket is closed");
+    }
 
     const newMessage = await TICKET_MESSAGE.create({
       ticketId,
@@ -2416,12 +2425,14 @@ exports.sendTicketMessage = async (req, res) => {
       senderId: userId,
       senderName: userData.name,
       message,
+      images: getUploadedImageUrls(req),
     });
 
     await TICKET.updateOne({ _id: ticketId }, { lastMessageAt: new Date() });
 
     success(res, "Message sent successfully", newMessage);
   } catch (error) {
+    removeUploadedFiles(req);
     console.log(error);
     error_500(res, error);
   }

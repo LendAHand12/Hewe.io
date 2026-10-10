@@ -19,6 +19,10 @@ const ticketMessageSchema = new mongoose.Schema(
     message: {
       type: String,
     },
+    images: {
+      type: [String],
+      default: [],
+    },
   },
   { timestamps: true }
 );

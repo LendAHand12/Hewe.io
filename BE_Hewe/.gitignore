@@ -5,3 +5,4 @@ build
 *.zip
 .env
 images
+public/ticket-images
