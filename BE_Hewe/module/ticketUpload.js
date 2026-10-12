@@ -51,6 +51,17 @@ const removeUploadedFiles = (req) => {
   (req.files || []).forEach((file) => fs.unlink(file.path, () => {}));
 };
 
+// Xóa file ảnh theo đường dẫn lưu trong DB (/ticket-images/xxx.jpg)
+const removeImagesByUrls = (urls = []) => {
+  urls.forEach((url) => fs.unlink(path.join(TICKET_IMAGE_DIR, path.basename(url)), () => {}));
+};
+
+// Tin nhắn đã thu hồi: ẩn nội dung và ảnh khi trả về client
+const maskRecalledMessage = (msg) => {
+  const obj = msg.toObject ? msg.toObject() : msg;
+  return obj.isRecalled ? { ...obj, message: "", images: [] } : obj;
+};
+
 // Giống handleValidationErrors nhưng xóa ảnh đã upload nếu validate thất bại
 const handleValidationErrorsAndCleanup = (req, res, next) => {
   if (!validationResult(req).isEmpty()) removeUploadedFiles(req);
@@ -61,6 +72,8 @@ module.exports = {
   uploadTicketImages,
   getUploadedImageUrls,
   removeUploadedFiles,
+  removeImagesByUrls,
+  maskRecalledMessage,
   handleValidationErrorsAndCleanup,
   TICKET_IMAGE_DIR,
 };

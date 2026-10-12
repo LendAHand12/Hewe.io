@@ -37,6 +37,7 @@ const { default: mongoose } = require("mongoose");
 const TransactionUpdateLog = require("../../model/TransactionUpdateLog");
 const TICKET = require("../../model/ticketModel");
 const TICKET_MESSAGE = require("../../model/ticketMessageModel");
+const { maskRecalledMessage, removeImagesByUrls } = require("../../module/ticketUpload");
 exports.getAllTransactionsBuyBCFVND = async (req, res) => {
   try {
     const loginAdmin = req.loginAdmin;
@@ -1963,7 +1964,7 @@ exports.getTicketMessagesAdmin = async (req, res) => {
     const data = await TICKET_MESSAGE.find({ ticketId }).sort({ createdAt: 1 }).skip(startIndex).limit(limit);
     const total = await TICKET_MESSAGE.find({ ticketId }).countDocuments();
 
-    success(res, "OK", { array: data, total, ticket });
+    success(res, "OK", { array: data.map(maskRecalledMessage), total, ticket });
   } catch (error) {
     console.log(error);
     error_500(res, error);
@@ -1992,6 +1993,32 @@ exports.sendTicketMessageAdmin = async (req, res) => {
     await TICKET.updateOne({ _id: ticketId }, { lastMessageAt: new Date() });
 
     success(res, "Message sent successfully", newMessage);
+  } catch (error) {
+    console.log(error);
+    error_500(res, error);
+  }
+};
+
+exports.recallTicketMessageAdmin = async (req, res) => {
+  try {
+    const adminId = req.loginAdmin._id;
+    const { messageId } = matchedData(req);
+
+    const ticketMessage = await TICKET_MESSAGE.findOne({ _id: messageId });
+    if (!ticketMessage) return error_400(res, "Message not found");
+    if (ticketMessage.senderType !== "admin") return error_400(res, "Only admin messages can be recalled");
+    if (ticketMessage.isRecalled) return error_400(res, "Message already recalled");
+
+    const images = ticketMessage.images;
+    ticketMessage.isRecalled = true;
+    ticketMessage.recalledAt = new Date();
+    ticketMessage.recalledByAdminId = adminId;
+    ticketMessage.images = [];
+    ticketMessage.message = "";
+    await ticketMessage.save();
+    removeImagesByUrls(images);
+
+    success(res, "Message recalled successfully", true);
   } catch (error) {
     console.log(error);
     error_500(res, error);

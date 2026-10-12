@@ -14,6 +14,7 @@ export const TicketThreadDrawer = ({
   isClosing,
   onSendMessage,
   onCloseTicket,
+  onRecallMessage,
 }) => {
   const [messageText, setMessageText] = useState("");
   const messageListRef = useRef(null);
@@ -30,13 +31,6 @@ export const TicketThreadDrawer = ({
     if (messageText.trim() === "") return;
     onSendMessage(messageText);
     setMessageText("");
-  };
-
-  const handleKeyDown = (e) => {
-    if (e.key === "Enter" && !e.shiftKey) {
-      e.preventDefault();
-      handleSend();
-    }
   };
 
   return (
@@ -101,6 +95,19 @@ export const TicketThreadDrawer = ({
                 <div style={{ fontSize: "12px", opacity: 0.6, marginBottom: "4px" }}>
                   {isAdminMsg ? "You (admin)" : msg.senderName || "User"} ·{" "}
                   {convertTimeCreateAt(msg.createdAt)}
+                  {isAdminMsg && !msg.isRecalled && (
+                    <Popconfirm
+                      title="Recall this message?"
+                      description="The user will no longer see its content."
+                      onConfirm={() => onRecallMessage(msg._id)}
+                      okText="Recall"
+                      cancelText="Cancel"
+                    >
+                      <Button type="link" size="small" danger style={{ padding: "0 0 0 8px", height: "auto" }}>
+                        Recall
+                      </Button>
+                    </Popconfirm>
+                  )}
                 </div>
                 <div
                   style={{
@@ -112,7 +119,11 @@ export const TicketThreadDrawer = ({
                     wordBreak: "break-word",
                   }}
                 >
-                  {msg.message}
+                  {msg.isRecalled ? (
+                    <i style={{ opacity: 0.7 }}>Message recalled</i>
+                  ) : (
+                    msg.message
+                  )}
                   {msg.images?.length > 0 && (
                     <div style={{ display: "flex", flexWrap: "wrap", gap: "8px", marginTop: "8px" }}>
                       {msg.images.map((path) => {
@@ -146,7 +157,6 @@ export const TicketThreadDrawer = ({
             <TextArea
               value={messageText}
               onChange={(e) => setMessageText(e.target.value)}
-              onKeyDown={handleKeyDown}
               placeholder="Reply to user..."
               autoSize={{ minRows: 1, maxRows: 4 }}
               disabled={isSending}

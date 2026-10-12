@@ -1162,3 +1162,6 @@ Cron chart 2: AMC price = 0.07087, HEWE price = null, time = 2026-10-08T13:57:34
 Cron chart 2: AMC price = 0.07087, HEWE price = null, time = 2026-10-08T14:02:52.130Z
 Cron chart 2: AMC price = 0.07087, HEWE price = null, time = 2026-10-10T14:12:11.161Z
 Cron chart 2: AMC price = 0.07087, HEWE price = null, time = 2026-10-10T14:19:38.063Z
+Cron chart 2: AMC price = 0.07087, HEWE price = null, time = 2026-10-12T04:27:57.224Z
+Cron chart 2: AMC price = 0.07087, HEWE price = null, time = 2026-10-12T04:37:13.413Z
+Cron chart 2: AMC price = 0.07087, HEWE price = null, time = 2026-10-12T04:37:20.633Z

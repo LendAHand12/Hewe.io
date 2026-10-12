@@ -430,6 +430,7 @@ const OfferManagement = ({ history, setUsers, userData }) => {
     isClosingTicket,
     handleSendMessage,
     handleCloseTicket,
+    handleRecallMessage,
   } = useTickets();
 
   const tabItems = [
@@ -782,6 +783,7 @@ const OfferManagement = ({ history, setUsers, userData }) => {
             isClosing={isClosingTicket}
             onSendMessage={handleSendMessage}
             onCloseTicket={handleCloseTicket}
+            onRecallMessage={handleRecallMessage}
           />
         </>
       ),

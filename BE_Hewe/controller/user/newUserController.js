@@ -28,7 +28,7 @@ const AM = require("../../model/accessModuleModel");
 const ADMIN = require("../../model/adminModel");
 const TICKET = require("../../model/ticketModel");
 const TICKET_MESSAGE = require("../../model/ticketMessageModel");
-const { getUploadedImageUrls, removeUploadedFiles } = require("../../module/ticketUpload");
+const { getUploadedImageUrls, removeUploadedFiles, maskRecalledMessage } = require("../../module/ticketUpload");
 const error = require("../../utils/error");
 const { getPriceFromAPI, getPriceHeweFromAPI } = require("../../module/socketXT");
 const { error_400, success, error_500, error_400_delRedis } = require("../../utils/error");
@@ -2394,7 +2394,7 @@ exports.getTicketMessages = async (req, res) => {
     const data = await TICKET_MESSAGE.find({ ticketId }).sort({ createdAt: 1 }).skip(startIndex).limit(limit);
     const total = await TICKET_MESSAGE.find({ ticketId }).countDocuments();
 
-    success(res, "OK", { array: data, total, ticket });
+    success(res, "OK", { array: data.map(maskRecalledMessage), total, ticket });
   } catch (error) {
     console.log(error);
     error_500(res, error);

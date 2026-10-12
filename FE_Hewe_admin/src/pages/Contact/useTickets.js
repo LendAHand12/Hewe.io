@@ -35,7 +35,19 @@ const sendTicketMessageAdminAPI = ({ ticketId, message }) => {
   );
 };
 
-const closeTicketAPI = ({ ticketId }) => {
+const recallTicketMessageAdminAPI = ({ messageId }) => {
+  return axios.post(
+    `recallTicketMessageAdmin`,
+    { messageId },
+    {
+      headers: {
+        Authorization: localStorage.getItem("token"),
+      },
+    }
+  );
+};
+
+const closeTicketAPI =({ ticketId }) => {
   return axios.post(
     `closeTicket`,
     { ticketId },
@@ -156,6 +168,15 @@ export const useTickets = () => {
     }
   };
 
+  const handleRecallMessage = async (messageId) => {
+    try {
+      await recallTicketMessageAdminAPI({ messageId });
+      await fetchThreadMessages(ticketFocus._id, { silent: true });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const columns = [
     {
       title: "User",
@@ -232,5 +253,6 @@ export const useTickets = () => {
     isClosingTicket,
     handleSendMessage,
     handleCloseTicket,
+    handleRecallMessage,
   };
 };

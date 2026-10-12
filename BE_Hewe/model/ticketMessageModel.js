@@ -23,6 +23,16 @@ const ticketMessageSchema = new mongoose.Schema(
       type: [String],
       default: [],
     },
+    isRecalled: {
+      type: Boolean,
+      default: false,
+    },
+    recalledAt: {
+      type: Date,
+    },
+    recalledByAdminId: {
+      type: mongoose.Schema.Types.ObjectId,
+    },
   },
   { timestamps: true }
 );

@@ -74,6 +74,7 @@ const {
   getAllTickets,
   getTicketMessagesAdmin,
   sendTicketMessageAdmin,
+  recallTicketMessageAdmin,
   closeTicket
 } = require("../controller/admin/newAdminController");
 const { body, query } = require("express-validator");
@@ -975,6 +976,16 @@ router.post(
   body("message").exists().notEmpty().isString().trim(),
   handleValidationErrors,
   sendTicketMessageAdmin
+);
+router.post(
+  "/recallTicketMessageAdmin",
+  VERIFY_ADMIN.verifyAdmin,
+  body("messageId")
+    .exists()
+    .notEmpty()
+    .custom((value) => isValidObjectId(value)),
+  handleValidationErrors,
+  recallTicketMessageAdmin
 );
 router.post(
   "/closeTicket",

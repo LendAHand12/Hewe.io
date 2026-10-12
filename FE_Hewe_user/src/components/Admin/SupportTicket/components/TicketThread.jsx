@@ -72,13 +72,6 @@ export const TicketThread = ({ ticketId, onBack }) => {
     }
   };
 
-  const handleKeyDown = (e) => {
-    if (e.key === "Enter" && !e.shiftKey) {
-      e.preventDefault();
-      handleSend();
-    }
-  };
-
   const isClosed = ticket?.status === "closed";
 
   return (
@@ -152,7 +145,11 @@ export const TicketThread = ({ ticketId, onBack }) => {
                     wordBreak: "break-word",
                   }}
                 >
-                  {msg.message}
+                  {msg.isRecalled ? (
+                    <i style={{ opacity: 0.7 }}>This message was recalled.</i>
+                  ) : (
+                    msg.message
+                  )}
                   {msg.images?.length > 0 && (
                     <div
                       style={{
@@ -201,7 +198,6 @@ export const TicketThread = ({ ticketId, onBack }) => {
             <TextArea
               value={messageText}
               onChange={(e) => setMessageText(e.target.value)}
-              onKeyDown={handleKeyDown}
               placeholder="Type your message..."
               autoSize={{ minRows: 4, maxRows: 4 }}
               disabled={isSending}
